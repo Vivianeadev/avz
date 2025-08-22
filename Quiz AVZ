@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo Trivia Imobiliária - AVZ PropTech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark-black: #000000;
+      --gold: #d4af37;
+      --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8;
+      --dark-rose: #c49497;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    nav {
+      background: rgba(0,0,0,0.7);
+      padding: 12px 24px;
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+      text-shadow: 0 0 8px rgba(212,175,55,0.5);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 40px;
+    }
+
+    .main-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black);
+      font-size: 1.3rem;
+      font-weight: bold;
+      padding: 18px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .main-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(212,175,55,0.6);
+    }
+
+    .question-container {
+      margin-top: 50px;
+    }
+
+    .answer-btn {
+      background-color: #e91e63;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      width: 60%;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .answer-btn:hover {
+      background-color: #c2185b;
+    }
+
+    .result-container {
+      margin-top: 20px;
+    }
+
+    #score, #avz {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#investidores">Investidores</a>
+      <a href="#desenvolvedores">Desenvolvedores</a>
+      <a href="#liquidez">Liquidez</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Trivia Imobiliária</h1>
+    <p class="subtitle">Responda perguntas sobre economia verde, blockchain e mais!</p>
+
+    <div class="question-container">
+      <h2 id="question">Qual é a definição de "economia verde"?</h2>
+      <div id="answers">
+        <button class="answer-btn">Investir em imóveis de luxo</button>
+        <button class="answer-btn">Práticas sustentáveis para o futuro</button>
+        <button class="answer-btn">Comprar ações de empresas de tecnologia</button>
+        <button class="answer-btn">Aumentar o preço de imóveis rapidamente</button>
+      </div>
+    </div>
+
+    <div class="result-container" id="resultContainer" style="display: none;">
+      <h2 id="resultText">Você acertou!</h2>
+    </div>
+
+    <div id="score">
+      <h3>Pontuação: <span id="scoreValue">0</span></h3>
+    </div>
+
+    <div id="avz">
+      <h3>AVZ Acumulado: <span id="avzValue">0.00000000</span></h3>
+    </div>
+
+    <a href="investidores.html" class="main-btn">Acessar Plataforma</a>
+  </main>
+
+  <footer>
+    © 2025 AVZ PropTech - Todos os direitos reservados
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "Qual é a definição de 'economia verde'?",
+        answers: [
+          "Investir em imóveis de luxo",
+          "Práticas sustentáveis para o futuro",
+          "Comprar ações de empresas de tecnologia",
+          "Aumentar o preço de imóveis rapidamente"
+        ],
+        correctAnswer: "Práticas sustentáveis para o futuro"
+      },
+      {
+        question: "O que é Blockchain?",
+        answers: [
+          "Uma tecnologia para registrar transações de forma transparente",
+          "Uma ferramenta para gerenciar imóveis",
+          "Uma nova forma de financiar projetos imobiliários",
+          "Uma forma de aumentar a rentabilidade dos imóveis"
+        ],
+        correctAnswer: "Uma tecnologia para registrar transações de forma transparente"
+      },
+      {
+        question: "O que é antecipação de recebíveis?",
+        answers: [
+          "Vender os direitos de recebimento futuro de um imóvel",
+          "Financiar a construção de novas propriedades",
+          "Aumentar a quantidade de imóveis na carteira",
+          "Reduzir o preço dos imóveis"
+        ],
+        correctAnswer: "Vender os direitos de recebimento futuro de um imóvel"
+      },
+      {
+        question: "O que é um pool de liquidez?",
+        answers: [
+          "Uma forma de aumento do preço de imóveis",
+          "Uma estratégia de investimento com ativos líquidos",
+          "Uma ferramenta para o pagamento de empréstimos",
+          "Uma modalidade de financiamento coletivo"
+        ],
+        correctAnswer: "Uma estratégia de investimento com ativos líquidos"
+      },
+      {
+        question: "Qual é a principal vantagem do uso de blockchain no setor imobiliário?",
+        answers: [
+          "Maior controle sobre as transações",
+          "Aumento no valor das propriedades",
+          "Transparência e segurança nas transações",
+          "Facilidade de compra e venda de imóveis"
+        ],
+        correctAnswer: "Transparência e segurança nas transações"
+      },
+      {
+        question: "Como a economia verde impacta o setor imobiliário?",
+        answers: [
+          "Aumenta a demanda por imóveis comerciais",
+          "Impede a construção de novos imóveis",
+          "Incentiva a construção sustentável e o uso de recursos renováveis",
+          "Reduz a quantidade de imóveis disponíveis no mercado"
+        ],
+        correctAnswer: "Incentiva a construção sustentável e o uso de recursos renováveis"
+      },
+      {
+        question: "O que significa 'tokenização' no mercado imobiliário?",
+        answers: [
+          "A conversão de propriedades físicas em tokens digitais",
+          "A venda de propriedades no mercado negro",
+          "O aumento da rentabilidade dos imóveis",
+          "A introdução de um novo tipo de financiamento"
+        ],
+        correctAnswer: "A conversão de propriedades físicas em tokens digitais"
+      },
+      {
+        question: "Quais são os benefícios do uso de tecnologias sustentáveis nos imóveis?",
+        answers: [
+          "Redução do valor de mercado",
+          "Aumento do consumo de energia",
+          "Redução dos custos operacionais e impacto ambiental",
+          "Facilidade de venda para investidores internacionais"
+        ],
+        correctAnswer: "Redução dos custos operacionais e impacto ambiental"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let avz = 0.00000036; // AVZ acumulado por resposta correta
+
+    function showQuestion() {
+      const questionData = questions[currentQuestionIndex];
+      document.getElementById("question").textContent = questionData.question;
+
+      const answersButtons = document.querySelectorAll(".answer-btn");
+      answersButtons.forEach((button, index) => {
+        button.textContent = questionData.answers[index];
+        button.onclick = () => checkAnswer(questionData.answers[index]);
+      });
+    }
+
+    function checkAnswer(answer) {
+      const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+
+      if (answer === correctAnswer) {
+        score++;
+        avz += 0.00000036; // Acrescenta AVZ para cada resposta correta
+        document.getElementById("resultText").textContent = "Você acertou!";
+      } else {
+        document.getElementById("resultText").textContent = "Você errou! A resposta correta era: " + correctAnswer;
+      }
+
+      document.getElementById("resultContainer").style.display = "block";
+      document.getElementById("scoreValue").textContent = score;
+      document.getElementById("avzValue").textContent = avz.toFixed(8); // Exibe AVZ com 8 casas decimais
+
+      // Esperar 2 segundos antes de mostrar a próxima pergunta automaticamente
+      setTimeout(nextQuestion, 2000);
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+        document.getElementById("resultContainer").style.display = "none";
+      } else {
+        document.getElementById("question").textContent = "Fim do Jogo! Sua pontuação final é " + score;
+        document.getElementById("answers").style.display = "none";
+      }
+    }
+
+    // Iniciar o jogo
+    showQuestion();
+  </script>
+
+</body>
+</html>
