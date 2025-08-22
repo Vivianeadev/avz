@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre Nós - AVZ PropTech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark-black: #000000;
+      --gold: #d4af37;
+      --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8;
+      --dark-rose: #c49497;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      color: var(--white);
+      min-height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+      color: var(--gold);
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+  </style>
+</head>
+<body>
+  <h1>Sobre Nós</h1>
+  <p>Na AVZ PropTech, acreditamos na inovação, transparência e sustentabilidade como pilares fundamentais para transformar o mercado imobiliário e impulsionar o futuro da economia digital.</p>
+  <div class="grid">
+    <div class="card"><h3>🤝 Confiança</h3><p>Construímos relações sólidas e transparentes com nossos clientes e investidores.</p></div>
+    <div class="card"><h3>💡 Inovação</h3><p>Estamos sempre à frente, trazendo soluções tecnológicas para o setor imobiliário.</p></div>
+    <div class="card"><h3>🌱 Sustentabilidade</h3><p>Promovemos práticas que contribuem para um mundo mais sustentável.</p></div>
+  </div>
+  <a href="index.html" class="home-link">← Retornar à Home</a>
+  <footer>
+    © 2025 AVZ PropTech - Todos os direitos reservados
+  </footer>
+</body>
+</html>
