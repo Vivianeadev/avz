@@ -76,7 +76,7 @@ p { color: rgba(255,255,255,0.9); font-size:1.2rem; margin-bottom:25px; }
   <div id="projectionData" style="color:#fff; font-size:1.2rem;">Carregando projeção de valores...</div>
 </div>
 
-<button class="home-button" onclick="window.location.href='index.html'">🏠 Retornar ao Home</button>
+<button class="home-button" onclick="goHome()">🏠 Retornar ao Home</button>
 
 <script>
 let provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
@@ -200,7 +200,6 @@ async function fetchProjection(){
     const maticAmount = maticToken ? maticToken.balanceNumber : 0;
     const otherTokens = tokens.filter(t=>t.symbol!=='MATIC');
 
-    // Função de formatação para múltiplas moedas
     const formatCurrencies = (amountUSD)=>{
       const usd = amountUSD;
       const brl = amountUSD * prices['matic-network'].brl/prices['matic-network'].usd;
@@ -209,14 +208,12 @@ async function fetchProjection(){
       return `US$ ${usd.toFixed(2)} <span class="projection-currency">R$ ${brl.toFixed(2)} | € ${eur.toFixed(2)} | £ ${gbp.toFixed(2)}</span>`;
     };
 
-    // MATIC
     const maticUSD = maticAmount * prices['matic-network'].usd;
     projectionHTML+=`<div class="token-item">
       <div class="token-info"><div class="token-symbol">MATIC</div><div class="token-name">Polygon</div></div>
       <div class="token-balance"><div class="token-amount">${formatCurrencies(maticUSD)}</div></div>
     </div>`;
 
-    // Outros tokens (aproximando com USDT como base)
     otherTokens.forEach(token=>{
       const usd = token.balanceNumber * prices['tether'].usd;
       projectionHTML+=`<div class="token-item">
@@ -231,7 +228,9 @@ async function fetchProjection(){
   }
 }
 
-function goHome(){ window.location.href='/'; }
+// Alterado para abrir index.html
+function goHome(){ window.location.href='index.html'; }
+
 setInterval(fetchProjection,60000);
 </script>
 </body>
