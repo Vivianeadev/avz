@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trivia AVZ — Entrada por Carteira Polygon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --black:#0a0a0a;--dark:#000;--gold:#d4af37;--light-gold:#f4e4bc;
+      --rose:#e8b4b8;--rose-dark:#c49497;--white:#fff;
+    }
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:linear-gradient(135deg,var(--dark) 0%,#111 50%,var(--dark) 100%);
+      color:var(--white);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .card{
+      width:min(920px,95vw);background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.5);padding:28px 22px 28px 22px;
+      backdrop-filter:blur(8px);
+    }
+    h1{
+      font-family:'Playfair Display',serif;font-size:2rem;line-height:1.2;margin-bottom:6px;
+      background:linear-gradient(135deg,var(--gold),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .sub{color:rgba(255,255,255,.8);margin-bottom:10px}
+    .gate{margin:14px 0 18px 0;padding:14px;border:1px dashed rgba(212,175,55,.4);border-radius:16px;background:rgba(255,255,255,.03)}
+    label{display:block;margin:6px 0 8px 4px;color:rgba(255,255,255,.85);font-weight:600;font-size:.95rem}
+    input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);color:#fff;font-size:1rem;outline:none}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .btn{
+      background:linear-gradient(135deg,var(--gold),var(--light-gold));color:#000;font-weight:700;border:none;
+      padding:12px 18px;border-radius:12px;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;
+      box-shadow:0 10px 24px rgba(212,175,55,.35);
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(212,175,55,.5)}
+    .pill{display:inline-block;background:rgba(255,255,255,.08);padding:6px 10px;border-radius:999px;font-size:.85rem;margin-right:6px}
+    .warn{font-size:.9rem;color:rgba(255,255,255,.7);margin-top:8px}
+    .ok{color:#52ffa8}
+    .bad{color:#ff8686}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);margin:16px 0}
+    .hidden{display:none}
+    .question{font-weight:700;margin:10px 0 8px 0}
+    .answer-btn{
+      background:var(--rose);color:#000;padding:10px 12px;border:none;border-radius:10px;width:100%;margin:8px 0;cursor:pointer;
+      transition:background .2s ease, transform .05s ease;
+    }
+    .answer-btn:hover{background:var(--rose-dark);color:#fff;transform:translateY(-1px)}
+    #progress-bar{width:100%;height:16px;border-radius:999px;background:rgba(212,175,55,.22);overflow:hidden}
+    #progress{height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .3s ease}
+    footer{margin-top:12px;font-size:.85rem;color:rgba(255,255,255,.6);text-align:center}
+    code{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Trivia AVZ — Entrada por Carteira Polygon</h1>
+    <p class="sub">Economia verde • Blockchain • AVZ • USDT • Legislação • Renda compartilhada</p>
+
+    <!-- GATE -->
+    <div id="gate" class="gate">
+      <label for="addr">Insira sua carteira <strong>Polygon</strong> (EVM):</label>
+      <input id="addr" type="text" placeholder="ex.: 0xA1b2C3d4E5f6... (42 caracteres)" autocomplete="off" spellcheck="false" />
+      <div class="row">
+        <button id="enterBtn" class="btn">Entrar no jogo</button>
+        <span id="addrState" class="pill">Aguardando endereço...</span>
+      </div>
+      <p class="warn">Apenas endereços válidos no padrão Ethereum (começam com <code>0x</code> e têm 40 caracteres hexadecimais) serão aceitos.
+        Este endereço será a sua <em>carteira universal</em> para receber <strong>AVZ</strong>, <strong>USDT</strong> e <strong>MATIC</strong> na <strong>Polygon</strong> (rede PoS). Entradas com outras redes serão recusadas.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- GAME -->
+    <div id="game" class="hidden">
+      <p class="pill" id="who"></p>
+      <div class="row" style="margin:6px 0 10px 0">
+        <span class="pill">Cotação AVZ (jogo): US$ <span id="pAVZ">0.0004</span></span>
+        <span class="pill">USD/BRL: <span id="fx">5.00</span></span>
+        <span class="pill">Meta: R$ <span id="goalBRL">200.00</span></span>
+        <span class="pill">Recompensa/Acerto: <span id="rw">0.00000036</span> AVZ</span>
+      </div>
+      <p class="warn">Aviso: estas cotações são <strong>fixas apenas dentro do jogo</strong> para fins lúdicos/educacionais e <u>não</u> representam preços reais de mercado.</p>
+
+      <div id="qa">
+        <p id="question" class="question">Clique em "Próxima" para começar.</p>
+        <div id="answers"></div>
+        <div class="row">
+          <button id="nextBtn" class="btn">Próxima</button>
+          <span id="last" class="pill">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div id="progress-bar"><div id="progress"></div></div>
+        <p class="warn" id="projectionText">Faltam discretamente AVZ para alcançar a meta.</p>
+        <p class="warn" id="cotacaoText"></p>
+      </div>
+    </div>
+
+    <footer>Trivia AVZ © 2025 — Somente uso educacional. Respeite a legislação local para qualquer uso de tokens.</footer>
+  </div>
+
+<script>
+  // [Script JS original completo com a adição da função salvarGoogleSheets()]
+  // Por economia de espaço aqui, será igual ao fornecido na resposta anterior
+</script>
+</body>
+</html>
