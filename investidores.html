@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>AVZ PropTech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark-black: #000000;
+      --gold: #d4af37;
+      --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8;
+      --dark-rose: #c49497;
+      --white: #ffffff;
+      --light-gray: #f8f8f8;
+      --medium-gray: #888888;
+      --dark-gray: #333333;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      background-attachment: fixed;
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    header {
+      background: rgba(0,0,0,0.85);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(212,175,55,0.3);
+      backdrop-filter: blur(12px);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(212,175,55,0.4);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(212,175,55,0.15);
+    }
+
+    h2, h3 {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 15px 0;
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      border: 1px solid rgba(212,175,55,0.2);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      border-color: rgba(212,175,55,0.4);
+    }
+
+    .card h3 {
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .payment-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .payment-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--rose-gold) 0%, #f8c8cc 50%, var(--dark-rose) 100%);
+      color: var(--black);
+      padding: 14px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      box-shadow: 0 12px 30px rgba(232,180,184,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .payment-btn:hover {
+      transform: translateY(-4px);
+      background: linear-gradient(135deg, #f8c8cc 0%, var(--rose-gold) 50%, var(--dark-rose) 100%);
+    }
+
+    .contact-container {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(232,180,184,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    input, textarea {
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 10px rgba(212,175,55,0.3);
+    }
+
+    input[type="submit"] {
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black);
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(212,175,55,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: rgba(0,0,0,0.9);
+      color: rgba(255,255,255,0.6);
+      border-top: 1px solid rgba(212,175,55,0.2);
+    }
+    footer p {
+      margin: 8px 0;
+    }
+
+    /* Botão "Retornar à Home" (cliquíssimo) */
+    .return-home-container {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+    .return-home-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--black);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--rose-gold) 100%);
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 15px 35px rgba(212,175,55,0.4);
+      transition: all 0.3s ease;
+    }
+    .return-home-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(232,180,184,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AVZ PropTech</h1>
+    <nav>
+      <a href="#recebiveis">Recebíveis</a>
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+<section id="recebiveis">
+  <h2>📑 Antecipação de Recebíveis</h2>
+
+  <p>
+    A <strong>AVZ PropTech</strong> oferece um modelo inovador de investimento através da 
+    <em>Antecipação de Recebíveis Imobiliários</em>. 
+    Nossos investidores têm a oportunidade de aplicar recursos em operações lastreadas em contratos reais, 
+    garantindo <strong>rentabilidade atrativa</strong> e <strong>segurança patrimonial</strong>.
+  </p>
+
+  <div class="highlight">🚀 Retorno estimado: até 18% em 6 meses</div>
+
+  <h3>Como Funciona?</h3>
+  <p>
+    A antecipação de recebíveis é uma prática onde o valor que a construtora ou incorporadora receberia no futuro 
+    é antecipado através de investidores. Dessa forma:
+  </p>
+  <ul>
+    <li><strong>Você investe</strong> em cotas fracionadas dos recebíveis;</li>
+    <li><strong>A construtora</strong> recebe capital imediato para acelerar obras;</li>
+    <li><strong>Você recebe</strong> o retorno acordado no prazo estipulado.</li>
+  </ul>
+
+  <h3>Benefícios</h3>
+  <ul>
+    <li>📈 <strong>Rentabilidade superior</strong> à renda fixa tradicional;</li>
+    <li>🏢 <strong>Garantia real</strong> em ativos imobiliários registrados;</li>
+    <li>💳 <strong>Pagamentos periódicos</strong> com previsibilidade;</li>
+    <li>🔒 <strong>Segurança jurídica</strong> com base na legislação brasileira.</li>
+  </ul>
+
+<!-- Botões de Investimento -->
+<div class="payment-buttons-row">
+  <a href="#" class="payment-btn">Investir R$ 200,00</a>
+  <a href="#" class="payment-btn">Investir R$ 500,00</a>
+  <a href="#" class="payment-btn">Investir R$ 1.000,00</a>
+</div>
+
+<style>
+  .payment-buttons-row {
+    display: flex;
+    justify-content: center;  /* centraliza no meio */
+    gap: 20px;                /* espaço entre os botões */
+    margin: 25px auto;
+    flex-wrap: wrap;          /* permite quebrar linha no celular */
+  }
+
+  .payment-btn {
+    display: inline-block;
+    background: #e91e63;      /* rosa principal */
+    color: #fff;
+    padding: 12px 24px;
+    min-width: 180px;         /* largura mínima */
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  }
+
+  .payment-btn:hover {
+    background: #c2185b;      /* rosa mais escuro no hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+  }
+</style>
+
+
+
+
+
+ <!-- Seção Sobre -->
+  <section id="sobre">
+    <h2>Sobre Nós</h2>
+    <div class="highlight">🌟 Nossa missão é transformar o mercado imobiliário com inovação e transparência</div>
+    <p>Aqui você pode escrever a introdução sobre sua empresa e sua história.</p>
+    
+    <h3>Nossos Valores</h3>
+    <div class="grid">
+      <div class="card"><h3>🤝 Confiança</h3><p>Texto sobre confiança.</p></div>
+      <div class="card"><h3>💡 Inovação</h3><p>Texto sobre inovação.</p></div>
+      <div class="card"><h3>🌱 Sustentabilidade</h3><p>Texto sobre sustentabilidade.</p></div>
+    </div>
+    
+    <h3>Nossa História</h3>
+    <p>Espaço para contar a trajetória da empresa e conquistas.</p>
+
+    <!-- Texto integrado dentro de Nossa História -->
+    <h3>Inovação e Segurança: Nossa Nova Era de Transações</h3>
+    <p>
+      A <strong>AVZ PropTech</strong>, sua referência em educação e consultoria sobre o mercado descentralizado, 
+      tem o prazer de anunciar um passo estratégico fundamental em nossa jornada. 
+      Com o objetivo de proporcionar a você uma experiência de transação ainda mais segura, eficiente e escalável, 
+      estamos adotando o <strong>USDT</strong> como a moeda de troca principal para todos os nossos sistemas e produtos.
+    </p>
+    <p>
+      Esta decisão fortalece nossa infraestrutura e alinha nossa tecnologia às práticas mais robustas do mercado de criptoativos, 
+      garantindo que você tenha acesso a uma forma de pagamento estável e globalmente reconhecida.
+    </p>
+
+    <h3>Por que USDT e a Blockchain Polygon?</h3>
+    <ul>
+      <li><strong>Estabilidade com USDT:</strong> O Tether (USDT) é uma stablecoin atrelada ao valor do Dólar Americano (USD), servindo como uma âncora de valor em meio à volatilidade do mercado de criptomoedas. Isso protege seu patrimônio de grandes oscilações e facilita o planejamento financeiro.</li>
+      <li><strong>Eficiência com a Blockchain Polygon:</strong> A Polygon (MATIC) é uma solução de escalabilidade de segunda camada que oferece transações com velocidade incomparável e taxas praticamente inexistentes. Isso significa que seus pagamentos e recebimentos serão confirmados em segundos, sem os custos elevados de outras redes.</li>
+      <li><strong>Ecossistema Unificado:</strong> Este novo sistema será o principal ponto de troca para todos os nossos produtos, incluindo o token AVZ, o token AV9 e todos os nossos outros tokens proprietários.</li>
+    </ul>
+
+    <p>
+      Esta mudança é mais do que uma atualização tecnológica; 
+      é um compromisso com a sua segurança, eficiência e a nossa visão de um futuro financeiro verdadeiramente descentralizado. 
+      Agradecemos sua confiança e parceria contínua.
+    </p>
+    <p><em>Atenciosamente, <br>A Equipe AVZ PropTech</em></p>
+  </section>
+
+ <section id="contato">
+  <h2>Contato</h2>
+  <div class="contact-container">
+    <h3>📧 Fale Conosco</h3>
+    <form>
+      <input type="text" name="nome" placeholder="Seu Nome" required>
+      <input type="email" name="email" placeholder="Seu E-mail" required>
+      <textarea name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
+      <input type="submit" value="Enviar">
+    </form>
+  </div>
+</section>
+
+
+
+  <!-- Botão Retornar à Home -->
+  <div class="return-home-container">
+    <a href="index.html" class="return-home-btn">← Retornar à Home</a>
+  </div>
+
+  <footer>
+    <p>© 2025 AVZ PropTech - Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>
