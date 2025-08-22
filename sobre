@@ -2,99 +2,79 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Sobre Nós - AVZ PropTech</title>
+  <title>AVZ PropTech - Sobre & Contato</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* (copiei exatamente o mesmo CSS da sua página original para manter padrão) */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --black: #0a0a0a;
-      --dark-black: #000000;
-      --gold: #d4af37;
-      --light-gold: #f4e4bc;
-      --rose-gold: #e8b4b8;
-      --dark-rose: #c49497;
-      --white: #ffffff;
+      --black:#0a0a0a; --dark-black:#000; --gold:#d4af37; --light-gold:#f4e4bc;
+      --rose-gold:#e8b4b8; --dark-rose:#c49497; --white:#fff; --light-gray:#f8f8f8;
+      --medium-gray:#888; --dark-gray:#333;
     }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
-      color: var(--white);
-      min-height: 100vh;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.8);
-      max-width: 800px;
-      margin: 0 auto 40px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    }
-
-    .card h3 {
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 10px;
-      color: var(--gold);
-    }
-
-    .home-link {
-      display: inline-block;
-      margin-top: 30px;
-      text-decoration: none;
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.6);
-    }
+    body { font-family:'Inter',sans-serif; background:linear-gradient(135deg,var(--dark-black),#1a1a1a,var(--black)); color:var(--white); line-height:1.7; background-attachment:fixed; }
+    header { background:rgba(0,0,0,0.85); padding:20px 30px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(212,175,55,0.3); backdrop-filter:blur(12px);}
+    header h1 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:2rem; font-weight:700;}
+    nav a { color:var(--white); text-decoration:none; margin-left:20px; font-weight:500; transition:0.3s;}
+    nav a:hover { color:var(--gold); text-shadow:0 0 10px rgba(212,175,55,0.4);}
+    section { padding:60px 20px; max-width:1000px; margin:40px auto; background:rgba(255,255,255,0.05); border-radius:16px; box-shadow:0 25px 50px rgba(0,0,0,0.3); backdrop-filter:blur(18px); border:1px solid rgba(212,175,55,0.15);}
+    h2,h3 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--rose-gold),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;}
+    .highlight { font-size:1.5rem; font-weight:700; margin:15px 0; background:linear-gradient(135deg,var(--gold),var(--light-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+    .card { background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(212,175,55,0.2);}
+    .contact-container { background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(232,180,184,0.3);}
+    input,textarea { padding:14px; border:none; border-radius:8px; font-size:1rem; width:100%; margin-bottom:12px; background:rgba(255,255,255,0.1); color:var(--white);}
+    input:focus,textarea:focus { outline:none; border:1px solid var(--gold); box-shadow:0 0 10px rgba(212,175,55,0.3);}
+    input[type="submit"] { background:linear-gradient(135deg,var(--gold),var(--light-gold)); color:var(--black); font-weight:bold; cursor:pointer;}
+    .return-home-container { text-align:center; margin:40px 0;}
+    .return-home-btn { padding:14px 30px; font-weight:bold; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); border-radius:50px; color:var(--black); text-decoration:none;}
+    footer { text-align:center; padding:20px; background:rgba(0,0,0,0.9); color:rgba(255,255,255,0.6);}
   </style>
 </head>
 <body>
-  <h1>Sobre Nós</h1>
-  <p>Na AVZ PropTech, acreditamos na inovação, transparência e sustentabilidade como pilares fundamentais para transformar o mercado imobiliário e impulsionar o futuro da economia digital.</p>
+
+<header>
+  <h1>AVZ PropTech</h1>
+  <nav>
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section id="sobre">
+  <h2>Sobre Nós</h2>
+  <div class="highlight">🌟 Nossa missão é transformar o mercado imobiliário com inovação e transparência</div>
+  <p>Aqui você pode escrever a introdução sobre sua empresa e sua história.</p>
+  <h3>Nossos Valores</h3>
   <div class="grid">
-    <div class="card"><h3>🤝 Confiança</h3><p>Construímos relações sólidas e transparentes com nossos clientes e investidores.</p></div>
-    <div class="card"><h3>💡 Inovação</h3><p>Estamos sempre à frente, trazendo soluções tecnológicas para o setor imobiliário.</p></div>
-    <div class="card"><h3>🌱 Sustentabilidade</h3><p>Promovemos práticas que contribuem para um mundo mais sustentável.</p></div>
+    <div class="card"><h3>🤝 Confiança</h3><p>Texto sobre confiança.</p></div>
+    <div class="card"><h3>💡 Inovação</h3><p>Texto sobre inovação.</p></div>
+    <div class="card"><h3>🌱 Sustentabilidade</h3><p>Texto sobre sustentabilidade.</p></div>
   </div>
-  <a href="index.html" class="home-link">← Retornar à Home</a>
-  <footer>
-    © 2025 AVZ PropTech - Todos os direitos reservados
-  </footer>
+  <h3>Nossa História</h3>
+  <p>Espaço para contar a trajetória da empresa e conquistas.</p>
+</section>
+
+<section id="contato">
+  <h2>Contato</h2>
+  <div class="contact-container">
+    <h3>📧 Fale Conosco</h3>
+    <form>
+      <input type="text" name="nome" placeholder="Seu Nome" required>
+      <input type="email" name="email" placeholder="Seu E-mail" required>
+      <textarea name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
+      <input type="submit" value="Enviar">
+    </form>
+  </div>
+</section>
+
+<div class="return-home-container">
+  <a href="index.html" class="return-home-btn">← Retornar à Home</a>
+</div>
+
+<footer>
+  <p>© 2025 AVZ PropTech - Todos os direitos reservados</p>
+</footer>
+
 </body>
 </html>
