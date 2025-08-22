@@ -5,21 +5,91 @@
   <title>AVZ PropTech - Recebíveis</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Mesmo estilo da outra página */
     * { margin:0; padding:0; box-sizing:border-box; }
-    :root { --black:#0a0a0a; --dark-black:#000; --gold:#d4af37; --light-gold:#f4e4bc; --rose-gold:#e8b4b8; --dark-rose:#c49497; --white:#fff; --medium-gray:#888; }
-    body { font-family:'Inter',sans-serif; background:linear-gradient(135deg,var(--dark-black),#1a1a1a,var(--black)); color:var(--white); line-height:1.7; background-attachment:fixed;}
-    header { background:rgba(0,0,0,0.85); padding:20px 30px; text-align:center; border-bottom:1px solid rgba(212,175,55,0.3); backdrop-filter:blur(12px);}
-    header h1 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:2rem; font-weight:700;}
-    section { padding:60px 20px; max-width:1000px; margin:40px auto; background:rgba(255,255,255,0.05); border-radius:16px; box-shadow:0 25px 50px rgba(0,0,0,0.3); border:1px solid rgba(212,175,55,0.15);}
-    h2,h3 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--rose-gold),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;}
-    .highlight { font-size:1.5rem; font-weight:700; margin:15px 0; background:linear-gradient(135deg,var(--gold),var(--light-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-    .payment-buttons-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:25px auto;}
-    .payment-btn { background:#e91e63; color:#fff; padding:12px 24px; min-width:180px; text-align:center; border-radius:6px; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.25); transition:0.3s;}
-    .payment-btn:hover { background:#c2185b; transform:translateY(-3px);}
+    :root { 
+      --black:#0a0a0a; --dark-black:#000; --gold:#d4af37; --light-gold:#f4e4bc; 
+      --rose-gold:#e8b4b8; --dark-rose:#c49497; --white:#fff; --medium-gray:#888;
+    }
+    body { 
+      font-family:'Inter',sans-serif; 
+      background:linear-gradient(135deg,var(--dark-black),#1a1a1a,var(--black)); 
+      color:var(--white); line-height:1.7; background-attachment:fixed;
+    }
+    header { 
+      background:rgba(0,0,0,0.85); padding:20px 30px; text-align:center; 
+      border-bottom:1px solid rgba(212,175,55,0.3); backdrop-filter:blur(12px);
+    }
+    header h1 { 
+      font-family:'Playfair Display',serif; 
+      background:linear-gradient(135deg,var(--gold),var(--rose-gold)); 
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; 
+      font-size:2rem; font-weight:700;
+    }
+    section { 
+      padding:60px 20px; max-width:1000px; margin:40px auto; 
+      background:rgba(255,255,255,0.05); border-radius:16px; 
+      box-shadow:0 25px 50px rgba(0,0,0,0.3); 
+      border:1px solid rgba(212,175,55,0.15);
+    }
+    h2,h3 { 
+      font-family:'Playfair Display',serif; 
+      background:linear-gradient(135deg,var(--rose-gold),var(--gold)); 
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; 
+      margin-bottom:20px;
+    }
+    .highlight { 
+      font-size:1.5rem; font-weight:700; margin:15px 0; 
+      background:linear-gradient(135deg,var(--gold),var(--light-gold)); 
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .payment-buttons-row { 
+      display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:25px auto;
+    }
+    .payment-btn { 
+      background:#e91e63; color:#fff; padding:12px 24px; min-width:180px; 
+      text-align:center; border-radius:6px; font-weight:bold; 
+      box-shadow:0 4px 10px rgba(0,0,0,0.25); transition:0.3s;
+    }
+    .payment-btn:hover { background:#c2185b; transform:translateY(-3px); }
     .return-home-container { text-align:center; margin:40px 0;}
-    .return-home-btn { padding:14px 30px; font-weight:bold; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); border-radius:50px; color:var(--black); text-decoration:none;}
-    footer { text-align:center; padding:20px; background:rgba(0,0,0,0.9); color:rgba(255,255,255,0.6);}
+    .return-home-btn { 
+      padding:14px 30px; font-weight:bold; 
+      background:linear-gradient(135deg,var(--gold),var(--rose-gold)); 
+      border-radius:50px; color:var(--black); text-decoration:none;
+    }
+    footer { 
+      text-align:center; padding:20px; 
+      background:rgba(0,0,0,0.9); color:rgba(255,255,255,0.6);
+    }
+    /* Botão rosê retangular */
+    .main-btn {
+      display:inline-block;
+      background:linear-gradient(135deg, var(--rose-gold), var(--light-gold));
+      color:var(--black);
+      font-size:1.1rem; font-weight:bold;
+      padding:14px 35px;
+      border-radius:12px;
+      text-decoration:none;
+      box-shadow:0 8px 25px rgba(232,180,184,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition:all 0.3s ease;
+    }
+    .main-btn:hover {
+      transform:translateY(-4px);
+      box-shadow:0 12px 35px rgba(232,180,184,0.6);
+    }
+    #projection { font-size:1.5rem; margin:20px 0; font-weight:bold; }
+    #totalProjection { font-size:1.5rem; margin:20px 0; font-weight:bold; color:var(--gold); }
+    .use-funds { 
+      font-size:1.3rem; margin:40px 0; font-weight:bold;
+      color: var(--light-gold);
+      background:linear-gradient(135deg,var(--gold),var(--rose-gold)); 
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .use-funds p {
+      font-size:1rem;
+      color: var(--white);
+      line-height:1.8;
+    }
   </style>
 </head>
 <body>
@@ -45,12 +115,28 @@
     <li>💳 Pagamentos periódicos com previsibilidade;</li>
     <li>🔒 Segurança jurídica com base na legislação brasileira.</li>
   </ul>
+</section>
 
-  <div class="payment-buttons-row">
-    <a href="#" class="payment-btn">Investir R$ 200,00</a>
-    <a href="#" class="payment-btn">Investir R$ 500,00</a>
-    <a href="#" class="payment-btn">Investir R$ 1.000,00</a>
-  </div>
+<section id="projecao">
+  <h2>📊 Simulador de Antecipação</h2>
+  <p>Selecione o valor que deseja antecipar (entre R$30,00 e R$3000,00) e veja a projeção de retorno diário e total em 6 meses com taxa de 18%.</p>
+  
+  <input type="range" id="valorRange" min="30" max="3000" step="10" value="30" style="width:100%; margin:20px 0;">
+  <div id="valorSelecionado">Valor selecionado: R$ 30,00</div>
+  <div id="projection">💰 Retorno diário estimado: R$ 0,00</div>
+  <div id="totalProjection">💰 Retorno total estimado: R$ 0,00</div>
+  
+  <a id="aportarBtn" href="#" class="main-btn">🚀 Quero antecipar</a>
+</section>
+
+<section id="useFunds">
+  <h2 class="use-funds">Como Será Utilizado o Seu Dinheiro?</h2>
+  <p>Na <strong>AVZ PropTech</strong>, o dinheiro do antecipador será alocado em duas ações principais:</p>
+  <ul>
+    <li>💧 **Pool de Liquidez**: Garantimos que o seu investimento seja utilizado para sustentar o fluxo de caixa da empresa, assegurando a continuidade das operações e ampliando a confiança no projeto.</li>
+    <li>🏗️ **Construção dos Protótipos Físicos**: Parte do investimento será direcionada para a criação dos nossos protótipos de produtos inovadores, alinhados com o conceito de **Economia Verde**, que visa soluções sustentáveis para o futuro do mercado imobiliário.</li>
+    <li>🌍 **Blockchain - A Nova Economia**: A outra parte será usada para desenvolver e expandir a integração de soluções em **Blockchain**, a tecnologia que está revolucionando a forma como as transações imobiliárias são feitas, proporcionando maior transparência, segurança e eficiência no setor.</li>
+  </ul>
 </section>
 
 <div class="return-home-container">
@@ -61,5 +147,5 @@
   <p>© 2025 AVZ PropTech - Todos os direitos reservados</p>
 </footer>
 
-</body>
-</html>
+<script>
+  const range =
