@@ -9,7 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --black: #0a0a0a;
       --dark-black: #000000;
@@ -22,7 +21,6 @@
       --medium-gray: #888888;
       --dark-gray: #333333;
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
@@ -35,7 +33,6 @@
       padding: 20px 0;
       position: relative;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -50,7 +47,6 @@
       pointer-events: none;
       z-index: -1;
     }
-
     .container {
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
       backdrop-filter: blur(25px);
@@ -67,188 +63,142 @@
         0 32px 64px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(212, 175, 55, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: containerFloat 6s ease-in-out infinite alternate;
     }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 24px;
-      padding: 2px;
-      background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--gold), var(--rose-gold));
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      z-index: -1;
-      animation: borderShine 4s linear infinite;
-    }
-
-    @keyframes containerFloat {
-      0% { transform: translateY(0px); box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px rgba(212,175,55,0.1); }
-      100% { transform: translateY(-8px); box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 60px rgba(212,175,55,0.15); }
-    }
-
-    @keyframes borderShine {
-      0% { background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--gold), var(--rose-gold)); }
-      25% { background: linear-gradient(45deg, var(--rose-gold), var(--gold), var(--rose-gold), var(--gold)); }
-      50% { background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--gold), var(--rose-gold)); }
-      75% { background: linear-gradient(45deg, var(--rose-gold), var(--gold), var(--rose-gold), var(--gold)); }
-      100% { background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--gold), var(--rose-gold)); }
-    }
-
     h1 {
       font-family: 'Playfair Display', serif;
       background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--rose-gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
       font-size: 2.8rem;
       font-weight: 700;
       margin-bottom: 25px;
-      text-shadow: 0 0 40px rgba(212,175,55,0.3);
-      animation: titleGlow 3s ease-in-out infinite alternate;
-      letter-spacing: -0.5px;
     }
+    p { color: rgba(255, 255, 255, 0.9); font-size: 1.2rem; margin-bottom: 35px; }
+    .loading { font-size: 1.2rem; color: #f4e4bc; }
+    .error { color: red; }
 
-    @keyframes titleGlow { 
-      0% {filter: brightness(1) drop-shadow(0 0 20px rgba(212,175,55,0.3));} 
-      100% {filter: brightness(1.2) drop-shadow(0 0 30px rgba(212,175,55,0.5));} 
+    /* Tokens list design */
+    .token-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      margin: 6px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.3s;
     }
-
-    p {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1.2rem;
-      margin-bottom: 35px;
-      line-height: 1.7;
-      font-weight: 300;
-      letter-spacing: 0.3px;
+    .token-item:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
-
-    .buttons-section {
-      margin-top: 20px;
-    }
-
-    .buttons-grid {
+    .token-info {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      align-items: center;
+      text-align: left;
     }
-
-    .loading {
+    .token-symbol {
       font-size: 1.2rem;
-      color: #f4e4bc;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .token-name {
+      font-size: 0.9rem;
+      color: var(--medium-gray);
+    }
+    .token-balance {
+      text-align: right;
+    }
+    .token-amount {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .token-item.zero-balance .token-amount {
+      color: #888;
     }
 
-    .error {
-      color: red;
+    /* Botão Home */
+    .home-button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      color: #000;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .home-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>AVZ PropTech - Acesso à Web3</h1>
     <p>Digite o endereço da carteira para consultar os tokens e saldo MATIC.</p>
-
     <input type="text" id="walletAddress" placeholder="Endereço da carteira" style="padding: 10px; width: 80%; border-radius: 5px; border: 1px solid #ccc;">
     <button id="lookupBtn" onclick="lookupWallet()" style="margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Consultar</button>
-
     <div id="nativeBalance" class="loading">Carregando saldo MATIC...</div>
-
     <div id="tokensList" class="tokens-title">Tokens ERC-20 (0)</div>
     <div id="tokensMessage" class="loading"></div>
+    <button class="home-button" onclick="goHome()">🏠 Retornar ao Home</button>
   </div>
-
   <script>
     let provider;
     let currentAddress;
     let tokens = [];
     let isLookingUp = false;
-
     provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
-    
     const popularPolygonTokens = [
       { address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4', symbol: 'AVZ', name: 'AVZ', decimals: 18 },
-      { address: '0x2EfADD20B18E551d97994790D217915e56005b4f', symbol: 'AV9', name: 'AV9', decimals: 18 },
-      // Outros tokens aqui
+      { address: '0x2EfADD20B18E551d97994790D217915e56005b4f', symbol: 'AV9', name: 'AV9', decimals: 18 }
     ];
-
     function isValidAddress(address) {
       return ethers.utils.isAddress(address);
     }
-
     async function lookupWallet() {
       if (isLookingUp) return;
-
       const addressInput = document.getElementById('walletAddress');
       const address = addressInput.value.trim();
-
-      if (!address) {
-        alert('Por favor, insira um endereço de carteira.');
-        return;
-      }
-
-      if (!isValidAddress(address)) {
-        alert('Por favor, insira um endereço Ethereum válido.');
-        return;
-      }
-
+      if (!address) { alert('Por favor, insira um endereço de carteira.'); return; }
+      if (!isValidAddress(address)) { alert('Por favor, insira um endereço Ethereum válido.'); return; }
       isLookingUp = true;
       const lookupBtn = document.getElementById('lookupBtn');
       const originalText = lookupBtn.textContent;
-      lookupBtn.textContent = 'Consultando...';
-      lookupBtn.disabled = true;
-
+      lookupBtn.textContent = 'Consultando...'; lookupBtn.disabled = true;
       try {
         currentAddress = address;
-
         await updateWalletInfo();
         await fetchAllTokensIncludingZero();
-
       } catch (error) {
-        console.error("Erro ao consultar carteira:", error);
         alert("Erro ao consultar carteira: " + error.message);
       } finally {
         isLookingUp = false;
-        lookupBtn.textContent = originalText;
-        lookupBtn.disabled = false;
+        lookupBtn.textContent = originalText; lookupBtn.disabled = false;
       }
     }
-
     async function updateWalletInfo() {
-      if (!provider || !currentAddress) {
-        resetWalletInfo();
-        return;
-      }
-
+      if (!provider || !currentAddress) return;
       try {
         document.getElementById('nativeBalance').textContent = 'Carregando saldo MATIC...';
-
         const balance = await provider.getBalance(currentAddress);
         const balanceInMatic = ethers.utils.formatEther(balance);
         document.getElementById('nativeBalance').textContent = `${parseFloat(balanceInMatic).toFixed(4)} MATIC`;
-
       } catch (error) {
         document.getElementById('nativeBalance').textContent = 'Erro ao carregar saldo';
       }
     }
-
     async function fetchAllTokensIncludingZero() {
       if (!currentAddress) return;
-
       try {
         document.getElementById('tokensMessage').textContent = 'Buscando tokens...';
-
         let discoveredTokens = new Map();
-
         const polygonscanApiKey = 'YourApiKeyToken';
-        
         const response = await fetch(`https://api.polygonscan.com/api?module=account&action=tokentx&address=${currentAddress}&startblock=0&endblock=999999999&sort=asc&apikey=${polygonscanApiKey}`);
-
         if (response.ok) {
           const data = await response.json();
           if (data.status === '1' && data.result) {
@@ -264,138 +214,76 @@
             });
           }
         }
-
         popularPolygonTokens.forEach(token => {
-          discoveredTokens.set(token.address.toLowerCase(), token);
+          if (!discoveredTokens.has(token.address.toLowerCase())) {
+            discoveredTokens.set(token.address.toLowerCase(), token);
+          }
         });
-
         const allTokens = Array.from(discoveredTokens.values());
         tokens = [];
-
-        const batchSize = 10;
-        for (let i = 0; i < allTokens.length; i += batchSize) {
-          const batch = allTokens.slice(i, i + batchSize);
-          
-          const batchPromises = batch.map(async (token) => {
-            try {
-              const contract = new ethers.Contract(token.address, [
-                'function balanceOf(address) view returns (uint256)',
-                'function symbol() view returns (string)',
-                'function name() view returns (string)',
-                'function decimals() view returns (uint8)'
-              ], provider);
-
-              const balance = await contract.balanceOf(currentAddress);
-              const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
-
-              return {
-                address: token.address,
-                symbol: token.symbol,
-                name: token.name,
-                decimals: token.decimals,
-                balance: balance,
-                balanceFormatted: balanceFormatted,
-                balanceNumber: parseFloat(balanceFormatted)
-              };
-            } catch (error) {
-              console.log(`Erro ao buscar saldo do token ${token.symbol}:`, error);
-              return {
-                address: token.address,
-                symbol: token.symbol,
-                name: token.name,
-                decimals: token.decimals,
-                balance: ethers.BigNumber.from(0),
-                balanceFormatted: '0',
-                balanceNumber: 0
-              };
-            }
-          });
-
-          const batchResults = await Promise.all(batchPromises);
-          tokens.push(...batchResults);
-
-          const progress = Math.min(100, Math.round(((i + batchSize) / allTokens.length) * 100));
-          document.getElementById('tokensMessage').textContent = `Carregando tokens... ${progress}%`;
+        for (let token of allTokens) {
+          try {
+            const contract = new ethers.Contract(token.address, [
+              'function balanceOf(address) view returns (uint256)'
+            ], provider);
+            const balance = await contract.balanceOf(currentAddress);
+            const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
+            tokens.push({
+              ...token,
+              balance: balance,
+              balanceFormatted: balanceFormatted,
+              balanceNumber: parseFloat(balanceFormatted)
+            });
+          } catch (error) {
+            tokens.push({ ...token, balance: 0, balanceFormatted: '0', balanceNumber: 0 });
+          }
         }
-
+        const uniqueTokens = [];
+        const seen = new Set();
+        tokens.forEach(token => {
+          if (!seen.has(token.symbol)) {
+            seen.add(token.symbol);
+            uniqueTokens.push(token);
+          }
+        });
+        tokens = uniqueTokens;
         tokens.sort((a, b) => {
           if (a.balanceNumber > 0 && b.balanceNumber === 0) return -1;
           if (a.balanceNumber === 0 && b.balanceNumber > 0) return 1;
           return a.symbol.localeCompare(b.symbol);
         });
-
         updateTokensList();
-
       } catch (error) {
-        console.error("Erro ao buscar tokens:", error);
         document.getElementById('tokensMessage').textContent = 'Erro ao carregar tokens';
       }
     }
-
     function updateTokensList() {
       const tokensListDiv = document.getElementById('tokensList');
       const tokensTitle = document.querySelector('.tokens-title');
-      
       if (tokens.length === 0) {
         tokensListDiv.innerHTML = '';
         tokensTitle.textContent = 'Tokens ERC-20 (0)';
         document.getElementById('tokensMessage').textContent = 'Insira um endereço para consultar todos os tokens.';
         return;
       }
-
       tokensTitle.textContent = `Tokens ERC-20 (${tokens.length})`;
       document.getElementById('tokensMessage').textContent = '';
-
-      const tokensWithBalance = tokens.filter(token => token.balanceNumber > 0);
-      const tokensWithoutBalance = tokens.filter(token => token.balanceNumber === 0);
-
-      let html = '';
-
-      if (tokensWithBalance.length > 0) {
-        html += tokensWithBalance.map(token => `
-          <div class="token-item">
-            <div class="token-info">
-              <div class="token-symbol">${token.symbol}</div>
-              <div class="token-name">${token.name}</div>
-            </div>
-            <div class="token-balance">
-              <div class="token-amount">${parseFloat(token.balanceFormatted).toFixed(6)}</div>
-            </div>
+      let html = tokens.map(token => `
+        <div class="token-item ${token.balanceNumber === 0 ? 'zero-balance' : ''}">
+          <div class="token-info">
+            <div class="token-symbol">${token.symbol}</div>
+            <div class="token-name">${token.name}</div>
           </div>
-        `).join('');
-      }
-
-      if (tokensWithoutBalance.length > 0) {
-        html += tokensWithoutBalance.map(token => `
-          <div class="token-item zero-balance">
-            <div class="token-info">
-              <div class="token-symbol">${token.symbol}</div>
-              <div class="token-name">${token.name}</div>
-            </div>
-            <div class="token-balance">
-              <div class="token-amount zero">0</div>
-            </div>
+          <div class="token-balance">
+            <div class="token-amount">${parseFloat(token.balanceFormatted).toFixed(6)}</div>
           </div>
-        `).join('');
-      }
-
+        </div>
+      `).join('');
       tokensListDiv.innerHTML = html;
     }
-
-    function resetWalletInfo() {
-      document.getElementById('accountAddress').textContent = 'Insira um endereço acima';
-      document.getElementById('networkName').textContent = 'Polygon Mainnet';
-      document.getElementById('nativeBalance').textContent = 'Insira um endereço para consultar o saldo.';
-      document.getElementById('refreshBtn').disabled = true;
-      tokens = [];
-      updateTokensList();
-    }
-
-    async function refreshTokens() {
-      if (!currentAddress) return;
-      await fetchAllTokensIncludingZero();
+    function goHome() {
+      window.location.href = "/"; // coloque aqui a URL da sua home
     }
   </script>
-
 </body>
 </html>
