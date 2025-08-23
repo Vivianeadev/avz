@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Desvie dos Blocos</title>
+  <style>
+    :root {
+      --bg: #0f1226;
+      --panel: #171a36;
+      --text: #e9ecff;
+      --accent: #7aa2ff;
+      --accent2: #22d3ee;
+      --danger: #ff6b6b;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: radial-gradient(1200px 600px at 70% -10%, #1c2250 0%, var(--bg) 60%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px 16px 96px;
+      display: grid;
+      gap: 12px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    h1 { font-size: clamp(18px, 3.5vw, 28px); margin: 0; letter-spacing: .5px; }
+    .panel {
+      background: linear-gradient(180deg, #1b1f42, var(--panel));
+      border: 1px solid #242a57;
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .hud { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .hud .stat { display:flex; align-items:center; gap:8px; font-weight: 600; }
+    .dot { width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+
+    canvas {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      display: block;
+      background:
+        radial-gradient(600px 200px at 50% -60px, rgba(122,162,255,.35), transparent 60%),
+        linear-gradient(180deg, #0e1127 0%, #0b0e1f 60%, #0a0d1e 100%);
+      border-radius: 20px;
+      border: 1px solid #242a57;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.03);
+      touch-action: none; /* evita zoom/scroll nos toques de jogo */
+    }
+
+    .controls {
+      position: fixed;
+      left: 0; right: 0; bottom: 10px;
+      margin: 0 auto;
+      max-width: 720px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding: 0 16px;
+    }
+    .btn {
+      background: linear-gradient(180deg, #1f2450, #171a36);
+      border: 1px solid #2a2f65;
+      color: var(--text);
+      padding: 14px 12px;
+      border-radius: 16px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 10px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary { outline: 2px solid rgba(122,162,255,.25); }
+    .btn.pause { grid-column: span 1; }
+    .btn.left, .btn.right { font-size: 18px; }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+    .card {
+      pointer-events: auto;
+      background: rgba(10, 13, 30, .9);
+      border: 1px solid #2a2f65;
+      border-radius: 18px;
+      padding: 18px;
+      max-width: 86%;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.5);
+      animation: pop .18s ease-out;
+    }
+    @keyframes pop { from { transform: scale(.96); opacity: 0 } }
+    .title { font-size: 20px; margin: 0 0 6px; }
+    .muted { opacity: .75; font-size: 14px; }
+    .row { display:flex; gap:8px; justify-content:center; margin-top:12px; }
+    .chip { background:#1f2450; border:1px solid #2a2f65; padding:6px 10px; border-radius:999px; font-size:12px; }
+    .danger { color: var(--danger); }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🎮 Desvie dos Blocos</h1>
+      <div class="panel hud" id="hud">
+        <div class="stat"><span class="dot"></span> Pontos: <span id="score">0</span></div>
+        <div class="stat">⚡ Vel.: <span id="speed">1.0x</span></div>
+        <div class="stat">🏆 Recorde: <span id="best">0</span></div>
+      </div>
+    </header>
+
+    <div style="position:relative">
+      <canvas id="game" width="360" height="640" aria-label="Jogo: desvie dos blocos"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="card" id="card">
+          <h2 class="title">Toque para começar</h2>
+          <p class="muted">Mova para esquerda/direita. Evite os blocos que caem.</p>
+          <div class="row">
+            <div class="chip">⌨️ Setas ou A / D</div>
+            <div class="chip">📱 Botões & arrasto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn left" id="btnLeft" aria-label="Mover para a esquerda">⬅️</button>
+      <button class="btn pause primary" id="btnPause" aria-label="Pausar/Retomar">⏸️ Pausar</button>
+      <button class="btn right" id="btnRight" aria-label="Mover para a direita">➡️</button>
+    </div>
+  </div>
+
+  <script>
+    // Utilitários de canvas responsivo com alta definição
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    function fitCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.floor(rect.width * dpr);
+      const h = Math.floor(rect.height * dpr);
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w; canvas.height = h;
+      }
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale(dpr, dpr);
+    }
+    new ResizeObserver(fitCanvas).observe(canvas);
+    fitCanvas();
+
+    // Estado do jogo
+    const state = {
+      running: false,
+      paused: false,
+      over: false,
+      score: 0,
+      best: Number(localStorage.getItem('dodgerBest')||0),
+      speedMul: 1,
+      spawnTimer: 0,
+      lastTime: 0,
+      laneCount: 6
+    };
+
+    const hudScore = document.getElementById('score');
+    const hudBest = document.getElementById('best');
+    const hudSpeed = document.getElementById('speed');
+    hudBest.textContent = state.best;
+
+    const overlay = document.getElementById('overlay');
+    const card = document.getElementById('card');
+
+    const world = {
+      width: 360,
+      height: 640
+    };
+
+    function vw(px){
+      // converte coordenadas mundo->canvas em relação à largura atual
+      const rect = canvas.getBoundingClientRect();
+      return (px / world.width) * rect.width;
+    }
+
+    function toWorldX(clientX){
+      const rect = canvas.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width * world.width;
+      return x;
+    }
+
+    // Jogador
+    const player = {
+      w: 36, h: 18,
+      x: world.width/2 - 18,
+      y: world.height - 80,
+      speed: 220,
+      dir: 0, // -1, 0, 1
+      color: '#7aa2ff'
+    };
+
+    // Obstáculos
+    const blocks = [];
+    function spawnBlock(){
+      const laneW = world.width / state.laneCount;
+      const lane = Math.floor(Math.random() * state.laneCount);
+      const widthMul = 0.7 + Math.random()*0.25; // largura do bloco ~70-95% da faixa
+      const bx = lane * laneW + (laneW - laneW*widthMul)/2;
+      const bw = laneW * widthMul;
+      const bh = 14 + Math.random()*16;
+      const speed = 90 + Math.random()*70;
+      const hue = 180 + Math.floor(Math.random()*100);
+      blocks.push({ x: bx, y: -bh, w: bw, h: bh, vy: speed, hue });
+    }
+
+    function resetGame(){
+      state.score = 0; state.speedMul = 1; state.spawnTimer = 0; state.over = false;
+      blocks.length = 0;
+      player.x = world.width/2 - player.w/2;
+    }
+
+    // Loop principal
+    function loop(ts){
+      if (!state.running) { state.lastTime = ts; requestAnimationFrame(loop); return; }
+      const dt = Math.min(0.033, (ts - state.lastTime)/1000); // cap 33ms
+      state.lastTime = ts;
+      if (!state.paused && !state.over) update(dt);
+      render();
+      requestAnimationFrame(loop);
+    }
+
+    function update(dt){
+      // dificuldade progressiva
+      state.speedMul += dt * 0.02; // cresce lentamente
+      hudSpeed.textContent = state.speedMul.toFixed(1) + 'x';
+
+      // mover jogador
+      player.x += player.dir * player.speed * dt;
+      player.x = Math.max(8, Math.min(world.width - player.w - 8, player.x));
+
+      // spawn
+      state.spawnTimer -= dt;
+      const rate = Math.max(0.25, 0.8 - state.speedMul*0.05);
+      if (state.spawnTimer <= 0){
+        spawnBlock();
+        state.spawnTimer = rate;
+      }
+
+      // mover blocos
+      for (const b of blocks){
+        b.y += b.vy * state.speedMul * dt;
+      }
+
+      // remover fora da tela + pontuação
+      for (let i = blocks.length - 1; i >= 0; i--){
+        const b = blocks[i];
+        if (b.y > world.height + 30){
+          blocks.splice(i,1);
+          state.score += 1;
+          hudScore.textContent = state.score;
+        }
+      }
+
+      // colisão
+      for (const b of blocks){
+        if (rectsOverlap(player, b)){
+          gameOver();
+          break;
+        }
+      }
+    }
+
+    function rectsOverlap(a,b){
+      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+
+    function render(){
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width, h = rect.height;
+      // limpa
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
+
+      // desenha grade sutil
+      drawBackgroundGrid(w, h);
+
+      // desenha blocos
+      for (const b of blocks){
+        drawBlock(b);
+      }
+
+      // desenha jogador
+      drawPlayer();
+
+      if (state.over){
+        showOverlay(`⛔ Fim de jogo`, `Pontuação: ${state.score} • Recorde: ${state.best}`);
+      } else if (!state.running){
+        // overlay inicial controlado no DOM
+      } else if (state.paused){
+        showOverlay('⏸️ Pausado', 'Toque em Retomar para continuar');
+      } else {
+        hideOverlay();
+      }
+    }
+
+    function drawBackgroundGrid(w, h){
+      const laneW = w / state.laneCount;
+      for (let i=1;i<state.laneCount;i++){
+        const x = i*laneW;
+        ctx.globalAlpha = .10;
+        ctx.fillStyle = '#7aa2ff';
+        ctx.fillRect(x-1, 0, 2, h);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function drawBlock(b){
+      const rect = canvas.getBoundingClientRect();
+      const x = b.x / world.width * rect.width;
+      const y = b.y / world.height * rect.height;
+      const w = b.w / world.width * rect.width;
+      const h = b.h / world.height * rect.height;
+      ctx.fillStyle = `hsl(${b.hue} 80% 60% / .95)`;
+      roundRect(ctx, x, y, w, h, 6, true, false);
+    }
+
+    function drawPlayer(){
+      const rect = canvas.getBoundingClientRect();
+      const x = player.x / world.width * rect.width;
+      const y = player.y / world.height * rect.height;
+      const w = player.w / world.width * rect.width;
+      const h = player.h / world.height * rect.height;
+
+      // brilho
+      const grad = ctx.createLinearGradient(0, y, 0, y+h);
+      grad.addColorStop(0, '#9bb6ff');
+      grad.addColorStop(1, player.color);
+      ctx.fillStyle = grad;
+      roundRect(ctx, x, y, w, h, 8, true, false);
+
+      // rastro
+      ctx.globalAlpha = .12;
+      roundRect(ctx, x, y+h+2, w, 10, 6, true, false);
+      ctx.globalAlpha = 1;
+    }
+
+    function roundRect(ctx, x, y, w, h, r, fill, stroke){
+      if (w < 0) { x += w; w = Math.abs(w); }
+      if (h < 0) { y += h; h = Math.abs(h); }
+      const rr = Math.min(r, w/2, h/2);
+      ctx.beginPath();
+      ctx.moveTo(x+rr, y);
+      ctx.arcTo(x+w, y, x+w, y+h, rr);
+      ctx.arcTo(x+w, y+h, x, y+h, rr);
+      ctx.arcTo(x, y+h, x, y, rr);
+      ctx.arcTo(x, y, x+w, y, rr);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    function showOverlay(title, subtitle){
+      overlay.classList.remove('hidden');
+      card.innerHTML = `<h2 class="title">${title}</h2><p class="muted">${subtitle}</p>
+        <div class="row"><button class="btn primary" id="btnRestart">🔁 Reiniciar</button></div>`;
+      document.getElementById('btnRestart').addEventListener('click', () => {
+        resetGame();
+        state.running = true; state.paused = false;
+      }, { once: true });
+    }
+    function hideOverlay(){ overlay.classList.add('hidden'); }
+
+    function gameOver(){
+      state.over = true; state.running = false;
+      if (state.score > state.best){ state.best = state.score; localStorage.setItem('dodgerBest', state.best); hudBest.textContent = state.best; }
+    }
+
+    // Controles
+    const keys = new Set();
+    window.addEventListener('keydown', e => {
+      if (['ArrowLeft','ArrowRight','KeyA','KeyD',' '].includes(e.code)) e.preventDefault();
+      keys.add(e.code);
+      updateDirFromKeys();
+      if (!state.running && !state.over) startGame();
+    });
+    window.addEventListener('keyup', e => { keys.delete(e.code); updateDirFromKeys(); });
+
+    function updateDirFromKeys(){
+      let dir = 0;
+      if (keys.has('ArrowLeft') || keys.has('KeyA')) dir -= 1;
+      if (keys.has('ArrowRight') || keys.has('KeyD')) dir += 1;
+      player.dir = Math.sign(dir);
+    }
+
+    // Botões na tela (mobile)
+    function holdButton(el, on, off){
+      const start = (e)=>{ e.preventDefault(); on(); };
+      const end = (e)=>{ e.preventDefault(); off(); };
+      el.addEventListener('mousedown', start);
+      el.addEventListener('touchstart', start, { passive:false });
+      window.addEventListener('mouseup', end);
+      window.addEventListener('touchend', end);
+      window.addEventListener('touchcancel', end);
+    }
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnPause = document.getElementById('btnPause');
+    holdButton(btnLeft, ()=>{ player.dir = -1; }, ()=>{ player.dir = 0; });
+    holdButton(btnRight, ()=>{ player.dir = 1; }, ()=>{ player.dir = 0; });
+    btnPause.addEventListener('click', ()=>{
+      if (!state.running){ startGame(); return; }
+      state.paused = !state.paused;
+      btnPause.textContent = state.paused ? '▶️ Retomar' : '⏸️ Pausar';
+    });
+
+    // Arrastar sobre o canvas
+    let dragging = false; let dragStartX = 0; let playerStartX = 0;
+    canvas.addEventListener('pointerdown', e=>{
+      dragging = true; dragStartX = e.clientX; playerStartX = player.x; canvas.setPointerCapture(e.pointerId);
+      if (!state.running && !state.over) startGame();
+    });
+    canvas.addEventListener('pointermove', e=>{
+      if (!dragging) return;
+      const dx = (e.clientX - dragStartX) / canvas.getBoundingClientRect().width * world.width;
+      player.x = Math.max(8, Math.min(world.width - player.w - 8, playerStartX + dx));
+    });
+    canvas.addEventListener('pointerup', ()=> dragging=false);
+    canvas.addEventListener('pointercancel', ()=> dragging=false);
+
+    // Iniciar
+    canvas.addEventListener('click', ()=>{ if (!state.running && !state.over) startGame(); });
+    function startGame(){ resetGame(); state.running = true; state.paused = false; btnPause.textContent = '⏸️ Pausar'; hideOverlay(); }
+
+    // Começa o loop
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
