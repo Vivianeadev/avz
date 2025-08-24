@@ -163,13 +163,13 @@
       justify-content: center;
       width: 100%;
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 10px auto;
       flex-wrap: wrap;
     }
 
     .key-btn {
       flex: 1;
-      min-width: 200px;
+      min-width: 160px; /* reduzido de 200px para 160px */
       padding: 16px 20px;
       background: linear-gradient(135deg, var(--rose-gold), var(--gold));
       color: var(--black);
@@ -217,17 +217,20 @@
 
     <div class="divider"></div>
 
+    <!-- ====== TICKER ====== -->
     <div class="ticker" role="region" aria-label="Cotações cripto">
       <div class="ticker__viewport" aria-live="polite">
         <div id="ticker-track" class="ticker__track"></div>
       </div>
     </div>
 
+    <!-- ====== BOTÕES EM DUAS LINHAS ====== -->
     <div class="btn-row">
-      <!-- LINK ATUALIZADO -->
       <a href="chaveiro_avz.html" target="_blank" class="key-btn">Chaveiro AVZ</a>
-      <a href="investidores.html" class="key-btn">Investidores</a>
       <a href="liquidez.html" class="key-btn">Liquidez</a>
+    </div>
+    <div class="btn-row">
+      <a href="investidores.html" class="key-btn">Investidores</a>
       <a href="lei.html" class="key-btn">A Lei e AVZ</a>
     </div>
   </main>
@@ -236,6 +239,7 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
+  <!-- ====== Scripts do ticker ====== -->
   <script>
     const COINGECKO_IDS = {
       BTC: 'bitcoin',
@@ -246,6 +250,7 @@
       USDT: 'tether'
     };
 
+    // Endereços originais (mantidos, caso precise)
     const TOKENS_BY_ADDRESS = [
       { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
       { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
@@ -290,26 +295,12 @@
       }
     }
 
-    async function fetchDexPrice(addr) {
-      try {
-        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${addr}`);
-        if (!res.ok) throw new Error('Dexscreener error');
-        const data = await res.json();
-        const pair = (data && data.pairs && data.pairs[0]) || null;
-        return pair ? Number(pair.priceUsd) : null;
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }
-
+    // Preços fixos para AVZ e AV9
     async function fetchAVZ_AV9() {
-      const results = [];
-      for (const t of TOKENS_BY_ADDRESS) {
-        const p = await fetchDexPrice(t.address);
-        results.push({ sym: t.sym, price: p });
-      }
-      return results;
+      return [
+        { sym: 'AVZ', price: 0.04 },
+        { sym: 'AV9', price: 0.006 }
+      ];
     }
 
     async function refreshTicker() {
