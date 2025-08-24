@@ -88,6 +88,7 @@
       text-decoration: none;
       box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
       transition: all 0.3s ease;
+      margin-bottom: 40px;
     }
 
     .main-btn:hover {
@@ -95,11 +96,109 @@
       box-shadow: 0 15px 40px rgba(212,175,55,0.6);
     }
 
+    .divider {
+      width: 100%;
+      max-width: 500px;
+      height: 2px;
+      margin: 30px auto;
+      background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
+      box-shadow: 0 2px 10px rgba(232,180,184,0.5), 0 -2px 10px rgba(212,175,55,0.5);
+      border-radius: 2px;
+    }
+
+    /* ====== Ticker fino e discreto ====== */
+    .ticker {
+      width: 100%;
+      max-width: 1000px;
+      margin: 8px auto 24px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(232,180,184,0.25);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .ticker__viewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .ticker__track {
+      display: inline-flex;
+      gap: 28px;
+      white-space: nowrap;
+      padding: 8px 12px;
+      will-change: transform;
+      animation: ticker-scroll 30s linear infinite;
+    }
+
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+
+    .ticker__sym {
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ticker__price {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      opacity: 0.9;
+    }
+
+    /* Container dos 4 botões */
+    .btn-row {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .key-btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
+      color: var(--black);
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .key-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(212,175,55,0.6);
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
+    }
+
+    @media (max-width: 640px) {
+      .btn-row { gap: 10px; }
+      .key-btn { min-width: calc(50% - 10px); }
     }
   </style>
 </head>
@@ -117,10 +216,144 @@
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
     <a href="wallet.html" class="main-btn">Acessar Carteira</a>
+
+    <div class="divider"></div>
+
+    <!-- ====== TICKER DISCRETO DE COTAÇÕES ====== -->
+    <div class="ticker" role="region" aria-label="Cotações cripto">
+      <div class="ticker__viewport" aria-live="polite">
+        <div id="ticker-track" class="ticker__track"></div>
+      </div>
+    </div>
+
+    <!-- Linha com 4 botões -->
+    <div class="btn-row">
+      <a href="https://polygonscan.com/address/0x687c95f21a7C297A628Aae7A86b863FcD783d8dC" target="_blank" class="key-btn">Chaveiro AVZ</a>
+      <a href="investidores.html" class="key-btn">Investidores</a>
+      <a href="liquidez.html" class="key-btn">Liquidez</a>
+      <a href="lei.html" class="key-btn">A Lei e AVZ</a>
+    </div>
   </main>
 
   <footer>
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
+
+  <!-- ====== Scripts do ticker ====== -->
+  <script>
+    const COINGECKO_IDS = {
+      BTC: 'bitcoin',
+      ETH: 'ethereum',
+      DOGE: 'dogecoin',
+      ADA: 'cardano',
+      MATIC: 'matic-network',
+      USDT: 'tether'
+    };
+
+    const TOKENS_BY_ADDRESS = [
+      { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
+      { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
+    ];
+
+    const track = document.getElementById('ticker-track');
+
+    function formatPriceUSD(value) {
+      if (value == null || isNaN(value)) return '—';
+      const n = Number(value);
+      if (n < 1) {
+        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 8 });
+      }
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function renderTicker(items) {
+      const makeRow = (arr) => arr.map(({ sym, price }) => `
+        <span class="ticker__item">
+          <span class="ticker__sym">${sym}</span>
+          <span class="ticker__price">${formatPriceUSD(price)}</span>
+        </span>
+      `).join('');
+      const row = makeRow(items);
+      track.innerHTML = row + row;
+    }
+
+    async function fetchCoinGecko() {
+      const ids = Object.values(COINGECKO_IDS).join(',');
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('CoinGecko error');
+        const data = await res.json();
+        return Object.entries(COINGECKO_IDS).map(([sym, id]) => ({
+          sym,
+          price: data?.[id]?.usd ?? null
+        }));
+      } catch (e) {
+        console.error(e);
+        return Object.keys(COINGECKO_IDS).map(sym => ({ sym, price: null }));
+      }
+    }
+
+    async function fetchDexPrice(addr) {
+      try {
+        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${addr}`);
+        if (!res.ok) throw new Error('Dexscreener error');
+        const data = await res.json();
+        const pair = (data && data.pairs && data.pairs[0]) || null;
+        return pair ? Number(pair.priceUsd) : null;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+
+async function fetchAVZ_AV9() {
+  return [
+    { sym: 'AVZ', price: 0.04 },
+    { sym: 'AV9', price: 0.006 }
+  ];
+}
+
+  for (const t of TOKENS_BY_ADDRESS) {
+    // Se o token tiver preço fixo, usamos ele; senão, buscamos no DEX
+    const price = FIXED_PRICES[t.sym] ?? await fetchDexPrice(t.address);
+
+    results.push({ sym: t.sym, price });
+  }
+
+  return results;
+}
+
+async function refreshTicker() {
+  const [cg, custom] = await Promise.all([
+    fetchCoinGecko(),
+    fetchAVZ_AV9()
+  ]);
+
+  console.log(custom); // aqui você terá todas as moedas, com AVZ e AV9 fixos
+}
+
+
+
+      const map = new Map();
+      [...cg, ...custom].forEach(it => map.set(it.sym, it.price));
+
+      const ordered = [
+        { sym: 'BTC',  price: map.get('BTC')  },
+        { sym: 'AVZ',  price: map.get('AVZ')  },
+        { sym: 'AV9',  price: map.get('AV9')  },
+        { sym: 'ETH',  price: map.get('ETH')  },
+        { sym: 'DOGE', price: map.get('DOGE') },
+        { sym: 'ADA',  price: map.get('ADA')  },
+        { sym: 'MATIC',price: map.get('MATIC')},
+        { sym: 'USDT', price: map.get('USDT') }
+      ];
+
+      renderTicker(ordered);
+    }
+
+    refreshTicker();
+    setInterval(refreshTicker, 60000);
+  </script>
 </body>
 </html>
