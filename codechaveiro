@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/usuario/Desktop/chaveiroavz.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>AVZ PropTech - Acesso do Chaveiro</title>
+  <link href="./AVZ PropTech - Acesso do Chaveiro_files/css2" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark-black: #000000;
+      --gold: #d4af37;
+      --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8;
+      --dark-rose: #c49497;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #1c2430;
+      color: #fff;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      margin-left: 5px;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      word-break: break-all;
+    }
+
+    a { color: var(--gold); text-decoration: none; }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>AVZ PropTech</h1>
+    <p class="subtitle">Acesso exclusivo pelo chaveiro físico</p>
+
+    <input id="code" type="text" placeholder="Digite seu código AVZ">
+    <button class="btn-primary" id="btnValidate">Validar Código</button>
+    <button class="btn-secondary" id="btnConnect">Conectar MetaMask</button>
+
+    <div id="result" class="result" style="display: block;">
+      <p><strong>Endereço público:</strong> <span id="addr">0x687c95f21a7C297A628Aae7A86b863FcD783d8dC</span></p>
+      <p><a id="explorer" target="_blank" href="https://polygonscan.com/address/0x687c95f21a7C297A628Aae7A86b863FcD783d8dC">Ver no PolygonScan</a></p>
+      <button class="btn-secondary" id="btnCopy">Copiar Endereço</button>
+    </div>
+
+    <footer>
+      © 2025 AVZ PropTech - Todos os direitos reservados
+    </footer>
+  </div>
+
+  <script>
+    // Lista de clientes (teste)
+    const CUSTOMERS = {
+      "AVZ-7K2J8": { name: "Cliente Teste", address: "0x687c95f21a7C297A628Aae7A86b863FcD783d8dC" }
+    };
+
+    function $(id){ return document.getElementById(id); }
+
+    function validateCode(code){
+      const key = code.trim().toUpperCase();
+      if(CUSTOMERS[key]) return CUSTOMERS[key];
+      return null;
+    }
+
+    $("btnValidate").addEventListener("click", ()=>{
+      const code = $("code").value;
+      const cust = validateCode(code);
+      if(!cust){ alert("Código inválido!"); return; }
+      $("addr").textContent = cust.address;
+      $("explorer").href = `https://polygonscan.com/address/${cust.address}`;
+      $("result").style.display = "block";
+      $("btnConnect").disabled = false;
+    });
+
+    $("btnCopy").addEventListener("click", ()=>{
+      const text = $("addr").textContent;
+      navigator.clipboard.writeText(text).then(()=>{
+        alert("Endereço copiado!");
+      });
+    });
+
+    $("btnConnect").addEventListener("click", async ()=>{
+      if(!window.ethereum){ alert("MetaMask não encontrada"); return; }
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        alert("Conectado: " + accounts[0]);
+      } catch (err) {
+        alert("Erro na conexão ou cancelado.");
+      }
+    });
+
+    // Pré-preenche código pela URL (?k=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const preCode = urlParams.get("k");
+    if(preCode){
+      $("code").value = preCode;
+      const cust = validateCode(preCode);
+      if(cust){
+        $("addr").textContent = cust.address;
+        $("explorer").href = `https://polygonscan.com/address/${cust.address}`;
+        $("result").style.display = "block";
+        $("btnConnect").disabled = false;
+      }
+    }
+  </script>
+
+
+</body></html>
