@@ -228,7 +228,7 @@
 
     <!-- Linha com 4 botões -->
     <div class="btn-row">
-      <a href="chaveiro_avz.html" target="_blank" class="key-btn">Chaveiro AVZ</a>
+      <a href="https://polygonscan.com/address/0x687c95f21a7C297A628Aae7A86b863FcD783d8dC" target="_blank" class="key-btn">Chaveiro AVZ</a>
       <a href="investidores.html" class="key-btn">Investidores</a>
       <a href="liquidez.html" class="key-btn">Liquidez</a>
       <a href="lei.html" class="key-btn">A Lei e AVZ</a>
@@ -307,33 +307,20 @@
       }
     }
 
-async function fetchAVZ_AV9() {
-  return [
-    { sym: 'AVZ', price: 0.04 },
-    { sym: 'AV9', price: 0.006 }
-  ];
-}
+    async function fetchAVZ_AV9() {
+      const results = [];
+      for (const t of TOKENS_BY_ADDRESS) {
+        const p = await fetchDexPrice(t.address);
+        results.push({ sym: t.sym, price: p });
+      }
+      return results;
+    }
 
-  for (const t of TOKENS_BY_ADDRESS) {
-    // Se o token tiver preço fixo, usamos ele; senão, buscamos no DEX
-    const price = FIXED_PRICES[t.sym] ?? await fetchDexPrice(t.address);
-
-    results.push({ sym: t.sym, price });
-  }
-
-  return results;
-}
-
-async function refreshTicker() {
-  const [cg, custom] = await Promise.all([
-    fetchCoinGecko(),
-    fetchAVZ_AV9()
-  ]);
-
-  console.log(custom); // aqui você terá todas as moedas, com AVZ e AV9 fixos
-}
-
-
+    async function refreshTicker() {
+      const [cg, custom] = await Promise.all([
+        fetchCoinGecko(),
+        fetchAVZ_AV9()
+      ]);
 
       const map = new Map();
       [...cg, ...custom].forEach(it => map.set(it.sym, it.price));
