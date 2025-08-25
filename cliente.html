@@ -80,6 +80,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 3rem;
       margin-bottom: 20px;
+      margin-top: 140px; /* 🚀 desce o título e não fica coberto */
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -159,9 +160,13 @@
       box-shadow: 0 10px 22px rgba(232,180,184,0.35);
     }
 
+    main {
+      padding-bottom: 70px; /* garante espaço para o rodapé */
+    }
+
     footer {
       position: absolute;
-      bottom: 10px;
+      bottom: -15px; /* 🚀 desce levemente o rodapé */
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
     }
