@@ -19,7 +19,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      background: linear-gradient(135deg, var(--dark-black ) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
       color: var(--white);
       display: flex;
       flex-direction: column;
@@ -144,6 +144,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
+      cursor: pointer; /* Garante que o mouse vire uma mãozinha */
     }
 
     .key-btn:hover {
@@ -197,8 +198,9 @@
     <div class="divider"></div>
 
     <div class="btn-row">
-      <a href="#" class="key-btn" onclick="openPopup('OchaveiroAVZ.html')">Chaveiro AVZ</a>
-      <a href="#" class="key-btn" onclick="openPopup('2.html')">Minha Liquidez</a>
+      <!-- ✅ CORREÇÃO APLICADA AQUI -->
+      <a class="key-btn" onclick="openPopup('OchaveiroAVZ.html')">Chaveiro AVZ</a>
+      <a href="#" class="key-btn">Minha Liquidez</a>
       <a href="#" class="key-btn">Afiliado</a>
       <a href="#" class="key-btn">Novos Produtos</a>
     </div>
@@ -220,7 +222,7 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <!-- Modal genérico -->
+  <!-- Modal genérico (SEU CÓDIGO ORIGINAL MANTIDO) -->
   <div id="popupModal" style="
     display:none; 
     position:fixed; 
@@ -257,6 +259,7 @@
   </div>
 
   <script>
+    // SEU SCRIPT ORIGINAL MANTIDO
     function openPopup(page){
       document.getElementById('popupFrame').src = page;
       document.getElementById('popupModal').style.display = 'flex';
