@@ -65,7 +65,6 @@
       text-shadow: 0 0 8px rgba(212,175,55,0.5);
     }
 
-    /* 🎯 Ticker de cotações */
     #ticker-container {
       width: 100%;
       background: rgba(0,0,0,0.6);
@@ -80,7 +79,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 3rem;
       margin-bottom: 20px;
-      margin-top: 140px; /* 🚀 desce o título e não fica coberto */
+      margin-top: 140px;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -144,7 +143,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
-      cursor: pointer; /* Garante que o mouse vire uma mãozinha */
+      cursor: pointer;
     }
 
     .key-btn:hover {
@@ -152,7 +151,6 @@
       box-shadow: 0 12px 28px rgba(212,175,55,0.6);
     }
 
-    /* 🌹 sombra rose discreta só para botões de baixo */
     .key-btn.rose-shadow {
       box-shadow: 0 6px 16px rgba(232,180,184,0.25);
     }
@@ -162,12 +160,12 @@
     }
 
     main {
-      padding-bottom: 70px; /* garante espaço para o rodapé */
+      padding-bottom: 70px;
     }
 
     footer {
       position: absolute;
-      bottom: -15px; /* 🚀 desce levemente o rodapé */
+      bottom: -15px;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
     }
@@ -175,7 +173,6 @@
 </head>
 <body>
   <header>
-    <!-- 🎯 Ticker de Cotações -->
     <div id="ticker-container">
       <marquee behavior="scroll" direction="left" scrollamount="6" id="ticker">
         Carregando cotações...
@@ -198,9 +195,8 @@
     <div class="divider"></div>
 
     <div class="btn-row">
-      <!-- ✅ CORREÇÃO APLICADA AQUI -->
       <a class="key-btn" onclick="openPopup('OchaveiroAVZ.html')">Chaveiro AVZ</a>
-      <a href="#" class="key-btn">Minha Liquidez</a>
+      <a class="key-btn" onclick="openPopup('LIQUIDEZ.html')">Minha Liquidez</a>
       <a href="#" class="key-btn">Afiliado</a>
       <a href="#" class="key-btn">Novos Produtos</a>
     </div>
@@ -221,44 +217,14 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <!-- Modal genérico (SEU CÓDIGO ORIGINAL MANTIDO) -->
-  <div id="popupModal" style="
-    display:none; 
-    position:fixed; 
-    top:0; left:0; 
-    width:100%; height:100%; 
-    background:rgba(0,0,0,0.7); 
-    justify-content:center; 
-    align-items:center; 
-    z-index:9999;">
-    
-    <div style="
-      background:#fff; 
-      border-radius:12px; 
-      overflow:hidden; 
-      width:90%; 
-      max-width:900px; 
-      height:90%; 
-      position:relative;">
-      
-      <button onclick="closePopup()" style="
-        position:absolute; 
-        top:10px; 
-        right:10px; 
-        background:#d4af37; 
-        border:none; 
-        color:#000; 
-        font-weight:bold; 
-        padding:6px 12px; 
-        border-radius:6px; 
-        cursor:pointer;">X</button>
-      
+  <div id="popupModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
+    <div style="background:#fff; border-radius:12px; overflow:hidden; width:90%; max-width:900px; height:90%; position:relative;">
+      <button onclick="closePopup()" style="position:absolute; top:10px; right:10px; background:#d4af37; border:none; color:#000; font-weight:bold; padding:6px 12px; border-radius:6px; cursor:pointer;">X</button>
       <iframe id="popupFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
     </div>
   </div>
 
   <script>
-    // SEU SCRIPT ORIGINAL MANTIDO
     function openPopup(page){
       document.getElementById('popupFrame').src = page;
       document.getElementById('popupModal').style.display = 'flex';
@@ -268,7 +234,6 @@
       document.getElementById('popupFrame').src = "";
     }
 
-    // 🎯 Simulação de cotações
     const ativos = [
       {nome: "BTC/USDT", preco: 67890},
       {nome: "ETH/USDT", preco: 3450},
@@ -281,14 +246,13 @@
       const texto = ativos.map(a => `${a.nome}: ${a.preco}`).join(" │ ");
       ticker.innerHTML = texto;
 
-      // varia levemente
       ativos.forEach(a => {
-        let variacao = (Math.random() - 0.5) * 2; // +/- 1%
+        let variacao = (Math.random() - 0.5) * 2;
         a.preco = (a.preco * (1 + variacao/100)).toFixed(2);
       });
     }
 
-    setInterval(atualizarTicker, 4000); // Atualiza a cada 4s
+    setInterval(atualizarTicker, 4000);
     atualizarTicker();
   </script>
 </body>
