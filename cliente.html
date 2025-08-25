@@ -136,6 +136,15 @@
       box-shadow: 0 12px 28px rgba(212,175,55,0.6);
     }
 
+    /* 🌹 Sombra rose discreta para os botões de baixo */
+    .key-btn.rose-shadow {
+      box-shadow: 0 6px 16px rgba(232,180,184,0.25);
+    }
+
+    .key-btn.rose-shadow:hover {
+      box-shadow: 0 10px 22px rgba(232,180,184,0.35);
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
@@ -170,16 +179,16 @@
     </div>
     <div class="divider"></div>
     <div class="btn-row">
-      <a href="#" class="key-btn">Privacidade e Regulamento</a>
-      <a href="#" class="key-btn">Investidores</a>
-      <a href="#" class="key-btn">Representantes</a>
-      <a href="#" class="key-btn">A Lei e AVZ</a>
+      <a href="#" class="key-btn rose-shadow">Privacidade e Regulamento</a>
+      <a href="#" class="key-btn rose-shadow">Investidores</a>
+      <a href="#" class="key-btn rose-shadow">Representantes</a>
+      <a href="#" class="key-btn rose-shadow">A Lei e AVZ</a>
     </div>
 
     <!-- Botão de Retornar ao Home -->
     <div class="divider"></div>
     <div class="btn-row">
-      <a href="cliente.html" class="key-btn">🏠 Retornar ao Home</a>
+      <a href="cliente.html" class="key-btn rose-shadow">Retornar ao Home</a>
     </div>
   </main>
 
@@ -222,6 +231,94 @@
       <iframe id="popupFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
     </div>
   </div>
+   <div class="divider"></div>
+
+    <!-- ====== TICKER ====== -->
+    <div class="ticker" role="region" aria-label="Cotações cripto">
+      <div class="ticker__viewport" aria-live="polite">
+        <div id="ticker-track" class="ticker__track">
+        <span class="ticker__item">
+          <span class="ticker__sym">BTC</span>
+          <span class="ticker__price">$113,407.00</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">AVZ</span>
+          <span class="ticker__price">$0.04</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">AV9</span>
+          <span class="ticker__price">$0.006</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">ETH</span>
+          <span class="ticker__price">$4,788.24</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">DOGE</span>
+          <span class="ticker__price">$0.232499</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">ADA</span>
+          <span class="ticker__price">$0.913173</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">MATIC</span>
+          <span class="ticker__price">$0.253326</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">USDT</span>
+          <span class="ticker__price">$0.999912</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">BTC</span>
+          <span class="ticker__price">$113,407.00</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">AVZ</span>
+          <span class="ticker__price">$0.0400</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">AV9</span>
+          <span class="ticker__price">$0.060</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">ETH</span>
+          <span class="ticker__price">$4,788.24</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">DOGE</span>
+          <span class="ticker__price">$0.232499</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">ADA</span>
+          <span class="ticker__price">$0.913173</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">MATIC</span>
+          <span class="ticker__price">$0.253326</span>
+        </span>
+      
+        <span class="ticker__item">
+          <span class="ticker__sym">USDT</span>
+          <span class="ticker__price">$0.999912</span>
+        </span>
+      </div>
+      </div>
+    </div>
 
   <script>
     function openPopup(page){
