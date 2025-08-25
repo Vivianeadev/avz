@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVZ PropTech - Acesso por Código & Carteira</title>
+
+  <!-- Tipografias -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Ethers.js (Polygon) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --black:#0a0a0a; --dark-black:#000; --gold:#d4af37; --light-gold:#f4e4bc;
+      --rose-gold:#e8b4b8; --dark-rose:#c49497; --white:#fff; --light-gray:#f8f8f8;
+      --medium-gray:#888; --dark-gray:#333;
+    }
+    body{
+      font-family:'Inter',sans-serif;
+      color:var(--white);
+      background:linear-gradient(135deg,var(--dark-black)0%,var(--black)25%,#1a1a1a 50%,var(--black)75%,var(--dark-black)100%);
+      background-attachment:fixed;
+      min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+      padding:20px 0; position:relative;
+    }
+    body::before{
+      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+      background: radial-gradient(circle at 20% 20%, rgba(212,175,55,0.05)0%,transparent 50%),
+                 radial-gradient(circle at 80% 80%, rgba(232,180,184,0.05)0%,transparent 50%),
+                 radial-gradient(circle at 40% 60%, rgba(212,175,55,0.03)0%,transparent 50%);
+      pointer-events:none; z-index:-1;
+    }
+    header{
+      width:100%; display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:10px;
+    }
+    .brand{margin-top:10px;text-align:center;}
+    h1{
+      font-family:'Playfair Display',serif;
+      background: linear-gradient(135deg, var(--gold)0%,var(--light-gold)50%,var(--rose-gold)100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      font-size:2.4rem; font-weight:700; margin-bottom:6px;
+    }
+    .subtitle{color:rgba(255,255,255,0.85);font-size:1.05rem}
+    .container{
+      background: linear-gradient(145deg, rgba(255,255,255,0.08)0%,rgba(255,255,255,0.02)100%);
+      backdrop-filter: blur(25px); border:2px solid transparent; background-clip:padding-box;
+      position:relative; border-radius:24px; padding:28px 24px; text-align:center; max-width:720px; width:92%;
+      margin:12px auto; box-shadow:0 32px 64px rgba(0,0,0,0.4),0 0 0 1px rgba(212,175,55,0.2),inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .label{display:block; color:#ddd; margin-bottom:8px; font-size:0.95rem}
+    .code-row{display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap}
+    input[type="text"].code-input{
+      padding:12px 14px; width:340px; max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.15);
+      background:rgba(255,255,255,0.06); color:#fff; outline:none;
+    }
+    .btn{
+      padding:12px 18px; border:none; border-radius:12px; cursor:pointer; font-weight:600;
+      background:linear-gradient(135deg,var(--gold),var(--rose-gold)); color:#000;
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(212,175,55,.35)}
+    .hint{color:#cfcfcf; font-size:.9rem; margin-top:8px}
+    .divider{height:2px; width:120px; margin:18px auto; background:linear-gradient(90deg,var(--rose-gold),var(--gold),var(--rose-gold))}
+    .inline{display:inline-flex; gap:8px; align-items:center; justify-content:center; color:#ddd}
+    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,"Liberation Mono","Courier New",monospace}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); font-size:.95rem
+    }
+    .token-item{
+      display:flex; justify-content:space-between; align-items:center; padding:12px 16px; margin:6px 0;
+      background:rgba(255,255,255,0.05); border-radius:10px; border:1px solid rgba(255,255,255,0.1); transition:background .3s;
+    }
+    .token-item:hover{background:rgba(255,255,255,0.1)}
+    .token-info{display:flex; flex-direction:column; text-align:left}
+    .token-symbol{font-size:1.05rem; font-weight:700; color:var(--gold)}
+    .token-name{font-size:.9rem; color:var(--medium-gray)}
+    .token-amount{font-weight:700}
+    .zero-balance .token-amount{color:#888}
+    .loading{color:#f4e4bc}
+    .error{color:#ff9b9b}
+    footer{color:rgba(255,255,255,0.6); font-size:.9rem; margin:18px auto}
+    .hidden{display:none !important}
+  </style>
+</head>
+<body>
+
+  <header class="brand">
+    <h1>AVZ PropTech</h1>
+    <div class="subtitle">Acesso por Código → Consulta de Carteira (Polygon)</div>
+  </header>
+
+  <!-- 1) Acesso por Código -->
+  <section id="codeGate" class="container">
+    <div class="label">Insira seu código de acesso</div>
+    <div class="code-row">
+      <input id="accessCode" class="code-input" type="text" placeholder="Ex.: AVZ-7K2J8" autocomplete="one-time-code" />
+      <button class="btn" id="btnValidar">Validar Código</button>
+    </div>
+    <div class="hint">Após validar, a carteira vinculada será carregada automaticamente.</div>
+    <div class="divider"></div>
+    <div class="hint">Exemplo de código válido: <span class="mono">AVZ-7K2J8</span></div>
+    <div id="codeMsg" class="hint"></div>
+  </section>
+
+  <!-- 2) Carteira (liberado após código válido) -->
+  <section id="walletSection" class="container hidden">
+    <div class="inline" style="margin-bottom:10px">
+      <span class="pill">Carteira vinculada: <strong class="mono" id="walletDisplay">—</strong></span>
+      <button class="btn" id="btnCopiar" title="Copiar endereço">Copiar</button>
+    </div>
+
+    <div id="nativeBalance" class="loading">Carregando saldo MATIC...</div>
+    <div class="divider"></div>
+    <div class="label" style="margin-bottom:4px">Tokens ERC‑20</div>
+    <div class="hint tokens-title" style="margin-bottom:10px">Tokens ERC‑20 (0)</div>
+    <div id="tokensList"></div>
+    <div id="tokensMessage" class="hint"></div>
+  </section>
+
+  <!-- 3) Projeção de Valor -->
+  <section id="projection" class="container hidden">
+    <h2 style="font-family:'Playfair Display',serif;background:linear-gradient(135deg,var(--gold),var(--rose-gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px">📊 Projeção de Valor</h2>
+    <p style="color:#ccc; font-size:1rem; margin-bottom:14px;">Valores estimados em várias moedas. Podem variar a qualquer momento.</p>
+    <div id="projectionData" style="color:#fff; font-size:1.05rem;">Carregando projeção de valores...</div>
+  </section>
+
+  <footer>© 2025 AVZ PropTech — Todos os direitos reservados</footer>
+
+<script>
+// ======== CONFIG ========
+const MAPPING = {
+  // Código → carteira Polygon (checksum ou minúsculo)
+  "AVZ-7K2J8": "0x687c95f21a7C297A628Aae7A86b863FcD783d8dC"
+};
+
+// tokens populares/forçados a consultar, mesmo que Polygonscan falhe
+const popularPolygonTokens = [
+  { address:"0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4", symbol:"AVZ", name:"AVZ", decimals:18 },
+  { address:"0x2EfADD20B18E551d97994790D217915e56005b4f", symbol:"AV9", name:"AV9", decimals:18 }
+];
+
+// Polygonscan (opcional). Se tiver sua chave, preencha aqui; senão, seguimos com os tokens populares.
+const POLYGONSCAN_API_KEY = ""; // ex.: "ABC123..."
+
+// ======== ESTADO ========
+let provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
+let currentAddress = "";
+let tokens = [];
+let isLookingUp = false;
+
+// ======== UI HELPERS ========
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
+function fmt(n, dec=6){ const x = Number(n||0); return isFinite(x) ? x.toFixed(dec) : "0.000000"; }
+
+// ======== GATE DO CÓDIGO ========
+const codeInput = document.getElementById("accessCode");
+const codeMsg = document.getElementById("codeMsg");
+document.getElementById("btnValidar").addEventListener("click", async ()=>{
+  const code = (codeInput.value||"").trim();
+  const addr = MAPPING[code];
+  if(!addr){
+    codeMsg.style.color = "#ffb0b0";
+    codeMsg.textContent = "Código inválido. Verifique e tente novamente.";
+    return;
+  }
+  codeMsg.style.color = "#b7f7b7";
+  codeMsg.textContent = "Código válido! Carregando carteira...";
+
+  currentAddress = addr;
+  document.getElementById("walletDisplay").textContent = addr;
+
+  // abre as seções
+  const walletSection = document.getElementById("walletSection");
+  const projection = document.getElementById("projection");
+  show(walletSection);
+  show(projection);
+
+  await lookupWallet(); // carrega saldos
+});
+
+// Copiar endereço
+document.getElementById("btnCopiar").addEventListener("click", async ()=>{
+  try{
+    await navigator.clipboard.writeText(currentAddress||"");
+    alert("Endereço copiado!");
+  }catch(e){
+    alert("Não foi possível copiar.");
+  }
+});
+
+// ======== LÓGICA DA CARTEIRA ========
+function isValidAddress(address){ try{ return ethers.utils.isAddress(address); }catch(e){ return false; } }
+
+async function lookupWallet() {
+  if(isLookingUp) return;
+  if(!currentAddress || !isValidAddress(currentAddress)){
+    alert("Endereço de carteira inválido."); return;
+  }
+  isLookingUp = true;
+  try{
+    await updateWalletInfo();
+    await fetchAllTokensIncludingZero();
+    await fetchProjection();
+  }catch(err){
+    alert("Erro ao consultar carteira: " + (err && err.message ? err.message : err));
+  }finally{
+    isLookingUp = false;
+  }
+}
+
+async function updateWalletInfo(){
+  if(!provider||!currentAddress) return;
+  try{
+    document.getElementById('nativeBalance').textContent='Carregando saldo MATIC...';
+    const balance = await provider.getBalance(currentAddress);
+    const balanceInMatic = ethers.utils.formatEther(balance);
+    document.getElementById('nativeBalance').innerHTML = `<span class="pill">Saldo MATIC: <strong>${fmt(parseFloat(balanceInMatic), 4)}</strong></span>`;
+  }catch(err){
+    document.getElementById('nativeBalance').textContent='Erro ao carregar saldo';
+  }
+}
+
+async function fetchAllTokensIncludingZero(){
+  if(!currentAddress) return;
+  try{
+    document.getElementById('tokensMessage').textContent='Buscando tokens...';
+    let discoveredTokens = new Map();
+
+    if(POLYGONSCAN_API_KEY){
+      try{
+        const url = `https://api.polygonscan.com/api?module=account&action=tokentx&address=${currentAddress}&startblock=0&endblock=999999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`;
+        const response = await fetch(url);
+        if(response.ok){
+          const data = await response.json();
+          if(data.status==='1' && Array.isArray(data.result)){
+            data.result.forEach(tx=>{
+              if(tx.contractAddress && tx.tokenSymbol && tx.tokenName){
+                discoveredTokens.set(tx.contractAddress.toLowerCase(),{
+                  address:tx.contractAddress,
+                  symbol:tx.tokenSymbol,
+                  name:tx.tokenName,
+                  decimals:parseInt(tx.tokenDecimal)||18
+                });
+              }
+            });
+          }
+        }
+      }catch(e){ /* silencioso; seguimos com tokens populares */ }
+    }
+
+    // Garante pelo menos os populares
+    popularPolygonTokens.forEach(token=>{
+      if(!discoveredTokens.has(token.address.toLowerCase())){
+        discoveredTokens.set(token.address.toLowerCase(), token);
+      }
+    });
+
+    const allTokens = Array.from(discoveredTokens.values());
+    tokens = [];
+    for(const token of allTokens){
+      try{
+        const abi = ['function balanceOf(address) view returns (uint256)'];
+        const contract = new ethers.Contract(token.address, abi, provider);
+        const balance = await contract.balanceOf(currentAddress);
+        const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
+        tokens.push({...token, balance, balanceFormatted, balanceNumber:parseFloat(balanceFormatted)});
+      }catch(e){
+        tokens.push({...token, balance:0, balanceFormatted:'0', balanceNumber:0});
+      }
+    }
+
+    // Remove duplicados por símbolo
+    const uniqueTokens = [];
+    const seen = new Set();
+    tokens.forEach(t=>{
+      if(!seen.has(t.symbol)){
+        seen.add(t.symbol);
+        uniqueTokens.push(t);
+      }
+    });
+    tokens = uniqueTokens;
+
+    // Ordena: com saldo > 0 primeiro, depois alfabético
+    tokens.sort((a,b)=>{
+      if(a.balanceNumber>0 && b.balanceNumber===0) return -1;
+      if(a.balanceNumber===0 && b.balanceNumber>0) return 1;
+      return a.symbol.localeCompare(b.symbol);
+    });
+
+    updateTokensList();
+  }catch(err){
+    document.getElementById('tokensMessage').textContent='Erro ao carregar tokens';
+  }
+}
+
+function updateTokensList(){
+  const tokensListDiv = document.getElementById('tokensList');
+  const tokensTitle = document.querySelector('.tokens-title');
+  if(tokens.length===0){
+    tokensListDiv.innerHTML='';
+    tokensTitle.textContent='Tokens ERC‑20 (0)';
+    document.getElementById('tokensMessage').textContent='Nenhum token encontrado para esta carteira.';
+    return;
+  }
+  tokensTitle.textContent=`Tokens ERC‑20 (${tokens.length})`;
+  document.getElementById('tokensMessage').textContent='';
+
+  const html = tokens.map(token=>`
+    <div class="token-item ${token.balanceNumber===0?'zero-balance':''}">
+      <div class="token-info">
+        <div class="token-symbol">${token.symbol}</div>
+        <div class="token-name">${token.name}</div>
+      </div>
+      <div class="token-amount">${fmt(token.balanceFormatted)}</div>
+    </div>
+  `).join("");
+  tokensListDiv.innerHTML = html;
+}
+
+async function fetchProjection(){
+  if(!currentAddress) return;
+  try{
+    // MATIC e base em USDT
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network,tether&vs_currencies=usd,brl,eur,gbp');
+    if(!response.ok) throw new Error('Erro ao buscar preços');
+    const prices = await response.json();
+
+    const matic = prices['matic-network'];
+    const usdt = prices['tether'];
+
+    let projectionHTML='';
+    // MATIC nativo (saldo já mostrado; aqui convertemos para moedas)
+    const balText = document.getElementById('nativeBalance').textContent || '0';
+    const mMatch = balText.match(/([\d.]+)/);
+    const maticAmount = mMatch ? parseFloat(mMatch[1]) : 0;
+    const maticUSD = maticAmount * (matic?.usd || 0);
+
+    const toMultis = (usd)=>{
+      const usdVal = usd || 0;
+      const brlVal = (usdVal * (matic?.brl||0) / (matic?.usd||1));
+      const eurVal = (usdVal * (matic?.eur||0) / (matic?.usd||1));
+      const gbpVal = (usdVal * (matic?.gbp||0) / (matic?.usd||1));
+      return `US$ ${fmt(usdVal,2)} <span style="color:#bbb">| R$ ${fmt(brlVal,2)} | € ${fmt(eurVal,2)} | £ ${fmt(gbpVal,2)}</span>`;
+    };
+
+    projectionHTML+=`
+      <div class="token-item">
+        <div class="token-info"><div class="token-symbol">MATIC</div><div class="token-name">Polygon</div></div>
+        <div class="token-amount">${toMultis(maticUSD)}</div>
+      </div>
+    `;
+
+    // Demais tokens (estimamos em USDT)
+    tokens.filter(t=>t.symbol!=='MATIC').forEach(t=>{
+      const usd = t.balanceNumber * (usdt?.usd || 1);
+      projectionHTML+=`
+        <div class="token-item">
+          <div class="token-info"><div class="token-symbol">${t.symbol}</div><div class="token-name">${t.name}</div></div>
+          <div class="token-amount">${toMultis(usd)}</div>
+        </div>
+      `;
+    });
+
+    document.getElementById('projectionData').innerHTML = projectionHTML;
+  }catch(err){
+    document.getElementById('projectionData').textContent='Não foi possível carregar projeção de valor';
+  }
+}
+
+// atualiza projeção periodicamente
+setInterval(()=>{ if(currentAddress) fetchProjection(); }, 60000);
+
+</script>
+</body>
+</html>
