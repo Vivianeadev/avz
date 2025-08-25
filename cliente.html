@@ -106,57 +106,6 @@
       border-radius: 2px;
     }
 
-    .ticker {
-      width: 100%;
-      max-width: 1000px;
-      margin: 8px auto 24px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(232,180,184,0.25);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    .ticker__viewport {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .ticker__track {
-      display: inline-flex;
-      gap: 28px;
-      white-space: nowrap;
-      padding: 8px 12px;
-      will-change: transform;
-      animation: ticker-scroll 30s linear infinite;
-    }
-
-    @keyframes ticker-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .ticker__item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-    }
-
-    .ticker__sym {
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .ticker__price {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      opacity: 0.9;
-    }
-
     .btn-row {
       display: flex;
       gap: 15px;
@@ -193,49 +142,44 @@
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
     }
-
-    @media (max-width: 640px) {
-      .btn-row { gap: 10px; }
-      .key-btn { min-width: calc(50% - 10px); }
-    }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <a href="file:///C:/Users/usuario/Desktop/sobre">Sobre Nós</a>
-      <a href="file:///C:/Users/usuario/Desktop/investidores">Investidores</a>
-      <a href="file:///C:/Users/usuario/Desktop/testeeeeeee.html#desenvolvedores">Desenvolvedores</a>
-      <a href="file:///C:/Users/usuario/Desktop/Quiz_AVZ">Games</a>
+      <a href="#">Sobre Nós</a>
+      <a href="#">Investidores</a>
+      <a href="#">Desenvolvedores</a>
+      <a href="#">Games</a>
     </nav>
   </header>
 
   <main>
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a href="file:///C:/Users/usuario/Desktop/wallet.html" class="main-btn">Acessar Carteira</a>
+    <a href="#" class="main-btn">Acessar Carteira</a>
 
     <div class="divider"></div>
 
-    <div class="ticker" role="region" aria-label="Cotações cripto">
-      <div class="ticker__viewport" aria-live="polite">
-        <div id="ticker-track" class="ticker__track"></div>
-      </div>
-    </div>
-
     <div class="btn-row">
-      <a href="file:///C:/Users/usuario/Desktop/chaveiro_avz.html" target="_blank" class="key-btn">Chaveiro AVZ</a>
-      <!-- Botão Minha Liquidez abre popup -->
-      <a href="#" class="key-btn" onclick="openPopup()">Minha Liquidez</a>
-      <a href="file:///C:/Users/usuario/Desktop/liquidez.html" class="key-btn">Afiliado</a>
-      <a href="file:///C:/Users/usuario/Desktop/lei.html" class="key-btn">Novos Produtos</a>
+      <!-- Agora Chaveiro AVZ abre popup -->
+      <a href="#" class="key-btn" onclick="openPopup('OchaveiroAVZ.html')">Chaveiro AVZ</a>
+      <a href="#" class="key-btn" onclick="openPopup('2.html')">Minha Liquidez</a>
+      <a href="#" class="key-btn">Afiliado</a>
+      <a href="#" class="key-btn">Novos Produtos</a>
     </div>
     <div class="divider"></div>
     <div class="btn-row">
-      <a href="file:///C:/Users/usuario/Desktop/chaveiro_avz.html" target="_blank" class="key-btn">Privacidade e Regulamento</a>
-      <a href="file:///C:/Users/usuario/Desktop/investidores.html" class="key-btn">Investidores</a>
-      <a href="file:///C:/Users/usuario/Desktop/liquidez.html" class="key-btn">Representantes</a>
-      <a href="file:///C:/Users/usuario/Desktop/lei.html" class="key-btn">A Lei e AVZ</a>
+      <a href="#" class="key-btn">Privacidade e Regulamento</a>
+      <a href="#" class="key-btn">Investidores</a>
+      <a href="#" class="key-btn">Representantes</a>
+      <a href="#" class="key-btn">A Lei e AVZ</a>
+    </div>
+
+    <!-- Botão de Retornar ao Home -->
+    <div class="divider"></div>
+    <div class="btn-row">
+      <a href="cliente.html" class="key-btn">🏠 Retornar ao Home</a>
     </div>
   </main>
 
@@ -243,7 +187,7 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <!-- Modal (popup) -->
+  <!-- Modal genérico -->
   <div id="popupModal" style="
     display:none; 
     position:fixed; 
@@ -263,7 +207,6 @@
       height:90%; 
       position:relative;">
       
-      <!-- Botão de fechar -->
       <button onclick="closePopup()" style="
         position:absolute; 
         top:10px; 
@@ -276,119 +219,18 @@
         border-radius:6px; 
         cursor:pointer;">X</button>
       
-      <!-- Conteúdo da 2.html -->
-      <iframe src="2.html" style="width:100%; height:100%; border:none;"></iframe>
+      <iframe id="popupFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
     </div>
   </div>
 
   <script>
-    const COINGECKO_IDS = {
-      BTC: 'bitcoin',
-      ETH: 'ethereum',
-      DOGE: 'dogecoin',
-      ADA: 'cardano',
-      MATIC: 'matic-network',
-      USDT: 'tether'
-    };
-
-    const TOKENS_BY_ADDRESS = [
-      { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
-      { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
-    ];
-
-    const track = document.getElementById('ticker-track');
-
-    function formatPriceUSD(value) {
-      if (value == null || isNaN(value)) return '—';
-      const n = Number(value);
-      if (n < 1) {
-        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 8 });
-      }
-      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function renderTicker(items) {
-      const makeRow = (arr) => arr.map(({ sym, price }) => `
-        <span class="ticker__item">
-          <span class="ticker__sym">${sym}</span>
-          <span class="ticker__price">${formatPriceUSD(price)}</span>
-        </span>
-      `).join('');
-      const row = makeRow(items);
-      track.innerHTML = row + row;
-    }
-
-    async function fetchCoinGecko() {
-      const ids = Object.values(COINGECKO_IDS).join(',');
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('CoinGecko error');
-        const data = await res.json();
-        return Object.entries(COINGECKO_IDS).map(([sym, id]) => ({
-          sym,
-          price: data?.[id]?.usd ?? null
-        }));
-      } catch (e) {
-        console.error(e);
-        return Object.keys(COINGECKO_IDS).map(sym => ({ sym, price: null }));
-      }
-    }
-
-    async function fetchDexPrice(addr) {
-      try {
-        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${addr}`);
-        if (!res.ok) throw new Error('Dexscreener error');
-        const data = await res.json();
-        const pair = (data && data.pairs && data.pairs[0]) || null;
-        return pair ? Number(pair.priceUsd) : null;
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }
-
-    async function fetchAVZ_AV9() {
-      const results = [];
-      for (const t of TOKENS_BY_ADDRESS) {
-        const p = await fetchDexPrice(t.address);
-        results.push({ sym: t.sym, price: p });
-      }
-      return results;
-    }
-
-    async function refreshTicker() {
-      const [cg, custom] = await Promise.all([
-        fetchCoinGecko(),
-        fetchAVZ_AV9()
-      ]);
-
-      const map = new Map();
-      [...cg, ...custom].forEach(it => map.set(it.sym, it.price));
-
-      const ordered = [
-        { sym: 'BTC',  price: map.get('BTC')  },
-        { sym: 'AVZ',  price: map.get('AVZ')  },
-        { sym: 'AV9',  price: map.get('AV9')  },
-        { sym: 'ETH',  price: map.get('ETH')  },
-        { sym: 'DOGE', price: map.get('DOGE') },
-        { sym: 'ADA',  price: map.get('ADA')  },
-        { sym: 'MATIC',price: map.get('MATIC')},
-        { sym: 'USDT', price: map.get('USDT') }
-      ];
-
-      renderTicker(ordered);
-    }
-
-    refreshTicker();
-    setInterval(refreshTicker, 60000);
-
-    // Controle do popup
-    function openPopup(){
+    function openPopup(page){
+      document.getElementById('popupFrame').src = page;
       document.getElementById('popupModal').style.display = 'flex';
     }
     function closePopup(){
       document.getElementById('popupModal').style.display = 'none';
+      document.getElementById('popupFrame').src = "";
     }
   </script>
 </body>
