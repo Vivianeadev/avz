@@ -38,6 +38,8 @@
       display: flex;
       justify-content: center;
       padding: 10px 0;
+      flex-direction: column;
+      align-items: center;
     }
 
     nav {
@@ -46,6 +48,7 @@
       border-radius: 30px;
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      margin-top: 10px;
     }
 
     nav a {
@@ -60,6 +63,17 @@
     nav a:hover {
       color: var(--gold);
       text-shadow: 0 0 8px rgba(212,175,55,0.5);
+    }
+
+    /* 🎯 Ticker de cotações */
+    #ticker-container {
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      padding: 10px;
+      border-bottom: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 1.1rem;
     }
 
     h1 {
@@ -136,7 +150,7 @@
       box-shadow: 0 12px 28px rgba(212,175,55,0.6);
     }
 
-    /* 🌹 Sombra rose discreta para os botões de baixo */
+    /* 🌹 sombra rose discreta só para botões de baixo */
     .key-btn.rose-shadow {
       box-shadow: 0 6px 16px rgba(232,180,184,0.25);
     }
@@ -155,6 +169,13 @@
 </head>
 <body>
   <header>
+    <!-- 🎯 Ticker de Cotações -->
+    <div id="ticker-container">
+      <marquee behavior="scroll" direction="left" scrollamount="6" id="ticker">
+        Carregando cotações...
+      </marquee>
+    </div>
+
     <nav>
       <a href="#">Sobre Nós</a>
       <a href="#">Investidores</a>
@@ -171,7 +192,6 @@
     <div class="divider"></div>
 
     <div class="btn-row">
-      <!-- Agora Chaveiro AVZ abre popup -->
       <a href="#" class="key-btn" onclick="openPopup('OchaveiroAVZ.html')">Chaveiro AVZ</a>
       <a href="#" class="key-btn" onclick="openPopup('2.html')">Minha Liquidez</a>
       <a href="#" class="key-btn">Afiliado</a>
@@ -185,10 +205,9 @@
       <a href="#" class="key-btn rose-shadow">A Lei e AVZ</a>
     </div>
 
-    <!-- Botão de Retornar ao Home -->
     <div class="divider"></div>
     <div class="btn-row">
-      <a href="cliente.html" class="key-btn rose-shadow">Retornar ao Home</a>
+      <a href="cliente.html" class="key-btn rose-shadow">🏠 Retornar ao Home</a>
     </div>
   </main>
 
@@ -231,94 +250,6 @@
       <iframe id="popupFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
     </div>
   </div>
-   <div class="divider"></div>
-
-    <!-- ====== TICKER ====== -->
-    <div class="ticker" role="region" aria-label="Cotações cripto">
-      <div class="ticker__viewport" aria-live="polite">
-        <div id="ticker-track" class="ticker__track">
-        <span class="ticker__item">
-          <span class="ticker__sym">BTC</span>
-          <span class="ticker__price">$113,407.00</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">AVZ</span>
-          <span class="ticker__price">$0.04</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">AV9</span>
-          <span class="ticker__price">$0.006</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">ETH</span>
-          <span class="ticker__price">$4,788.24</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">DOGE</span>
-          <span class="ticker__price">$0.232499</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">ADA</span>
-          <span class="ticker__price">$0.913173</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">MATIC</span>
-          <span class="ticker__price">$0.253326</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">USDT</span>
-          <span class="ticker__price">$0.999912</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">BTC</span>
-          <span class="ticker__price">$113,407.00</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">AVZ</span>
-          <span class="ticker__price">$0.0400</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">AV9</span>
-          <span class="ticker__price">$0.060</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">ETH</span>
-          <span class="ticker__price">$4,788.24</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">DOGE</span>
-          <span class="ticker__price">$0.232499</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">ADA</span>
-          <span class="ticker__price">$0.913173</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">MATIC</span>
-          <span class="ticker__price">$0.253326</span>
-        </span>
-      
-        <span class="ticker__item">
-          <span class="ticker__sym">USDT</span>
-          <span class="ticker__price">$0.999912</span>
-        </span>
-      </div>
-      </div>
-    </div>
 
   <script>
     function openPopup(page){
@@ -329,6 +260,29 @@
       document.getElementById('popupModal').style.display = 'none';
       document.getElementById('popupFrame').src = "";
     }
+
+    // 🎯 Simulação de cotações
+    const ativos = [
+      {nome: "BTC/USDT", preco: 67890},
+      {nome: "ETH/USDT", preco: 3450},
+      {nome: "AVZ11", preco: 112.35},
+      {nome: "IBOV", preco: 129800}
+    ];
+
+    function atualizarTicker() {
+      const ticker = document.getElementById("ticker");
+      const texto = ativos.map(a => `${a.nome}: ${a.preco}`).join(" │ ");
+      ticker.innerHTML = texto;
+
+      // varia levemente
+      ativos.forEach(a => {
+        let variacao = (Math.random() - 0.5) * 2; // +/- 1%
+        a.preco = (a.preco * (1 + variacao/100)).toFixed(2);
+      });
+    }
+
+    setInterval(atualizarTicker, 4000); // Atualiza a cada 4s
+    atualizarTicker();
   </script>
 </body>
 </html>
