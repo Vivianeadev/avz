@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVZ PropTech — Liquidez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --card: #111827;
+      --accent: #d4af37;
+      --text: #e6eef8;
+      --muted: #94a3b8;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(180deg, #0a0f1c, #111827);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      text-align: center;
+      padding: 32px 16px 20px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin: 0;
+      background: linear-gradient(135deg, var(--accent), #f5deb3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      gap: 20px;
+    }
+    section {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    label { display: block; margin-top: 10px; font-weight: 600; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+    button {
+      margin-top: 16px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #f5deb3);
+      color: #111;
+    }
+    button:hover { opacity: 0.9; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+    th { color: var(--accent); }
+    .result {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      font-weight: 600;
+      text-align: center;
+    }
+    canvas {
+      width: 100% !important;
+      max-height: 320px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    @media (max-width: 720px) {
+      header h1 { font-size: 1.5rem; }
+      main { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AVZ PropTech — Liquidez</h1>
+    <p>Simulador de indicadores financeiros e análise de liquidez</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Cadastro de Valores</h2>
+      <label for="ativo">Ativo Circulante (R$)</label>
+      <input type="number" id="ativo" placeholder="Ex: 50000">
+      
+      <label for="passivo">Passivo Circulante (R$)</label>
+      <input type="number" id="passivo" placeholder="Ex: 30000">
+      
+      <button onclick="calcular()">Calcular Liquidez</button>
+      <div class="result" id="resultado">Preencha os valores para calcular.</div>
+    </section>
+
+    <section>
+      <h2>Histórico de Simulações</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ativo</th>
+            <th>Passivo</th>
+            <th>Índice</th>
+          </tr>
+        </thead>
+        <tbody id="historico"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Gráfico</h2>
+      <canvas id="grafico"></canvas>
+    </section>
+  </main>
+
+  <footer>© 2025 AVZ PropTech — Análise de Liquidez</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const historico = [];
+    const ctx = document.getElementById('grafico').getContext('2d');
+    const grafico = new Chart(ctx, {
+      type: 'line',
+      data: { labels: [], datasets: [{label:'Liquidez Corrente', data:[], borderColor:'#d4af37', backgroundColor:'rgba(212,175,55,0.2)', fill:true}] },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+
+    function calcular() {
+      const ativo = parseFloat(document.getElementById('ativo').value);
+      const passivo = parseFloat(document.getElementById('passivo').value);
+      const res = document.getElementById('resultado');
+      if (isNaN(ativo) || isNaN(passivo) || passivo === 0) {
+        res.textContent = "Preencha os campos corretamente.";
+        return;
+      }
+      const indice = (ativo / passivo).toFixed(2);
+      res.textContent = `Índice de Liquidez Corrente: ${indice}`;
+      
+      historico.push({ativo, passivo, indice});
+      atualizarHistorico();
+      atualizarGrafico();
+    }
+
+    function atualizarHistorico() {
+      const tbody = document.getElementById('historico');
+      tbody.innerHTML = "";
+      historico.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>R$ ${item.ativo.toLocaleString()}</td>
+                        <td>R$ ${item.passivo.toLocaleString()}</td>
+                        <td>${item.indice}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function atualizarGrafico() {
+      grafico.data.labels = historico.map((_, i) => `Simulação ${i+1}`);
+      grafico.data.datasets[0].data = historico.map(h => h.indice);
+      grafico.update();
+    }
+  </script>
+</body>
+</html>
