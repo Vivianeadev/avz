@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AVZ PropTech - Início</title>
-  <link href="./1_files/css2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,17 +14,15 @@
       --gold: #d4af37;
       --light-gold: #f4e4bc;
       --rose-gold: #e8b4b8;
-      --dark-rose: #c49497;
       --white: #ffffff;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black ) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
       color: var(--white);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       min-height: 100vh;
       text-align: center;
@@ -31,55 +30,36 @@
     }
 
     header {
-      position: absolute;
-      top: 20px;
-      left: 0;
       width: 100%;
+      padding: 15px 0;
       display: flex;
       justify-content: center;
-      padding: 10px 0;
-      flex-direction: column;
-      align-items: center;
+      background: rgba(0,0,0,0.6);
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
 
     nav {
-      background: rgba(0,0,0,0.7);
-      padding: 12px 24px;
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-      margin-top: 10px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     nav a {
       color: var(--white);
       text-decoration: none;
-      margin: 0 12px;
       font-weight: 500;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      transition: 0.3s;
     }
 
-    nav a:hover {
-      color: var(--gold);
-      text-shadow: 0 0 8px rgba(212,175,55,0.5);
-    }
-
-    #ticker-container {
-      width: 100%;
-      background: rgba(0,0,0,0.6);
-      padding: 10px;
-      border-bottom: 1px solid var(--gold);
-      color: var(--gold);
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
+    nav a:hover { color: var(--gold); }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 20px;
-      margin-top: 140px;
+      font-size: 2.5rem;
+      margin: 20px 0;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -88,128 +68,199 @@
     p.subtitle {
       font-size: 1.2rem;
       color: rgba(255,255,255,0.8);
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .main-btn {
       display: inline-block;
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
       color: var(--black);
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      padding: 18px 40px;
+      padding: 15px 35px;
       border-radius: 50px;
       text-decoration: none;
-      box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
-      transition: all 0.3s ease;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      transition: 0.3s;
+      cursor: pointer;
     }
 
     .main-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(212,175,55,0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(212,175,55,0.5);
     }
 
     .divider {
-      width: 100%;
-      max-width: 500px;
+      width: 80%;
       height: 2px;
-      margin: 30px auto;
+      margin: 20px auto;
       background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
-      box-shadow: 0 2px 10px rgba(232,180,184,0.5), 0 -2px 10px rgba(212,175,55,0.5);
       border-radius: 2px;
     }
+
+    .ticker {
+      width: 100%;
+      max-width: 1000px;
+      margin: 10px auto 30px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(232,180,184,0.25);
+      overflow: hidden;
+    }
+
+    .ticker__track {
+      display: inline-flex;
+      gap: 28px;
+      white-space: nowrap;
+      animation: ticker-scroll 30s linear infinite;
+    }
+
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker__item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+    .ticker__sym { font-weight: 700; background: linear-gradient(135deg, var(--gold), var(--rose-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .btn-row {
       display: flex;
       gap: 15px;
       justify-content: center;
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
       flex-wrap: wrap;
+      margin: 0 auto 40px;
+      width: 100%;
+      max-width: 900px;
     }
 
     .key-btn {
       flex: 1;
       min-width: 200px;
-      padding: 16px 20px;
+      padding: 14px 20px;
       background: linear-gradient(135deg, var(--rose-gold), var(--gold));
       color: var(--black);
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       text-align: center;
       text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
-      cursor: pointer;
+      border-radius: 10px;
+      transition: 0.3s;
     }
 
     .key-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(212,175,55,0.6);
-    }
-
-    .key-btn.rose-shadow {
-      box-shadow: 0 6px 16px rgba(232,180,184,0.25);
-    }
-
-    .key-btn.rose-shadow:hover {
-      box-shadow: 0 10px 22px rgba(232,180,184,0.35);
-    }
-
-    main {
-      padding-bottom: 70px;
+      box-shadow: 0 8px 20px rgba(212,175,55,0.6);
     }
 
     footer {
-      position: absolute;
-      bottom: -15px;
-      font-size: 0.9rem;
+      margin-top: auto;
+      padding: 15px 0;
+      font-size: 0.85rem;
       color: rgba(255,255,255,0.6);
+      text-align: center;
+    }
+
+    /* === MODAL POP-UP === */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .modal-overlay.visible { display: flex; opacity: 1; }
+    .modal-content {
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.4s ease;
+    }
+    .modal-overlay.visible .modal-content { transform: scale(1); }
+    .modal-close-btn {
+      position: absolute; top: 15px; right: 15px;
+      background: none; border: none;
+      color: #fff; font-size: 2rem;
+      cursor: pointer; line-height: 1;
+    }
+    .access-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .options-container { margin-bottom: 30px; }
+    .options-title { font-size: 1.2rem; margin-bottom: 20px; text-align: center; color: rgba(255,255,255,0.9); }
+    .option-item { background: rgba(255,255,255,0.05); border: 2px solid rgba(232,180,184,0.2); border-radius: 12px; padding: 15px 20px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; font-weight: 500; }
+    .option-item:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+    .option-item.selected { border-color: var(--gold); background: rgba(212,175,55,0.15); box-shadow: 0 0 15px rgba(212,175,55,0.3); }
+    .option-radio { width: 20px; height: 20px; border: 2px solid var(--gold); border-radius: 50%; margin-right: 15px; position: relative; transition: all 0.3s ease; }
+    .option-item.selected .option-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: var(--gold); border-radius: 50%; }
+    .login-container { background: rgba(255,255,255,0.05); border: 1px solid rgba(232,180,184,0.3); border-radius: 20px; padding: 35px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+    .login-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 25px; text-align: center; background: linear-gradient(135deg, var(--gold), var(--rose-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .input-group { margin-bottom: 20px; }
+    .input-label { display: block; font-size: 0.95rem; margin-bottom: 8px; color: rgba(255,255,255,0.9); font-weight: 500; }
+    .input-field { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.4); background: rgba(0,0,0,0.7); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease; }
+    .input-field:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
+    .submit-btn { width: 100%; padding: 15px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1rem; background: linear-gradient(135deg, var(--gold), var(--light-gold)); color: var(--black); box-shadow: 0 8px 20px rgba(232,180,184,0.35); transition: all 0.3s ease; margin-top: 10px; }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(232,180,184,0.55); }
+    .forgot-link { display: block; margin-top: 15px; text-align: center; color: var(--rose-gold); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+    .forgot-link:hover { color: var(--gold); }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p.subtitle { font-size: 1rem; }
+      .main-btn { font-size: 1rem; padding: 12px 25px; }
+      nav { flex-direction: column; gap: 10px; }
+      .btn-row { flex-direction: column; gap: 12px; }
+      .key-btn { min-width: 100%; }
+      .access-title { font-size: 1.8rem; }
+      .login-container { padding: 25px; }
+      .modal-content { padding: 15px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div id="ticker-container">
-      <marquee behavior="scroll" direction="left" scrollamount="6" id="ticker">
-        Carregando cotações...
-      </marquee>
-    </div>
-
     <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Minha empresa</a>
-      <a href="#">Doações</a>
-      <a href="#">AVZ Verde</a>
+      <a href="#">Sobre Nós</a>
+      <a href="#">Investidores</a>
+      <a href="#">Desenvolvedores</a>
+      <a href="#">Games</a>
     </nav>
   </header>
 
   <main>
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a href="#" class="main-btn">Meus produtos</a>
+    <a id="openModalBtn" class="main-btn">Acessar Carteira</a>
 
     <div class="divider"></div>
 
-    <div class="btn-row">
-      <a class="key-btn" onclick="openPopup('carteiracodigo.html')">Chaveiro AVZ</a>
-      <a class="key-btn" onclick="openPopup('LIQUIDEZ.html')">Minha Liquidez</a>
-      <a href="#" class="key-btn">Afiliado</a>
-      <a href="#" class="key-btn">Novos Produtos</a>
-    </div>
-    <div class="divider"></div>
-    <div class="btn-row">
-      <a href="#" class="key-btn rose-shadow">Privacidade e Regulamento</a>
-      <a href="#" class="key-btn rose-shadow">Investidores</a>
-      <a href="#" class="key-btn rose-shadow">Representantes</a>
-      <a href="#" class="key-btn rose-shadow">A Lei e AVZ</a>
+    <div class="ticker">
+      <div class="ticker__track" id="ticker-track"></div>
     </div>
 
-    <div class="divider"></div>
     <div class="btn-row">
+      <a href="#" class="key-btn">Privacidade e Regulamento AVZ</a>
+      <a href="#" class="key-btn">Minha rentabilidade</a>
+      <a href="#" class="key-btn">Lojistas</a>
+      <a href="#" class="key-btn">Parceiros AVZ</a>
     </div>
   </main>
 
@@ -217,43 +268,91 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <div id="popupModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
-    <div style="background:#fff; border-radius:12px; overflow:hidden; width:90%; max-width:900px; height:90%; position:relative;">
-      <button onclick="closePopup()" style="position:absolute; top:10px; right:10px; background:#d4af37; border:none; color:#000; font-weight:bold; padding:6px 12px; border-radius:6px; cursor:pointer;">X</button>
-      <iframe id="popupFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+  <!-- === MODAL === -->
+  <div id="accessModal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="closeModalBtn" class="modal-close-btn">&times;</button>
+      
+      <h1 class="access-title">Áreas de Acesso Restrito</h1>
+      <div class="options-container">
+        <h3 class="options-title">Selecione uma área de acesso:</h3>
+        <div class="option-item" onclick="selecionarOpcao('wallet', this)"><div class="option-radio"></div><span>Minha Wallet</span></div>
+        <div class="option-item" onclick="selecionarOpcao('investimentos', this)"><div class="option-radio"></div><span>Meus Investimentos</span></div>
+        <div class="option-item" onclick="selecionarOpcao('pj', this)"><div class="option-radio"></div><span>Pessoa Jurídica</span></div>
+      </div>
+
+      <div class="login-container">
+        <h3 class="login-title" id="loginTitle">Acesso Restrito</h3>
+        <div class="input-group">
+          <label class="input-label">E-mail</label>
+          <input type="email" class="input-field" id="emailLogin" placeholder="exemplo@email.com">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Senha</label>
+          <input type="password" class="input-field" id="senhaLogin" placeholder="•••••••••">
+        </div>
+        <button class="submit-btn" onclick="fazerLogin()">Entrar</button>
+        <a href="#" class="forgot-link" onclick="esqueceuSenha()">Esqueci minha senha</a>
+      </div>
     </div>
   </div>
 
   <script>
-    function openPopup(page){
-      document.getElementById('popupFrame').src = page;
-      document.getElementById('popupModal').style.display = 'flex';
+    // === Ticker ===
+    const COINS = { BTC: 'bitcoin', ETH: 'ethereum', DOGE: 'dogecoin', ADA: 'cardano', MATIC: 'matic-network', USDT: 'tether' };
+    const TOKENS = [ { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' }, { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' } ];
+    const track = document.getElementById('ticker-track');
+
+    function formatPrice(v) { return !v ? '—' : v < 1 ? `$${v.toFixed(4)}` : `$${v.toFixed(2)}`; }
+    function render(data) {
+      track.innerHTML = data.map(d => `<span class="ticker__item"><span class="ticker__sym">${d.sym}</span><span class="ticker__price">${formatPrice(d.price)}</span></span>`).join('') + track.innerHTML;
     }
-    function closePopup(){
-      document.getElementById('popupModal').style.display = 'none';
-      document.getElementById('popupFrame').src = "";
+    async function fetchData() {
+      try {
+        const ids = Object.values(COINS).join(',');
+        const cg = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`).then(r=>r.json());
+        const cgPrices = Object.entries(COINS).map(([sym,id]) => ({ sym, price: cg[id]?.usd || null }));
+        const custom = [];
+        for (let t of TOKENS) {
+          try {
+            const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${t.address}`).then(r=>r.json());
+            custom.push({ sym: t.sym, price: parseFloat(res?.pairs?.[0]?.priceUsd) || null });
+          } catch { custom.push({ sym: t.sym, price: null }); }
+        }
+        render([...cgPrices, ...custom]);
+      } catch(e) { console.error(e); }
+    }
+    fetchData(); setInterval(fetchData, 60000);
+
+    // === Modal ===
+    const modal = document.getElementById('accessModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    let areaEscolhida = "";
+
+    openBtn.onclick = () => modal.classList.add('visible');
+    closeBtn.onclick = () => modal.classList.remove('visible');
+    window.onclick = (event) => { if (event.target == modal) modal.classList.remove('visible'); };
+
+    function selecionarOpcao(area, elemento) {
+      document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+      elemento.classList.add('selected');
+      areaEscolhida = area;
+      const titulos = { 'wallet': 'Acesso à Minha Wallet', 'investimentos': 'Acesso aos Meus Investimentos', 'pj': 'Acesso Pessoa Jurídica' };
+      document.getElementById('loginTitle').textContent = titulos[area] || 'Acesso Restrito';
     }
 
-    const ativos = [
-      {nome: "BTC/USDT", preco: 67890},
-      {nome: "ETH/USDT", preco: 3450},
-      {nome: "AVZ11", preco: 112.35},
-      {nome: "IBOV", preco: 129800}
-    ];
-
-    function atualizarTicker() {
-      const ticker = document.getElementById("ticker");
-      const texto = ativos.map(a => `${a.nome}: ${a.preco}`).join(" │ ");
-      ticker.innerHTML = texto;
-
-      ativos.forEach(a => {
-        let variacao = (Math.random() - 0.5) * 2;
-        a.preco = (a.preco * (1 + variacao/100)).toFixed(2);
-      });
+    function fazerLogin() {
+      if (!areaEscolhida) { alert('Por favor, selecione uma área de acesso primeiro.'); return; }
+      const email = document.getElementById('emailLogin').value.trim();
+      const senha = document.getElementById('senhaLogin').value;
+      if (!email || !senha) { alert('Por favor, preencha e-mail e senha.'); return; }
+      alert(`Login para a área "${areaEscolhida}" enviado para validação.`);
     }
 
-    setInterval(atualizarTicker, 4000);
-    atualizarTicker();
+    function esqueceuSenha() {
+      alert('A funcionalidade "Esqueci minha senha" deve ser implementada.');
+    }
   </script>
 </body>
 </html>
