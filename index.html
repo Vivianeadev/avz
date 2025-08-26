@@ -2,24 +2,23 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AVZ PropTech - Início</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --black: #0a0a0a;
-      --dark-black: #000000;
       --gold: #d4af37;
       --light-gold: #f4e4bc;
       --rose-gold: #e8b4b8;
-      --dark-rose: #c49497;
       --white: #ffffff;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
       color: var(--white);
       display: flex;
       flex-direction: column;
@@ -27,58 +26,48 @@
       min-height: 100vh;
       text-align: center;
       padding: 20px;
-      transition: all 0.4s ease;
     }
 
     header {
       width: 100%;
+      padding: 15px 0;
       display: flex;
       justify-content: center;
-      padding: 15px 0;
+      background: rgba(0,0,0,0.6);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 999;
     }
 
     nav {
-      background: rgba(0,0,0,0.7);
-      padding: 12px 24px;
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     nav a {
       color: var(--white);
       text-decoration: none;
-      margin: 0 12px;
       font-weight: 500;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      transition: 0.3s;
     }
 
     nav a:hover {
       color: var(--gold);
-      text-shadow: 0 0 8px rgba(212,175,55,0.5);
-    }
-
-    main {
-      width: 100%;
-      margin: 0 auto;
-      transition: max-width 0.4s ease;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      margin: 40px 0 20px;
+      font-size: 2.5rem;
+      margin: 20px 0;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: font-size 0.4s ease;
     }
 
     p.subtitle {
-      font-size: 1rem;
+      font-size: 1.2rem;
       color: rgba(255,255,255,0.8);
       margin-bottom: 30px;
     }
@@ -87,45 +76,35 @@
       display: inline-block;
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
       color: var(--black);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      padding: 14px 28px;
+      padding: 15px 35px;
       border-radius: 50px;
       text-decoration: none;
-      box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
-      transition: all 0.3s ease;
       margin-bottom: 30px;
+      transition: 0.3s;
     }
 
     .main-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(212,175,55,0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(212,175,55,0.5);
     }
 
     .divider {
-      width: 90%;
-      max-width: 500px;
+      width: 80%;
       height: 2px;
-      margin: 20px auto 30px;
+      margin: 20px auto;
       background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
-      box-shadow: 0 2px 10px rgba(232,180,184,0.5), 0 -2px 10px rgba(212,175,55,0.5);
       border-radius: 2px;
     }
 
     .ticker {
       width: 100%;
-      max-width: 100%;
-      margin: 8px auto 24px;
+      max-width: 1000px;
+      margin: 10px auto 30px;
       border-radius: 10px;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(232,180,184,0.25);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    .ticker__viewport {
-      position: relative;
-      width: 100%;
       overflow: hidden;
     }
 
@@ -133,8 +112,6 @@
       display: inline-flex;
       gap: 28px;
       white-space: nowrap;
-      padding: 8px 12px;
-      will-change: transform;
       animation: ticker-scroll 30s linear infinite;
     }
 
@@ -147,8 +124,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
+      font-size: 0.9rem;
     }
 
     .ticker__sym {
@@ -158,107 +134,80 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .ticker__price {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      opacity: 0.9;
-    }
-
     .btn-row {
       display: flex;
-      flex-wrap: wrap;
+      gap: 15px;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 15px;
+      flex-wrap: wrap;
+      margin: 0 auto 40px;
+      width: 100%;
+      max-width: 900px;
     }
 
     .key-btn {
       flex: 1;
-      min-width: 140px;
-      max-width: 45%;
-      padding: 14px 16px;
+      min-width: 200px;
+      padding: 14px 20px;
       background: linear-gradient(135deg, var(--rose-gold), var(--gold));
       color: var(--black);
       font-size: 1rem;
       font-weight: bold;
       text-align: center;
       text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      transition: 0.3s;
     }
 
     .key-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(212,175,55,0.6);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.6);
     }
 
     footer {
-      position: relative;
-      margin-top: 40px;
-      font-size: 0.8rem;
+      margin-top: auto;
+      padding: 15px 0;
+      font-size: 0.85rem;
       color: rgba(255,255,255,0.6);
       text-align: center;
     }
 
-    /* --- MODOS MANUAIS --- */
-    body.desktop main { max-width: 900px; }
-    body.desktop h1 { font-size: 3rem; }
-    body.android main { max-width: 400px; }
-    body.android h1 { font-size: 1.6rem; }
-
-    /* Botão para alternar */
-    .switch-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 8px 16px;
-      background: var(--gold);
-      color: var(--black);
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      border: none;
-      z-index: 100;
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p.subtitle { font-size: 1rem; }
+      .main-btn { font-size: 1rem; padding: 12px 25px; }
+      nav { flex-direction: column; gap: 10px; }
+      .btn-row { flex-direction: column; gap: 12px; }
+      .key-btn { min-width: 100%; }
     }
   </style>
 </head>
-<body class="desktop">
+<body>
   <header>
     <nav>
       <a href="sobre.html">Sobre Nós</a>
-      <a href="investidores.html">Institucional</a>
-      <a href="#desenvolvedores">Filantropia</a>
-      <a href="Quiz_AVZ">Sustentabilidade</a>
+      <a href="investidores.html">Investidores</a>
+      <a href="devs.html">Desenvolvedores</a>
+      <a href="games.html">Games</a>
     </nav>
   </header>
-
-  <!-- Botão de alternância -->
-  <button class="switch-btn" onclick="toggleMode()">Alternar</button>
 
   <main>
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a href="cliente.html" class="main-btn">Acessar Carteira</a>
+    <a href="wallet.html" class="main-btn">Acessar Carteira</a>
 
     <div class="divider"></div>
 
-    <!-- ====== TICKER ====== -->
-    <div class="ticker" role="region" aria-label="Cotações cripto">
-      <div class="ticker__viewport" aria-live="polite">
-        <div id="ticker-track" class="ticker__track"></div>
-      </div>
+    <div class="ticker">
+      <div class="ticker__track" id="ticker-track"></div>
     </div>
 
-    <!-- ====== BOTÕES EM DUAS LINHAS ====== -->
     <div class="btn-row">
-      <a href="#" target="_blank" class="key-btn">Produtos</a>
-      <a href="liquidez.html" class="key-btn">Serviços</a>
-    </div>
-    <div class="btn-row">
-      <a href="investidores.html" class="key-btn">Afiliados</a>
-      <a href="lei.html" class="key-btn">Parceiros</a>
+      <a href="privacidade.html" class="key-btn">Privacidade e Regulamento AVZ</a>
+      <a href="rentabilidade.html" class="key-btn">Minha rentabilidade</a>
+      <a href="lojistas.html" class="key-btn">Lojistas</a>
+      <a href="parceiros.html" class="key-btn">Parceiros AVZ</a>
     </div>
   </main>
 
@@ -266,20 +215,8 @@
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <!-- ====== Scripts ====== -->
   <script>
-    function toggleMode() {
-      const body = document.body;
-      if (body.classList.contains("desktop")) {
-        body.classList.remove("desktop");
-        body.classList.add("android");
-      } else {
-        body.classList.remove("android");
-        body.classList.add("desktop");
-      }
-    }
-
-    const COINGECKO_IDS = {
+    const COINS = {
       BTC: 'bitcoin',
       ETH: 'ethereum',
       DOGE: 'dogecoin',
@@ -288,77 +225,48 @@
       USDT: 'tether'
     };
 
+    const TOKENS = [
+      { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
+      { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
+    ];
+
     const track = document.getElementById('ticker-track');
 
-    function formatPriceUSD(value) {
-      if (value == null || isNaN(value)) return '—';
-      const n = Number(value);
-      if (n < 1) {
-        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 8 });
-      }
-      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    function formatPrice(v) {
+      if (!v) return '—';
+      return v < 1 ? `$${v.toFixed(4)}` : `$${v.toFixed(2)}`;
     }
 
-    function renderTicker(items) {
-      const makeRow = (arr) => arr.map(({ sym, price }) => `
+    function render(data) {
+      track.innerHTML = data.map(d => `
         <span class="ticker__item">
-          <span class="ticker__sym">${sym}</span>
-          <span class="ticker__price">${formatPriceUSD(price)}</span>
+          <span class="ticker__sym">${d.sym}</span>
+          <span class="ticker__price">${formatPrice(d.price)}</span>
         </span>
-      `).join('');
-      const row = makeRow(items);
-      track.innerHTML = row + row;
+      `).join('') + track.innerHTML;
     }
 
-    async function fetchCoinGecko() {
-      const ids = Object.values(COINGECKO_IDS).join(',');
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+    async function fetchData() {
       try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('CoinGecko error');
-        const data = await res.json();
-        return Object.entries(COINGECKO_IDS).map(([sym, id]) => ({
-          sym,
-          price: data?.[id]?.usd ?? null
-        }));
-      } catch (e) {
-        console.error(e);
-        return Object.keys(COINGECKO_IDS).map(sym => ({ sym, price: null }));
-      }
+        const ids = Object.values(COINS).join(',');
+        const cg = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`).then(r=>r.json());
+
+        const cgPrices = Object.entries(COINS).map(([sym,id]) => ({ sym, price: cg[id]?.usd || null }));
+
+        const custom = [];
+        for (let t of TOKENS) {
+          try {
+            const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${t.address}`).then(r=>r.json());
+            custom.push({ sym: t.sym, price: parseFloat(res?.pairs?.[0]?.priceUsd) || null });
+          } catch { custom.push({ sym: t.sym, price: null }); }
+        }
+
+        render([...cgPrices, ...custom]);
+      } catch(e) { console.error(e); }
     }
 
-    async function fetchAVZ_AV9() {
-      return [
-        { sym: 'AVZ', price: 0.04 },
-        { sym: 'AV9', price: 0.006 }
-      ];
-    }
-
-    async function refreshTicker() {
-      const [cg, custom] = await Promise.all([
-        fetchCoinGecko(),
-        fetchAVZ_AV9()
-      ]);
-
-      const map = new Map();
-      [...cg, ...custom].forEach(it => map.set(it.sym, it.price));
-
-      const ordered = [
-        { sym: 'BTC',  price: map.get('BTC')  },
-        { sym: 'AVZ',  price: map.get('AVZ')  },
-        { sym: 'AV9',  price: map.get('AV9')  },
-        { sym: 'ETH',  price: map.get('ETH')  },
-        { sym: 'DOGE', price: map.get('DOGE') },
-        { sym: 'ADA',  price: map.get('ADA')  },
-        { sym: 'MATIC',price: map.get('MATIC')},
-        { sym: 'USDT', price: map.get('USDT') }
-      ];
-
-      renderTicker(ordered);
-    }
-
-    refreshTicker();
-    setInterval(refreshTicker, 60000);
+    fetchData();
+    setInterval(fetchData, 60000);
   </script>
 </body>
 </html>
