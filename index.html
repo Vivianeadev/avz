@@ -108,87 +108,6 @@
       border-radius: 2px;
     }
 
-    .ticker {
-      width: 100%;
-      max-width: 1000px;
-      margin: 8px auto 24px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(232,180,184,0.25);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    .ticker__viewport {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .ticker__track {
-      display: inline-flex;
-      gap: 28px;
-      white-space: nowrap;
-      padding: 8px 12px;
-      will-change: transform;
-      animation: ticker-scroll 30s linear infinite;
-    }
-
-    @keyframes ticker-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .ticker__item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-    }
-
-    .ticker__sym {
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .ticker__price {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      opacity: 0.9;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      width: 100%;
-      max-width: 1000px;
-      margin: 10px auto;
-      flex-wrap: wrap;
-    }
-
-    .key-btn {
-      flex: 1;
-      min-width: 160px;
-      padding: 16px 20px;
-      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
-      color: var(--black);
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
-    }
-
-    .key-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(212,175,55,0.6);
-    }
-
     footer {
       position: absolute;
       bottom: 10px;
@@ -196,157 +115,7 @@
       color: rgba(255,255,255,0.6);
     }
 
-    /* ====== RESPONSIVIDADE MOBILE ====== */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px;
-      }
-
-      header {
-        top: 15px;
-        padding: 10px 15px;
-      }
-
-      nav {
-        padding: 10px 16px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-      }
-
-      nav a {
-        margin: 0 6px;
-        font-size: 0.9rem;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      p.subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-      }
-
-      .main-btn {
-        font-size: 1.2rem;
-        padding: 16px 35px;
-      }
-
-      .btn-row { 
-        gap: 10px; 
-      }
-      
-      .key-btn { 
-        min-width: calc(50% - 5px);
-        font-size: 1rem;
-        padding: 14px 18px;
-      }
-
-      .ticker {
-        margin: 15px auto 20px;
-      }
-
-      .ticker__track {
-        gap: 20px;
-        padding: 6px 10px;
-      }
-
-      .ticker__item {
-        font-size: 0.85rem;
-      }
-
-      footer {
-        position: relative;
-        margin-top: 30px;
-        bottom: auto;
-        font-size: 0.8rem;
-        text-align: center;
-        padding: 0 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      p.subtitle {
-        font-size: 1rem;
-      }
-
-      .main-btn {
-        font-size: 1.1rem;
-        padding: 14px 30px;
-      }
-
-      nav {
-        padding: 8px 12px;
-      }
-
-      nav a {
-        font-size: 0.8rem;
-        margin: 0 4px;
-      }
-
-      .key-btn {
-        font-size: 0.95rem;
-        padding: 12px 16px;
-      }
-    }
-
-    /* ====== SISTEMA DE OFUSCAÇÃO ====== */
-    .protected-content {
-      opacity: 0.1;
-      pointer-events: none;
-      filter: blur(3px);
-      transition: all 0.8s ease;
-    }
-
-    .protected-content.unlocked {
-      opacity: 1;
-      pointer-events: auto;
-      filter: blur(0px);
-    }
-
-    /* Mensagem de área protegida */
-    .access-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(26, 26, 26, 0.95);
-      padding: 20px 30px;
-      border-radius: 15px;
-      border: 1px solid var(--gold);
-      text-align: center;
-      max-width: 350px;
-      backdrop-filter: blur(10px);
-      z-index: 100;
-      pointer-events: none;
-      transition: opacity 0.8s ease;
-    }
-
-    .access-message.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .access-message h3 {
-      font-family: 'Playfair Display', serif;
-      color: var(--gold);
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-    }
-
-    .access-message p {
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 0;
-      font-size: 0.9rem;
-    }
-
-    /* ====== ESTILOS DO POP-UP DE ACESSO ====== */
+    /* ====== POPUP ESTILOS ====== */
     .popup-overlay {
       position: fixed;
       top: 0;
@@ -394,19 +163,6 @@
       font-size: 1rem;
     }
 
-    .popup-content .remember-me {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      gap: 8px;
-      cursor: pointer;
-    }
-    
-    .popup-content .remember-me label {
-        cursor: pointer;
-    }
-
     .popup-content button {
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
       color: var(--black);
@@ -423,6 +179,24 @@
       transform: scale(1.05);
     }
 
+    .popup-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .popup-links a {
+      color: var(--gold);
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .popup-links a:hover {
+      color: var(--rose-gold);
+    }
+
     .error-message {
       color: var(--rose-gold);
       margin-top: 15px;
@@ -430,100 +204,15 @@
       font-weight: bold;
     }
 
-    /* Responsividade do popup para mobile */
-    @media (max-width: 480px) {
-      .popup-content {
-        padding: 25px 20px;
-        margin: 0 15px;
-      }
-
-      .popup-content h2 {
-        font-size: 1.3rem;
-      }
-
-      .popup-content p {
-        font-size: 0.9rem;
-      }
-
-      .popup-content input[type="password"] {
-        font-size: 0.9rem;
-      }
-
-      .popup-content button {
-        font-size: 0.9rem;
-        width: 100%;
-      }
-
-      .popup-content .remember-me {
-        font-size: 0.8rem;
-      }
-
-      .access-message {
-        max-width: 90%;
-        padding: 15px 20px;
-      }
-
-      .access-message h3 {
-        font-size: 1.1rem;
-      }
-
-      .access-message p {
-        font-size: 0.8rem;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Mensagem de área protegida (flutuante) -->
-  <div id="access-message" class="access-message">
-    <h3>Área Protegida</h3>
-    <p>Clique em "Acessar Carteira" para liberar o conteúdo</p>
-  </div>
-
-  <header class="protected-content">
-    <nav>
-      <a href="sobre.html">Institucional</a>
-      <a href="desenvolvedores.html">Desenvolvedores</a>
-      <a href="#investidores.html">Investidores</a>
-      <a href="Quiz_AVZ">Sustentabilidade</a>
-    </nav>
-  </header>
-
-  <main>
-    <h1 class="protected-content">AVZ PropTech</h1>
-    <p class="subtitle protected-content">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <!-- O 'href' foi removido e um 'id' foi adicionado para controle via JS -->
-    <a id="access-wallet-btn" class="main-btn">Minha Área</a>
-
-    <div class="divider protected-content"></div>
-
-    <!-- ====== TICKER ====== -->
-    <div class="ticker protected-content" role="region" aria-label="Cotações cripto">
-      <div class="ticker__viewport" aria-live="polite">
-        <div id="ticker-track" class="ticker__track"></div>
-      </div>
-    </div>
-
-    <!-- ====== BOTÕES EM DUAS LINHAS ====== -->
-    <div class="btn-row protected-content">
-      <a href="jogadoresavz.html" target="_blank" class="key-btn">Games</a>
-      <a href="liquidez.html" class="key-btn">Produtos</a>
-    </div>
-    <div class="btn-row protected-content">
-      <a href="investidores.html" class="key-btn">Investidores</a>
-      <a href="lei.html" class="key-btn">A Lei e AVZ</a>
-    </div>
-  </main>
-
-  <footer class="protected-content">
-    © 2025 AVZ PropTech - Todos os direitos reservados
-  </footer>
-
-  <!-- ==================== POP-UP DE ACESSO RESTRITO ==================== -->
+  <!-- POPUP -->
   <div id="access-popup" class="popup-overlay">
     <div class="popup-content">
       <h2>Acesso restrito</h2>
       <p>Digite a senha para entrar.</p>
+
       <input type="password" id="password-input" placeholder="••••••••••">
       <div class="remember-me">
         <input type="checkbox" id="remember-access">
@@ -532,112 +221,47 @@
       <button id="submit-password-btn">Entrar</button>
       <p id="error-message" class="error-message"></p>
       <p class="popup-hint">Dica: a senha diferencia maiúsculas e minúsculas.</p>
+
+      <!-- LINKS NO FINAL -->
+      <div class="popup-links">
+        <a href="sobre.html">Institucional</a>
+        <a href="desenvolvedores.html">Desenvolvedores</a>
+        <a href="investidores.html">Investidores</a>
+      </div>
     </div>
   </div>
 
-  <!-- ====== Scripts do ticker ====== -->
+  <!-- Conteúdo protegido -->
+  <header class="protected-content">
+    <nav>
+      <a href="sobre.html">Institucional</a>
+      <a href="desenvolvedores.html">Desenvolvedores</a>
+      <a href="investidores.html">Investidores</a>
+      <a href="Quiz_AVZ">Sustentabilidade</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="protected-content">AVZ PropTech</h1>
+    <p class="subtitle protected-content">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
+    <a id="access-wallet-btn" class="main-btn">Minha Área</a>
+  </main>
+
+  <footer class="protected-content">
+    © 2025 AVZ PropTech - Todos os direitos reservados
+  </footer>
+
   <script>
-    const COINGECKO_IDS = {
-      BTC: 'bitcoin',
-      ETH: 'ethereum',
-      DOGE: 'dogecoin',
-      ADA: 'cardano',
-      MATIC: 'matic-network',
-      USDT: 'tether'
-    };
-
-    const TOKENS_BY_ADDRESS = [
-      { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
-      { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
-    ];
-
-    const track = document.getElementById('ticker-track');
-
-    function formatPriceUSD(value) {
-      if (value == null || isNaN(value)) return '—';
-      const n = Number(value);
-      if (n < 1) {
-        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 8 });
-      }
-      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function renderTicker(items) {
-      const makeRow = (arr) => arr.map(({ sym, price }) => `
-        <span class="ticker__item">
-          <span class="ticker__sym">${sym}</span>
-          <span class="ticker__price">${formatPriceUSD(price)}</span>
-        </span>
-      `).join('');
-      const row = makeRow(items);
-      track.innerHTML = row + row;
-    }
-
-    async function fetchCoinGecko() {
-      const ids = Object.values(COINGECKO_IDS).join(',');
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('CoinGecko error');
-        const data = await res.json();
-        return Object.entries(COINGECKO_IDS).map(([sym, id]) => ({
-          sym,
-          price: data?.[id]?.usd ?? null
-        }));
-      } catch (e) {
-        console.error(e);
-        return Object.keys(COINGECKO_IDS).map(sym => ({ sym, price: null }));
-      }
-    }
-
-    async function fetchAVZ_AV9() {
-      return [
-        { sym: 'AVZ', price: 0.04 },
-        { sym: 'AV9', price: 0.006 }
-      ];
-    }
-
-    async function refreshTicker() {
-      const [cg, custom] = await Promise.all([
-        fetchCoinGecko(),
-        fetchAVZ_AV9()
-      ]);
-
-      const map = new Map();
-      [...cg, ...custom].forEach(it => map.set(it.sym, it.price));
-
-      const ordered = [
-        { sym: 'BTC',  price: map.get('BTC')  },
-        { sym: 'AVZ',  price: map.get('AVZ')  },
-        { sym: 'AV9',  price: map.get('AV9')  },
-        { sym: 'ETH',  price: map.get('ETH')  },
-        { sym: 'DOGE', price: map.get('DOGE') },
-        { sym: 'ADA',  price: map.get('ADA')  },
-        { sym: 'MATIC',price: map.get('MATIC')},
-        { sym: 'USDT', price: map.get('USDT') }
-      ];
-
-      renderTicker(ordered);
-    }
-
-    refreshTicker();
-    setInterval(refreshTicker, 60000);
-
-    // ==================== LÓGICA DO POP-UP ====================
     const SENHA_CORRETA = "AVZ-7K2J8"; 
     const STORAGE_KEY = 'avz_access_granted';
-
-    const accessWalletBtn = document.getElementById('access-wallet-btn');
     const popup = document.getElementById('access-popup');
     const passwordInput = document.getElementById('password-input');
     const rememberCheckbox = document.getElementById('remember-access');
     const submitPasswordBtn = document.getElementById('submit-password-btn');
     const errorMessage = document.getElementById('error-message');
-    const accessMessage = document.getElementById('access-message');
     const protectedElements = document.querySelectorAll('.protected-content');
 
     function unlockContent() {
-      accessMessage.classList.add('hidden');
       protectedElements.forEach(element => {
         element.classList.add('unlocked');
       });
@@ -651,7 +275,6 @@
         }
         unlockContent();
         popup.style.display = 'none';
-        // ❌ Não redireciona mais para cliente.html
       } else {
         errorMessage.textContent = 'Senha incorreta. Tente novamente.';
         passwordInput.value = '';
@@ -659,54 +282,14 @@
       }
     }
 
-    function checkStoredAccess() {
-      const savedAccess = localStorage.getItem(STORAGE_KEY);
-      if (savedAccess) {
-        const { expires } = JSON.parse(savedAccess);
-        if (new Date().getTime() < expires) {
-          unlockContent();
-          return true;
-        } else {
-          localStorage.removeItem(STORAGE_KEY);
-        }
-      }
-      return false;
-    }
-
-    function showPopupOnLoad() {
-      if (!checkStoredAccess()) {
-        popup.style.display = 'flex';
-        setTimeout(() => {
-          passwordInput.focus();
-        }, 100);
-      }
-    }
-
-    accessWalletBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (checkStoredAccess()) {
-        unlockContent();
-        return;
-      }
-      popup.style.display = 'flex';
-      passwordInput.focus();
-    });
-
     submitPasswordBtn.addEventListener('click', handlePasswordCheck);
     passwordInput.addEventListener('keyup', (event) => {
-      if (event.key === 'Enter') {
-        handlePasswordCheck();
-      }
-    });
-    
-    popup.addEventListener('click', (event) => {
-        if (event.target === popup) {
-            popup.style.display = 'none';
-        }
+      if (event.key === 'Enter') handlePasswordCheck();
     });
 
     window.addEventListener('load', () => {
-      showPopupOnLoad();
+      popup.style.display = 'flex';
+      setTimeout(() => passwordInput.focus(), 100);
     });
   </script>
 </body>
