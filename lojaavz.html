@@ -1,15 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0054)file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja AVZ - PropTech Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link href="./Loja AVZ - PropTech Premium_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./Loja AVZ - PropTech Premium_files/styles.css">
+<style>
+    .feature-tag {
+        display: inline-block;
+        background: rgba(228, 180, 184, 0.1);
+        color: var(--rose-light);
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        margin: 2px;
+        border: 1px solid rgba(228, 180, 184, 0.2);
+    }
+    
+    .product-features {
+        margin: 15px 0;
+        text-align: left;
+    }
+    
+    .cart-remove {
+        background: none;
+        border: none;
+        color: var(--rose-medium);
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
+        transition: var(--transition-fast);
+    }
+    
+    .cart-remove:hover {
+        background: rgba(228, 180, 184, 0.1);
+        color: var(--rose-light);
+    }
+    
+    .nav.mobile-active {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--light-black);
+        flex-direction: column;
+        padding: 20px;
+        border-top: 1px solid rgba(228, 180, 184, 0.2);
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    @media (max-width: 768px) {
+        .nav {
+            display: none;
+        }
+        
+        .nav.mobile-active {
+            display: flex;
+        }
+    }
+</style></head>
+<body style="">
     <!-- Header -->
-    <header class="header">
+    <header class="header" style="background: rgba(10, 10, 10, 0.95);">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
@@ -18,10 +83,10 @@
                 </div>
                 
                 <nav class="nav">
-                    <a href="#home">Início</a>
-                    <a href="#produtos">Produtos</a>
-                    <a href="#sobre">Sobre</a>
-                    <a href="#contato">Contato</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#home">Início</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#produtos">Produtos</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre">Sobre</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#contato">Contato</a>
                 </nav>
                 
                 <div class="header-actions">
@@ -32,13 +97,13 @@
                         </svg>
                     </button>
                     
-                    <button class="cart-btn" onclick="toggleCart()" aria-label="Carrinho">
+                    <button class="cart-btn" onclick="toggleCart()" aria-label="Carrinho" style="">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
                             <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
                             <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
                         </svg>
-                        <span class="cart-count" id="cartCount">0</span>
+                        <span class="cart-count" id="cartCount" style="display: block;">4</span>
                     </button>
                     
                     <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -58,8 +123,8 @@
                 <h1 class="hero-title">Loja AVZ</h1>
                 <p class="hero-subtitle">Tecnologia imobiliária premium para investidores inteligentes</p>
                 <div class="hero-actions">
-                    <a href="#produtos" class="btn btn-primary">Explorar Produtos</a>
-                    <a href="#sobre" class="btn btn-secondary">Saiba Mais</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#produtos" class="btn btn-primary">Explorar Produtos</a>
+                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre" class="btn btn-secondary">Saiba Mais</a>
                 </div>
             </div>
         </div>
@@ -74,14 +139,57 @@
             </div>
             
             <div class="products-filter">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="fisicos">Produtos Físicos</button>
+                <button class="filter-btn" data-filter="all">Todos</button>
+                <button class="filter-btn active" data-filter="fisicos">Produtos Físicos</button>
                 <button class="filter-btn" data-filter="digitais">Produtos Digitais</button>
             </div>
             
             <div class="products-grid" id="productsGrid">
-                <!-- Produtos serão inseridos via JavaScript -->
+        <div class="product-card animate" data-category="fisicos">
+            <div class="product-icon">💎</div>
+            <h3>AVZ Wallet Pro</h3>
+            <p>Software completo para acesso à Web3 com carteira descentralizada integrada</p>
+            <div class="product-price">R$ 1.299,90</div>
+            <div class="product-features">
+                <span class="feature-tag">✓ Carteira multi-chain</span><span class="feature-tag">✓ Interface intuitiva</span><span class="feature-tag">✓ Segurança avançada</span><span class="feature-tag">✓ Suporte 24/7</span>
             </div>
+            <div class="product-actions">
+                <button class="btn-add-cart" onclick="addToCart(1)">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    
+        <div class="product-card animate" data-category="fisicos">
+            <div class="product-icon">🌐</div>
+            <h3>AVZ Web3 Starter</h3>
+            <p>Versão inicial do software de acesso à Web3 para iniciantes</p>
+            <div class="product-price">R$ 599,90</div>
+            <div class="product-features">
+                <span class="feature-tag">✓ Acesso básico Web3</span><span class="feature-tag">✓ Tutorial integrado</span><span class="feature-tag">✓ Suporte técnico</span><span class="feature-tag">✓ Atualizações gratuitas</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-add-cart" onclick="addToCart(2)">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    
+        <div class="product-card animate" data-category="fisicos">
+            <div class="product-icon">🏢</div>
+            <h3>AVZ Enterprise Suite</h3>
+            <p>Solução empresarial completa para acesso à Web3 e DeFi</p>
+            <div class="product-price">R$ 2.999,90</div>
+            <div class="product-features">
+                <span class="feature-tag">✓ Multi-usuário</span><span class="feature-tag">✓ API completa</span><span class="feature-tag">✓ Consultoria dedicada</span><span class="feature-tag">✓ Integração personalizada</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-add-cart" onclick="addToCart(3)">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
         </div>
     </section>
 
@@ -93,17 +201,17 @@
                     <h2>Sobre a AVZ PropTech</h2>
                     <p>Somos uma empresa inovadora especializada em software de acesso à Web3 e tokenização de recebíveis através de NFTs, oferecendo soluções tecnológicas avançadas para o mercado financeiro descentralizado.</p>
                     <div class="features">
-                        <div class="feature">
+                        <div class="feature animate">
                             <div class="feature-icon">🌐</div>
                             <h3>Acesso à Web3</h3>
                             <p>Software especializado para interação com blockchain e carteiras descentralizadas</p>
                         </div>
-                        <div class="feature">
+                        <div class="feature animate">
                             <div class="feature-icon">🎨</div>
                             <h3>NFTs de Recebíveis</h3>
                             <p>Tokenização de antecipação de recebíveis através de contratos inteligentes</p>
                         </div>
-                        <div class="feature">
+                        <div class="feature animate">
                             <div class="feature-icon">🔒</div>
                             <h3>Segurança Total</h3>
                             <p>Tecnologia blockchain e smart contracts para máxima segurança</p>
@@ -127,19 +235,64 @@
         </div>
         
         <div class="cart-items" id="cartItems">
-            <div class="cart-empty">
-                <p>Seu carrinho está vazio</p>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                    <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
-                    <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
-                    <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
-                </svg>
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">NFT Recebível Starter</div>
+                    <div class="cart-item-price">R$ 1.000,00</div>
+                </div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn" onclick="updateQuantity(5, -1)">-</button>
+                    <span>1</span>
+                    <button class="quantity-btn" onclick="updateQuantity(5, 1)">+</button>
+                </div>
+                <button class="cart-remove" onclick="removeFromCart(5)" title="Remover item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">AVZ Wallet Pro</div>
+                    <div class="cart-item-price">R$ 1.299,90</div>
+                </div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn" onclick="updateQuantity(1, -1)">-</button>
+                    <span>2</span>
+                    <button class="quantity-btn" onclick="updateQuantity(1, 1)">+</button>
+                </div>
+                <button class="cart-remove" onclick="removeFromCart(1)" title="Remover item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">AVZ Web3 Starter</div>
+                    <div class="cart-item-price">R$ 599,90</div>
+                </div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn" onclick="updateQuantity(2, -1)">-</button>
+                    <span>1</span>
+                    <button class="quantity-btn" onclick="updateQuantity(2, 1)">+</button>
+                </div>
+                <button class="cart-remove" onclick="removeFromCart(2)" title="Remover item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
         </div>
         
         <div class="cart-footer">
             <div class="cart-total">
-                <span>Total: R$ <span id="cartTotal">0,00</span></span>
+                <span>Total: R$ <span id="cartTotal">4.199,70</span></span>
             </div>
             <button class="btn btn-primary btn-full" onclick="checkout()">Finalizar Compra</button>
         </div>
@@ -162,38 +315,39 @@
                 <div class="footer-section">
                     <h4>Produtos</h4>
                     <ul>
-                        <li><a href="#fisicos">Produtos Físicos</a></li>
-                        <li><a href="#digitais">Produtos Digitais</a></li>
-                        <li><a href="#web3">Acesso Web3</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#fisicos">Produtos Físicos</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#digitais">Produtos Digitais</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#web3">Acesso Web3</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Empresa</h4>
                     <ul>
-                        <li><a href="#sobre">Sobre Nós</a></li>
-                        <li><a href="#investidores">Investidores</a></li>
-                        <li><a href="#desenvolvedores">Desenvolvedores</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre">Sobre Nós</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#investidores">Investidores</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#desenvolvedores">Desenvolvedores</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Contato</h4>
                     <ul>
-                        <li><a href="#suporte">Suporte</a></li>
-                        <li><a href="#contato">Fale Conosco</a></li>
-                        <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#suporte">Suporte</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#contato">Fale Conosco</a></li>
+                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sustentabilidade">Sustentabilidade</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 AVZ PropTech. Todos os direitos reservados.</p>
+                <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <script src="./Loja AVZ - PropTech Premium_files/script.js"></script>
 
+
+
+</body></html>
