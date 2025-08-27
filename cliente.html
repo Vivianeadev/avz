@@ -248,7 +248,7 @@
   <main>
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a id="https://play.google.com/store/apps/details?id=io.metamask&pcampaignid=web_share" class="main-btn">Login ! Criar Carteira</a>
+    <a id="openModalBtn" class="main-btn">Acessar Carteira</a>
 
     <div class="divider"></div>
 
@@ -257,9 +257,9 @@
     </div>
 
     <div class="btn-row">
-      <a href="#" class="key-btn">Consultar Saldo</a>
-      <a href="#" class="key-btn">Informativo de Liquidez</a>
-      <a href="#" class="key-btn">Meu Negócio</a>
+      <a href="#" class="key-btn">Privacidade e Regulamento AVZ</a>
+      <a href="#" class="key-btn">Minha rentabilidade</a>
+      <a href="#" class="key-btn">Lojistas</a>
       <a href="#" class="key-btn">Parceiros AVZ</a>
     </div>
   </main>
@@ -276,9 +276,19 @@
       <h1 class="access-title">Áreas de Acesso Restrito</h1>
       <div class="options-container">
         <h3 class="options-title">Selecione uma área de acesso:</h3>
-        <div class="option-item" onclick="selecionarOpcao('wallet', this)"><div class="option-radio"></div><span>Minha Wallet</span></div>
-        <div class="option-item" onclick="selecionarOpcao('investimentos', this)"><div class="option-radio"></div><span>Meus Investimentos</span></div>
-        <div class="option-item" onclick="selecionarOpcao('pj', this)"><div class="option-radio"></div><span>Pessoa Jurídica</span></div>
+
+        <!-- Minha Wallet agora é só botão -->
+        <div class="option-item" onclick="acessarWallet()">
+          <div class="option-radio"></div><span>Minha Wallet</span>
+        </div>
+
+        <!-- Mantém os outros como estão -->
+        <div class="option-item" onclick="selecionarOpcao('investimentos', this)">
+          <div class="option-radio"></div><span>Meus Investimentos</span>
+        </div>
+        <div class="option-item" onclick="selecionarOpcao('pj', this)">
+          <div class="option-radio"></div><span>Pessoa Jurídica</span>
+        </div>
       </div>
 
       <div class="login-container">
@@ -338,12 +348,12 @@
       document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
       elemento.classList.add('selected');
       areaEscolhida = area;
-      const titulos = { 'wallet': 'Acesso à Minha Wallet', 'investimentos': 'Acesso aos Meus Investimentos', 'pj': 'Acesso Pessoa Jurídica' };
+      const titulos = { 'investimentos': 'Acesso aos Meus Investimentos', 'pj': 'Acesso Pessoa Jurídica' };
       document.getElementById('loginTitle').textContent = titulos[area] || 'Acesso Restrito';
     }
 
     function fazerLogin() {
-      if (!areaEscolhida) { alert('Por favor, selecione uma área de acesso primeiro.'); return; }
+      if (!areaEscolhida) { alert('Por favor, selecione uma área de acesso primeiro (exceto Minha Wallet).'); return; }
       const email = document.getElementById('emailLogin').value.trim();
       const senha = document.getElementById('senhaLogin').value;
       if (!email || !senha) { alert('Por favor, preencha e-mail e senha.'); return; }
@@ -352,6 +362,13 @@
 
     function esqueceuSenha() {
       alert('A funcionalidade "Esqueci minha senha" deve ser implementada.');
+    }
+
+    // === Função da Minha Wallet ===
+    function acessarWallet() {
+      alert("Redirecionando para Minha Wallet...");
+      // Exemplo: redirecionar para outra página
+      // window.location.href = "wallet.html";
     }
   </script>
 </body>
