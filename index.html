@@ -6,198 +6,92 @@
   <title>AVZ PropTech - Início</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* === ESTILOS ORIGINAIS DO esse.html (mantidos) === */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --black: #0a0a0a;
-      --dark-black: #000000;
-      --gold: #d4af37;
-      --light-gold: #f4e4bc;
-      --rose-gold: #e8b4b8;
-      --dark-rose: #c49497;
-      --white: #ffffff;
+      --black: #0a0a0a; --dark-black: #000000;
+      --gold: #d4af37; --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8; --white: #ffffff;
     }
-
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black), var(--black));
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+      color: var(--white); display: flex; flex-direction: column;
+      align-items: center; min-height: 100vh; text-align: center; padding: 20px;
     }
-
-    header {
-      position: absolute;
-      top: 20px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
-    }
-
-    nav {
-      background: rgba(0,0,0,0.7);
-      padding: 12px 24px;
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    }
-
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--gold);
-      text-shadow: 0 0 8px rgba(212,175,55,0.5);
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 20px;
+    header { width: 100%; padding: 15px 0; display: flex; justify-content: center;
+      background: rgba(0,0,0,0.6); position: sticky; top: 0; z-index: 5; }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    nav a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
+    nav a:hover { color: var(--gold); }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 20px 0;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p.subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
+    .main-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black); font-size: 1.2rem; font-weight: bold; padding: 15px 35px;
+      border-radius: 50px; text-decoration: none; margin-bottom: 30px; transition: 0.3s; cursor: pointer; }
+    .main-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(212,175,55,0.5); }
+    .divider { width: 80%; height: 2px; margin: 20px auto;
+      background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
+      border-radius: 2px; }
+    footer { margin-top: auto; padding: 15px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; }
 
-    p.subtitle {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 40px;
-    }
-
-    .main-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black);
-      font-size: 1.3rem;
-      font-weight: bold;
-      padding: 18px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
-      transition: all 0.3s ease;
-      margin-bottom: 40px;
-      cursor: pointer;
-    }
-
-    .main-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(212,175,55,0.6);
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.6);
-    }
-
-    /* ====== POPUP ESTILOS ====== */
+    /* === POPUP DE SENHA (de desenvolver.html) === */
     .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
       backdrop-filter: blur(8px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999;
     }
-
     .popup-content {
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 15px;
-      border: 1px solid var(--gold);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
+      background: #1a1a1a; padding: 30px; border-radius: 15px;
+      border: 1px solid var(--gold); text-align: center;
+      width: 90%; max-width: 400px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
-
-    .popup-content h2 { color: var(--gold); margin-bottom: 15px; }
+    .popup-content h2 {
+      font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px;
+    }
     .popup-content p { margin-bottom: 20px; color: rgba(255,255,255,0.8); }
-
     .popup-content input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #444;
-      background: #222;
-      color: white;
-      font-size: 1rem;
+      width: 100%; padding: 12px; margin-bottom: 15px;
+      border-radius: 8px; border: 1px solid #444; background: #222;
+      color: white; font-size: 1rem;
     }
-
     .popup-content button {
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black);
-      font-weight: bold;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      margin-top: 20px;
+      color: var(--black); font-weight: bold;
+      padding: 12px 30px; border: none; border-radius: 8px;
+      cursor: pointer; transition: all 0.3s ease; font-size: 1rem;
     }
-
     .popup-content button:hover { transform: scale(1.05); }
     .error-message { color: var(--rose-gold); margin-top: 15px; font-weight: bold; }
-
-    /* ====== ESTILO DOS LINKS NO POPUP ====== */
-    .popup-links {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 25px;
-    }
-
+    .popup-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
     .popup-links a {
-      font-family: 'Inter', sans-serif;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1rem;
+      font-weight: bold; text-decoration: none; font-size: 1rem;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       transition: all 0.3s ease;
     }
-
     .popup-links a:hover {
       background: linear-gradient(135deg, var(--rose-gold), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       text-shadow: 0 0 8px rgba(212,175,55,0.6);
     }
   </style>
 </head>
 <body>
   <!-- POPUP -->
-  <div id="access-popup" class="popup-overlay">
+  <div class="popup-overlay" id="popup">
     <div class="popup-content">
       <h2>Acesso restrito</h2>
       <p>Digite a senha para entrar.</p>
       <input type="password" id="password-input" placeholder="••••••••••">
       <button id="submit-password-btn">Entrar</button>
       <p id="error-message" class="error-message"></p>
-	  
-      <!-- LINKS NO FINAL -->
       <div class="popup-links">
         <a href="sobre.html">Institucional</a>
         <a href="desenvolvedores.html">Desenvolvedores</a>
@@ -206,56 +100,50 @@
     </div>
   </div>
 
-  <!-- Conteúdo protegido -->
-  <header class="protected-content">
+  <!-- CONTEÚDO DO SITE (esse.html) -->
+  <header>
     <nav>
-      <a href="#">Filantropia</a>
-      <a href="investidores.html">Parceria</a>
+      <a href="sobre.html">Institucional</a>
+      <a href="desenvolvedores.html">Desenvolvedores</a>
+      <a href="investidores.html">Investidores</a>
       <a href="Quiz_AVZ">Sustentabilidade</a>
     </nav>
   </header>
 
   <main>
-    <h1 class="protected-content">AVZ PropTech</h1>
-    <p class="subtitle protected-content">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a id="access-wallet-btn" class="main-btn">Minha Área</a>
+    <h1>AVZ PropTech</h1>
+    <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
+    <a class="main-btn">Acessar Carteira</a>
+    <div class="divider"></div>
+    <!-- aqui continua seu conteúdo original -->
   </main>
 
-  <footer class="protected-content">
-    © 2025 AVZ PropTech - Todos os direitos reservados
+  <footer>
+    <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
   </footer>
 
+  
   <script>
     const SENHA_CORRETA = "AVZ-7K2J8"; 
-    const passwordInput = document.getElementById('password-input');
-    const submitPasswordBtn = document.getElementById('submit-password-btn');
-    const errorMessage = document.getElementById('error-message');
-    const popup = document.getElementById('access-popup');
-    const protectedElements = document.querySelectorAll('.protected-content');
-
-    function unlockContent() {
-      protectedElements.forEach(element => element.classList.add('unlocked'));
-    }
+    const popup = document.getElementById("popup");
+    const passwordInput = document.getElementById("password-input");
+    const submitPasswordBtn = document.getElementById("submit-password-btn");
+    const errorMessage = document.getElementById("error-message");
 
     function handlePasswordCheck() {
       if (passwordInput.value === SENHA_CORRETA) {
-        unlockContent();
-        popup.style.display = 'none';
+        popup.style.display = "none"; // ✅ libera acesso ao site
       } else {
-        // Redireciona para loja.html
-        window.location.href = "loja.html";
+        // ❌ senha errada → manda para loja
+        window.location.href = "Loja.html";
       }
     }
 
-    submitPasswordBtn.addEventListener('click', handlePasswordCheck);
-    passwordInput.addEventListener('keyup', (event) => {
-      if (event.key === 'Enter') handlePasswordCheck();
-    });
-
-    window.addEventListener('load', () => {
-      popup.style.display = 'flex';
-      setTimeout(() => passwordInput.focus(), 100);
+    submitPasswordBtn.addEventListener("click", handlePasswordCheck);
+    passwordInput.addEventListener("keyup", (event) => {
+      if (event.key === "Enter") handlePasswordCheck();
     });
   </script>
+
 </body>
 </html>
