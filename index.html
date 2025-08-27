@@ -20,7 +20,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
+      background: linear-gradient(135deg, var(--dark-black), var(--black));
       color: var(--white);
       display: flex;
       flex-direction: column;
@@ -98,16 +98,6 @@
       box-shadow: 0 15px 40px rgba(212,175,55,0.6);
     }
 
-    .divider {
-      width: 100%;
-      max-width: 500px;
-      height: 2px;
-      margin: 30px auto;
-      background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
-      box-shadow: 0 2px 10px rgba(232,180,184,0.5), 0 -2px 10px rgba(212,175,55,0.5);
-      border-radius: 2px;
-    }
-
     footer {
       position: absolute;
       bottom: 10px;
@@ -135,22 +125,13 @@
       padding: 30px;
       border-radius: 15px;
       border: 1px solid var(--gold);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       text-align: center;
       width: 90%;
       max-width: 400px;
     }
 
-    .popup-content h2 {
-      font-family: 'Playfair Display', serif;
-      color: var(--gold);
-      margin-bottom: 15px;
-    }
-
-    .popup-content p {
-      margin-bottom: 20px;
-      color: rgba(255,255,255,0.8);
-    }
+    .popup-content h2 { color: var(--gold); margin-bottom: 15px; }
+    .popup-content p { margin-bottom: 20px; color: rgba(255,255,255,0.8); }
 
     .popup-content input[type="password"] {
       width: 100%;
@@ -173,14 +154,13 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 1rem;
-      /* 👇 Ajuste solicitado para descer o botão */
       margin-top: 20px;
     }
 
-    .popup-content button:hover {
-      transform: scale(1.05);
-    }
+    .popup-content button:hover { transform: scale(1.05); }
+    .error-message { color: var(--rose-gold); margin-top: 15px; font-weight: bold; }
 
+    /* ====== ESTILO DOS LINKS NO POPUP ====== */
     .popup-links {
       display: flex;
       justify-content: center;
@@ -189,23 +169,22 @@
     }
 
     .popup-links a {
-      color: var(--gold);
+      font-family: 'Inter', sans-serif;
       font-weight: bold;
       text-decoration: none;
-      transition: color 0.3s ease;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
     }
 
     .popup-links a:hover {
-      color: var(--rose-gold);
+      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px rgba(212,175,55,0.6);
     }
-
-    .error-message {
-      color: var(--rose-gold);
-      margin-top: 15px;
-      height: 20px;
-      font-weight: bold;
-    }
-
   </style>
 </head>
 <body>
@@ -214,17 +193,10 @@
     <div class="popup-content">
       <h2>Acesso restrito</h2>
       <p>Digite a senha para entrar.</p>
-
       <input type="password" id="password-input" placeholder="••••••••••">
-      <div class="remember-me">
-        <input type="checkbox" id="remember-access">
-        <label for="remember-access">Lembrar acesso neste navegador</label>
-      </div>
       <button id="submit-password-btn">Entrar</button>
       <p id="error-message" class="error-message"></p>
-      <p class="popup-hint">Dica: a senha diferencia maiúsculas e minúsculas.</p>
-      <hr style="border: none; height: 1px; background-color: #ffc0cb;">
-
+	  
       <!-- LINKS NO FINAL -->
       <div class="popup-links">
         <a href="sobre.html">Institucional</a>
@@ -255,32 +227,23 @@
 
   <script>
     const SENHA_CORRETA = "AVZ-7K2J8"; 
-    const STORAGE_KEY = 'avz_access_granted';
-    const popup = document.getElementById('access-popup');
     const passwordInput = document.getElementById('password-input');
-    const rememberCheckbox = document.getElementById('remember-access');
     const submitPasswordBtn = document.getElementById('submit-password-btn');
     const errorMessage = document.getElementById('error-message');
+    const popup = document.getElementById('access-popup');
     const protectedElements = document.querySelectorAll('.protected-content');
 
     function unlockContent() {
-      protectedElements.forEach(element => {
-        element.classList.add('unlocked');
-      });
+      protectedElements.forEach(element => element.classList.add('unlocked'));
     }
 
     function handlePasswordCheck() {
       if (passwordInput.value === SENHA_CORRETA) {
-        if (rememberCheckbox.checked) {
-          const expirationDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify({ expires: expirationDate }));
-        }
         unlockContent();
         popup.style.display = 'none';
       } else {
-        errorMessage.textContent = 'Senha incorreta. Tente novamente.';
-        passwordInput.value = '';
-        passwordInput.focus();
+        // Redireciona para loja.html
+        window.location.href = "loja.html";
       }
     }
 
