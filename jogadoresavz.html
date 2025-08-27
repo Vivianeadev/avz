@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVZ Games - Jogos da Economia Verde</title>
+    <title>AVZ - Parceria para Desenvolvedores | Economia Verde</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -171,14 +171,14 @@
             box-shadow: 0 12px 35px rgba(233, 180, 184, 0.3);
         }
 
-        /* Games Section */
-        .games-section {
+        /* Green Economy Section */
+        .green-economy {
             padding: 5rem 2rem;
             background: linear-gradient(135deg, #0a1a0a, #1a1a1a);
             position: relative;
         }
 
-        .games-section::before {
+        .green-economy::before {
             content: '';
             position: absolute;
             top: 0;
@@ -207,29 +207,25 @@
             background-clip: text;
         }
 
-        .games-grid {
+        .green-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-bottom: 4rem;
         }
 
-        .game-card {
-            background: rgba(255, 255, 255, 0.05);
+        .green-card {
+            background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.3);
             border-radius: 20px;
-            padding: 0;
+            padding: 1.8rem;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
         }
 
-        .game-card::before {
+        .green-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -241,78 +237,203 @@
             transition: opacity 0.3s ease;
         }
 
-        .game-card:hover::before {
+        .green-card:hover::before {
             opacity: 1;
         }
 
-        .game-card:hover {
+        .green-card:hover {
             transform: translateY(-10px);
             border-color: #22c55e;
             box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
         }
 
-        .game-image {
-            width: 100%;
-            height: 60%;
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px 20px 0 0;
-            position: relative;
+        .green-icon {
+            font-size: 2.6rem;
+            color: #22c55e;
+            margin-bottom: 0.9rem;
         }
 
-        .game-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .game-card h3 {
+        .green-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.35rem;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.9rem;
             color: #22c55e;
         }
 
-        .game-card p {
+        .green-card p {
             color: #e5e5e5;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
-        .play-btn {
-            background: linear-gradient(135deg, #d4af37, #22c55e);
-            color: #000;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(233, 180, 184, 0.2);
+        /* AVZ Token Section */
+        .avz-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a, #000000);
         }
 
-        .play-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233, 180, 184, 0.3);
+        .avz-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
         }
 
-        /* Category Sections */
-        .category-section {
-            margin-bottom: 4rem;
-        }
-
-        .category-title {
+        .avz-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            margin-bottom: 1.8rem;
+            background: linear-gradient(135deg, #d4af37, #e8b4b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .avz-text p {
+            font-size: 1.05rem;
+            color: #e5e5e5;
+            margin-bottom: 1.3rem;
+        }
+
+        .avz-features {
+            display: grid;
+            gap: 0.9rem;
+            margin: 1.8rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.9rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .feature-icon {
             color: #d4af37;
-            text-align: left;
-            border-left: 4px solid #22c55e;
-            padding-left: 1rem;
+            font-size: 1.35rem;
+        }
+
+        .avz-visual {
+            position: relative;
+            text-align: center;
+        }
+
+        .token-animation {
+            width: 260px;
+            height: 260px;
+            margin: 0 auto;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2), rgba(34, 197, 94, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #d4af37;
+            animation: pulse 2s infinite;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+        }
+
+        /* Partnership Section */
+        .partnership {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #0d1b0d, #1a1a1a);
+        }
+
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .partnership-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem 1.8rem;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partnership-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .partnership-card:hover::before {
+            left: 100%;
+        }
+
+        .partnership-card:hover {
+            transform: translateY(-10px);
+            border-color: #d4af37;
+            box-shadow: 0 20px 40px rgba(233, 180, 184, 0.2);
+        }
+
+        .partnership-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.8rem;
+            background: linear-gradient(135deg, #d4af37, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .partnership-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1.3rem;
+            color: #d4af37;
+        }
+
+        .partnership-card p {
+            color: #e5e5e5;
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+        }
+
+        .partnership-card .btn {
+            margin-top: 1rem;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            margin-bottom: 1.8rem;
+            background: linear-gradient(135deg, #22c55e, #d4af37, #e8b4b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: #e5e5e5;
+            margin-bottom: 2.5rem;
         }
 
         /* Footer */
@@ -364,15 +485,30 @@
             }
         }
 
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(212, 175, 55, 0);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
             }
 
-            .games-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1.5rem;
+            .avz-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .partnership-grid {
+                grid-template-columns: 1fr;
             }
 
             .cta-buttons {
@@ -380,13 +516,23 @@
                 align-items: center;
             }
 
+            .token-animation {
+                width: 220px;
+                height: 220px;
+                font-size: 2.2rem;
+            }
+
+            .green-card {
+                padding: 1.5rem;
+            }
+
+            .partnership-card {
+                padding: 2rem 1.5rem;
+            }
+
             .btn {
                 padding: 0.8rem 1.6rem;
                 font-size: 0.9rem;
-            }
-
-            .game-content {
-                padding: 1.2rem;
             }
         }
 
@@ -407,12 +553,12 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
-            <div class="logo">AVZ Games</div>
+            <div class="logo">AVZ</div>
             <ul class="nav-menu">
                 <li><a href="#home">Início</a></li>
-                <li><a href="#jogos">Jogos</a></li>
-                <li><a href="#categorias">Categorias</a></li>
-                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#economia-verde">Economia Verde</a></li>
+                <li><a href="#token">Token AVZ</a></li>
+                <li><a href="#parceria">Parceria</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
@@ -421,249 +567,243 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Jogos da Economia Verde</h1>
-            <p>Divirta-se enquanto aprende sobre sustentabilidade, agricultura e economia verde. Jogos educativos que transformam conhecimento em diversão e impacto positivo no mundo.</p>
+            <h1>Transforme o Futuro com AVZ</h1>
+            <p>Junte-se à revolução da economia verde. Desenvolva aplicativos inovadores e receba tokens AVZ através de contratos de vesting inteligentes. Seu código pode mudar o mundo e gerar impacto real na agricultura sustentável em Angola.</p>
             <div class="cta-buttons">
-                <a href="#jogos" class="btn btn-primary">
-                    <i class="fas fa-play"></i>
-                    Começar a Jogar
+                <a href="#parceria" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Começar Parceria
                 </a>
-                <a href="#categorias" class="btn btn-secondary">
-                    <i class="fas fa-th-large"></i>
-                    Ver Categorias
+                <a href="#economia-verde" class="btn btn-secondary">
+                    <i class="fas fa-leaf"></i>
+                    Saiba Mais
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Games Section -->
-    <section id="jogos" class="games-section">
+    <!-- Green Economy Section -->
+    <section id="economia-verde" class="green-economy">
         <div class="container">
-            <h2 class="section-title fade-in">Nossos Jogos</h2>
+            <h2 class="section-title fade-in">A Revolução da Economia Verde</h2>
             
-            <!-- Jogos Educativos -->
-            <div class="category-section fade-in">
-                <h3 class="category-title">
-                    <i class="fas fa-graduation-cap" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                    Jogos Educativos
-                </h3>
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\"><defs><linearGradient id=\"bg\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%2322c55e\"/><stop offset=\"100%\" stop-color=\"%2316a34a\"/></linearGradient></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23bg)\"/><circle cx=\"200\" cy=\"150\" r=\"60\" fill=\"%23fbbf24\"/><rect x=\"120\" y=\"220\" width=\"160\" height=\"80\" rx=\"10\" fill=\"%23ffffff\" opacity=\"0.9\"/><text x=\"200\" y=\"250\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"14\" font-family=\"Arial\">ENERGIA</text><text x=\"200\" y=\"270\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"14\" font-family=\"Arial\">RENOVÁVEL</text><path d=\"M150 320 L200 280 L250 320 Z\" fill=\"%23ffffff\"/></svg>')"></div>
-                        <div class="game-content">
-                            <h3>EcoAprendiz</h3>
-                            <p>Aprenda sobre energia renovável de forma divertida! Construa usinas solares e eólicas enquanto descobre como funciona a energia limpa.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+            <div class="green-grid">
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-seedling"></i>
                     </div>
+                    <h3>Agricultura Sustentável</h3>
+                    <p>Desenvolva aplicativos que revolucionem a agricultura em Angola e África. Tecnologias que aumentam a produtividade enquanto preservam o meio ambiente, criando um futuro mais verde e próspero para comunidades rurais.</p>
+                </div>
 
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\"><defs><linearGradient id=\"bg2\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%2322c55e\"/><stop offset=\"100%\" stop-color=\"%23059669\"/></linearGradient></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23bg2)\"/><circle cx=\"200\" cy=\"200\" r=\"120\" fill=\"%234ade80\" opacity=\"0.8\"/><rect x=\"150\" y=\"150\" width=\"100\" height=\"100\" rx=\"20\" fill=\"%23ffffff\" opacity=\"0.9\"/><text x=\"200\" y=\"190\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"16\" font-family=\"Arial\">🌍</text><text x=\"200\" y=\"220\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"12\" font-family=\"Arial\">PLANETA</text><text x=\"200\" y=\"235\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"12\" font-family=\"Arial\">VERDE</text></svg>')"></div>
-                        <div class="game-content">
-                            <h3>Planeta Verde</h3>
-                            <p>Salve o planeta tomando decisões sustentáveis! Gerencie recursos naturais e aprenda sobre conservação ambiental.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-recycle"></i>
                     </div>
+                    <h3>Economia Circular</h3>
+                    <p>Crie soluções que transformem resíduos em recursos. Aplicativos que conectam produtores, consumidores e recicladores, criando ciclos sustentáveis que beneficiam tanto o planeta quanto as comunidades locais.</p>
+                </div>
 
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/UBEJIt4yCMaz.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Água Pura</h3>
-                            <p>Descubra a importância da água limpa! Construa sistemas de tratamento e aprenda sobre o ciclo da água.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-solar-panel"></i>
                     </div>
+                    <h3>Energia Renovável</h3>
+                    <p>Desenvolva plataformas que democratizem o acesso à energia limpa. Soluções que conectam comunidades a fontes renováveis, reduzindo custos e impacto ambiental enquanto geram oportunidades econômicas.</p>
+                </div>
+
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>Gestão de Recursos</h3>
+                    <p>Crie tecnologias para otimizar o uso da água e recursos naturais. Aplicativos inteligentes que monitoram, conservam e distribuem recursos de forma eficiente, garantindo sustentabilidade para futuras gerações.</p>
+                </div>
+
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Educação Ambiental</h3>
+                    <p>Desenvolva jogos e aplicativos educativos que conscientizem sobre sustentabilidade. Plataformas interativas que ensinam práticas verdes de forma divertida e engajante, formando uma nova geração consciente.</p>
+                </div>
+
+                <div class="green-card fade-in">
+                    <div class="green-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Saúde Verde</h3>
+                    <p>Crie soluções de saúde que integrem bem-estar humano e ambiental. Aplicativos que promovem medicina preventiva, alimentação orgânica e estilos de vida sustentáveis, melhorando a qualidade de vida globalmente.</p>
                 </div>
             </div>
 
-            <!-- Jogos Cognitivos -->
-            <div class="category-section fade-in">
-                <h3 class="category-title">
-                    <i class="fas fa-brain" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                    Jogos Cognitivos
-                </h3>
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_cognitive.png')"></div>
-                        <div class="game-content">
-                            <h3>EcoLogic</h3>
-                            <p>Desafie sua mente com quebra-cabeças ambientais! Resolva problemas de sustentabilidade usando lógica e criatividade.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
+            <div class="fade-in" style="text-align: center; margin-top: 3rem;">
+                <p style="font-size: 1.2rem; color: #22c55e; max-width: 800px; margin: 0 auto;">
+                    A economia verde não é apenas uma tendência - é o futuro inevitável. Com o mercado global de tecnologias verdes projetado para atingir <strong>$2.5 trilhões até 2030</strong>, esta é sua oportunidade de estar na vanguarda da transformação que definirá as próximas décadas.
+                </p>
+            </div>
+        </div>
+    </section>
 
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/oykhj5YTnHPx.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Sustenta Mente</h3>
-                            <p>Treine seu cérebro com desafios de sustentabilidade! Memória, atenção e raciocínio lógico em um só jogo.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
+    <!-- AVZ Token Section -->
+    <section id="token" class="avz-section">
+        <div class="container">
+            <div class="avz-content">
+                <div class="avz-text fade-in">
+                    <h2>Token AVZ: Seu Passaporte para o Futuro Verde</h2>
+                    <p>O AVZ não é apenas uma criptomoeda - é um token utilitário revolucionário que conecta inovação tecnológica com impacto ambiental real. Cada aplicativo desenvolvido gera valor que é distribuído de forma justa entre desenvolvedores e direcionado para projetos de agricultura sustentável em Angola.</p>
+                    
+                    <div class="avz-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div>
+                                <strong>Token Utilitário</strong><br>
+                                Não é especulação, é utilidade real com valor baseado no sucesso dos aplicativos
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <strong>Crescimento Sustentável</strong><br>
+                                Valor agregado através de receitas reais dos aplicativos e impacto mensurável
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe-africa"></i>
+                            </div>
+                            <div>
+                                <strong>Impacto Global</strong><br>
+                                Cada token contribui diretamente para projetos de agricultura sustentável em Angola
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <strong>Contratos Inteligentes</strong><br>
+                                Vesting transparente e automático baseado em marcos de desenvolvimento
+                            </div>
                         </div>
                     </div>
-
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/7skrLnj40DpQ.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Verde Estratégia</h3>
-                            <p>Desenvolva estratégias para um mundo mais verde! Planeje cidades sustentáveis e tome decisões inteligentes.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+                </div>
+                
+                <div class="avz-visual fade-in">
+                    <div class="token-animation">
+                        AVZ
                     </div>
+                    <p style="margin-top: 2rem; color: #d4af37; font-weight: 600;">
+                        Valor Atual Projetado: R$ 0,200 - R$ 2,50<br>
+                        <small style="color: #888;">*Baseado em adoção e receitas dos aplicativos</small>
+                    </p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Jogos de Saúde -->
-            <div class="category-section fade-in">
-                <h3 class="category-title">
-                    <i class="fas fa-heartbeat" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                    Jogos de Saúde
-                </h3>
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_health.png')"></div>
-                        <div class="game-content">
-                            <h3>Vida Saudável</h3>
-                            <p>Aprenda hábitos saudáveis brincando! Exercícios, alimentação orgânica e bem-estar em um ambiente natural.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+    <!-- Partnership Section -->
+    <section id="parceria" class="partnership">
+        <div class="container">
+            <h2 class="section-title fade-in">Oportunidades de Parceria</h2>
+            
+            <div class="partnership-grid">
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-gamepad"></i>
                     </div>
+                    <h3>Jogos Educativos</h3>
+                    <p>Desenvolva jogos que ensinem sustentabilidade, agricultura e consciência ambiental. Gamificação que educa enquanto diverte, criando impacto duradouro na mentalidade das pessoas sobre o meio ambiente.</p>
+                    <a href="#contato" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Começar Projeto
+                    </a>
+                </div>
 
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/D4Kf0X1c1Lbc.jpg')"></div>
-                        <div class="game-content">
-                            <h3>EcoSaúde</h3>
-                            <p>Descubra como o meio ambiente afeta sua saúde! Aprenda sobre ar puro, água limpa e alimentação natural.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
+                    <h3>Apps de Impacto</h3>
+                    <p>Crie aplicativos que resolvam problemas reais na agricultura, saúde e educação. Soluções práticas que melhoram vidas enquanto geram receita sustentável através do modelo de negócio AVZ.</p>
+                    <a href="#contato" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Propor Ideia
+                    </a>
+                </div>
 
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/C2tixO9n98CC.jpeg')"></div>
-                        <div class="game-content">
-                            <h3>Natureza Cura</h3>
-                            <p>Explore os benefícios da natureza para a saúde! Caminhadas virtuais, meditação e conexão com o verde.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
+                    <h3>Soluções Cognitivas</h3>
+                    <p>Desenvolva aplicativos que estimulem o desenvolvimento cognitivo através de desafios ambientais. Plataformas que treinam a mente enquanto conscientizam sobre sustentabilidade.</p>
+                    <a href="#contato" class="btn btn-primary">
+                        <i class="fas fa-lightbulb"></i>
+                        Inovar Junto
+                    </a>
+                </div>
+
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Saúde Digital</h3>
+                    <p>Crie soluções de telemedicina e saúde preventiva para comunidades rurais. Aplicativos que democratizam o acesso à saúde enquanto promovem práticas sustentáveis de bem-estar.</p>
+                    <a href="#contato" class="btn btn-primary">
+                        <i class="fas fa-heart"></i>
+                        Salvar Vidas
+                    </a>
+                </div>
+
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Suporte Jurídico</h3>
+                    <p>Nossa equipe jurídica especializada cuida de todos os contratos, propriedade intelectual e aspectos legais. Você foca no desenvolvimento, nós cuidamos da proteção legal completa.</p>
+                    <a href="#contato" class="btn btn-secondary">
+                        <i class="fas fa-shield-alt"></i>
+                        Proteção Legal
+                    </a>
+                </div>
+
+                <div class="partnership-card fade-in">
+                    <div class="partnership-icon">
+                        <i class="fas fa-presentation"></i>
+                    </div>
+                    <h3>Pitch para Investidores</h3>
+                    <p>Apresentamos seu projeto para nossa rede de investidores especializados em tecnologia verde. Suporte completo para captação de recursos e escalabilidade global.</p>
+                    <a href="#contato" class="btn btn-secondary">
+                        <i class="fas fa-chart-line"></i>
+                        Buscar Investimento
+                    </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Jogos de Agricultura -->
-            <div class="category-section fade-in">
-                <h3 class="category-title">
-                    <i class="fas fa-seedling" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                    Agricultura Sustentável
-                </h3>
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_agriculture.png')"></div>
-                        <div class="game-content">
-                            <h3>Fazenda Verde</h3>
-                            <p>Gerencie sua fazenda sustentável! Plante, colha e cuide do meio ambiente enquanto produz alimentos saudáveis.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/VaJwBvVFy6X0.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Água na Agricultura</h3>
-                            <p>Aprenda sobre irrigação inteligente! Gerencie recursos hídricos e descubra técnicas de economia de água.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/j7oXGbY5cu4L.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Colheita Inteligente</h3>
-                            <p>Otimize sua produção agrícola! Use tecnologia e sustentabilidade para maximizar a colheita.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jogos de Economia Verde -->
-            <div class="category-section fade-in">
-                <h3 class="category-title">
-                    <i class="fas fa-leaf" style="color: #22c55e; margin-right: 0.5rem;"></i>
-                    Economia Verde
-                </h3>
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_green_economy.png')"></div>
-                        <div class="game-content">
-                            <h3>Cidade Sustentável</h3>
-                            <p>Construa a cidade do futuro! Gerencie recursos, energia limpa e transporte sustentável em uma metrópole verde.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/j7oXGbY5cu4L.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Negócios Verdes</h3>
-                            <p>Empreenda de forma sustentável! Crie empresas que lucram enquanto cuidam do planeta.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="game-card">
-                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/7skrLnj40DpQ.jpg')"></div>
-                        <div class="game-content">
-                            <h3>Mercado Verde</h3>
-                            <p>Negocie produtos sustentáveis! Aprenda sobre economia circular e comércio responsável.</p>
-                            <button class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Jogar Agora
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="cta-content fade-in">
+            <h2>Pronto para Transformar o Mundo?</h2>
+            <p>Não perca a oportunidade de estar na vanguarda da revolução verde. Junte-se a nós e desenvolva aplicativos que não apenas geram receita, mas criam um impacto positivo duradouro no planeta e nas comunidades.</p>
+            <div class="cta-buttons">
+                <a href="mailto:parceria@avz.com" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i>
+                    Iniciar Parceria Agora
+                </a>
+                <a href="https://wa.me/5511999999999" class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
             </div>
         </div>
     </section>
@@ -675,11 +815,11 @@
                 <a href="#"><i class="fab fa-linkedin"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
             </div>
-            <p>&copy; 2025 AVZ Games. Todos os direitos reservados. Jogos que transformam o mundo.</p>
+            <p>&copy; 2025 AVZ. Todos os direitos reservados. Transformando o futuro através da economia verde.</p>
             <p style="color: #22c55e; font-size: 0.9rem;">
-                "Aprender brincando, transformar jogando."
+                "Cada linha de código pode plantar uma semente de mudança no mundo."
             </p>
         </div>
     </footer>
@@ -723,26 +863,16 @@
             }
         });
 
-        // Game card interactions
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Play button clicks
-        document.querySelectorAll('.play-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const gameName = btn.closest('.game-card').querySelector('h3').textContent;
-                alert(`Iniciando ${gameName}... Em breve disponível!`);
-            });
-        });
+        // Token animation enhancement
+        const tokenElement = document.querySelector('.token-animation');
+        if (tokenElement) {
+            setInterval(() => {
+                tokenElement.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    tokenElement.style.transform = 'scale(1)';
+                }, 200);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
-
