@@ -1,353 +1,455 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja AVZ - PropTech Premium</title>
-    <link href="./Loja AVZ - PropTech Premium_files/css2" rel="stylesheet">
-    <link rel="stylesheet" href="./Loja AVZ - PropTech Premium_files/styles.css">
-<style>
-    .feature-tag {
-        display: inline-block;
-        background: rgba(228, 180, 184, 0.1);
-        color: var(--rose-light);
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        margin: 2px;
-        border: 1px solid rgba(228, 180, 184, 0.2);
-    }
-    
-    .product-features {
-        margin: 15px 0;
-        text-align: left;
-    }
-    
-    .cart-remove {
-        background: none;
-        border: none;
-        color: var(--rose-medium);
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 4px;
-        transition: var(--transition-fast);
-    }
-    
-    .cart-remove:hover {
-        background: rgba(228, 180, 184, 0.1);
-        color: var(--rose-light);
-    }
-    
-    .nav.mobile-active {
-        display: flex;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--light-black);
-        flex-direction: column;
-        padding: 20px;
-        border-top: 1px solid rgba(228, 180, 184, 0.2);
-    }
-    
-    .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    @media (max-width: 768px) {
-        .nav {
-            display: none;
-        }
-        
-        .nav.mobile-active {
-            display: flex;
-        }
-    }
-</style></head>
-<body style="">
-    <!-- Header -->
-    <header class="header" style="background: rgba(10, 10, 10, 0.95);">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>AVZ</h1>
-                    <span>PropTech</span>
-                </div>
-                
-                <nav class="nav">
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#home">Início</a>
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#produtos">Produtos</a>
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre">Sobre</a>
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#contato">Contato</a>
-                </nav>
-                
-                <div class="header-actions">
-                    <button class="search-btn" aria-label="Buscar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                    </button>
-                    
-                    <button class="cart-btn" onclick="toggleCart()" aria-label="Carrinho" style="">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
-                            <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
-                            <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
-                        </svg>
-                        <span class="cart-count" id="cartCount" style="display: block;">4</span>
-                    </button>
-                    
-                    <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja AVZ - PropTech Premium</title>
+  <meta name="description" content="Tecnologia imobiliária premium para investidores inteligentes" />
+  
+  <!-- 1. Importar Fontes (Playfair Display para títulos e Inter para corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Loja AVZ</h1>
-                <p class="hero-subtitle">Tecnologia imobiliária premium para investidores inteligentes</p>
-                <div class="hero-actions">
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#produtos" class="btn btn-primary">Explorar Produtos</a>
-                    <a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre" class="btn btn-secondary">Saiba Mais</a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- 2. CSS Refinado e Responsivo -->
+  <style>
+    :root {
+      /* Paleta de cores refinada */
+      --bg: #0a0a0a;
+      --bg-soft: #141414;
+      --card: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+      --gold: #d4af37;
+      --gold-2: #c6a22f;
+      --rose: #e8b4b8;
+      --outline: rgba(255, 255, 255, 0.12 );
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 16px;
+      --fast: .2s ease;
+      --slow: .35s ease;
+      --max: 1160px;
+    }
 
-    <!-- Products Section -->
-    <section class="products-section" id="produtos">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nossos Produtos</h2>
-                <p>Software de acesso à Web3 e NFTs de antecipação de recebíveis</p>
-            </div>
-            
-            <div class="products-filter">
-                <button class="filter-btn" data-filter="all">Todos</button>
-                <button class="filter-btn active" data-filter="fisicos">Produtos Físicos</button>
-                <button class="filter-btn" data-filter="digitais">Produtos Digitais</button>
-            </div>
-            
-            <div class="products-grid" id="productsGrid">
-        <div class="product-card animate" data-category="fisicos">
-            <div class="product-icon">💎</div>
-            <h3>AVZ Wallet Pro</h3>
-            <p>Software completo para acesso à Web3 com carteira descentralizada integrada</p>
-            <div class="product-price">R$ 1.299,90</div>
-            <div class="product-features">
-                <span class="feature-tag">✓ Carteira multi-chain</span><span class="feature-tag">✓ Interface intuitiva</span><span class="feature-tag">✓ Segurança avançada</span><span class="feature-tag">✓ Suporte 24/7</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-add-cart" onclick="addToCart(1)">
-                    Adicionar ao Carrinho
-                </button>
-            </div>
+    /* Reset básico e Fontes */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif; /* Usando Inter para o corpo */
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    /* Fontes de Título */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin: 0;
+    }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    .header { position: sticky; top: 0; z-index: 40; background: rgba(10,10,10,.85); backdrop-filter: saturate(120%) blur(10px); border-bottom: 1px solid var(--outline); }
+    .header .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: baseline; gap: 10px; }
+    .logo h1 { font-size: 28px; }
+    .logo span { font-size: 14px; color: var(--muted); }
+
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: #e0e0e0; opacity: .9; transition: color var(--fast); }
+    .nav a:hover { color: #fff; }
+
+    .actions { display: flex; align-items: center; gap: 12px; }
+    .icon-btn { height: 42px; min-width: 42px; padding: 0 10px; border: 1px solid var(--outline); background: #0e0e10; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform var(--fast), border-color var(--fast); }
+    .icon-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.2); }
+
+    .menu-toggle { display: none; } /* Escondido por padrão */
+
+    /* Menu Móvel */
+    .nav.mobile { display: none; position: absolute; left: 0; right: 0; top: 72px; background: var(--bg-soft); border-bottom: 1px solid var(--outline); }
+    .nav.mobile a { display: block; padding: 16px 20px; border-top: 1px solid var(--outline); }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; text-align: center; }
+    .hero .inner { padding: 80px 0 120px; }
+    .hero:before { content: ""; position: absolute; inset: -10% -10% auto -10%; height: 420px; background: radial-gradient(800px 260px at 50% 0,rgba(212,175,55,.15),transparent 65%), radial-gradient(600px 260px at 80% 10%,rgba(232,180,184,.06),transparent 60%); }
+    .hero h2 { font-size: 64px; line-height: 1.1; text-shadow: 0 6px 24px rgba(212,175,55,.18); }
+    .hero p { max-width: 720px; margin: 16px auto 32px; color: #d9dae0; font-size: 18px; }
+
+    /* Botões */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding: 0 28px; border-radius: 14px; border: 1px solid var(--outline); background: #121216; box-shadow: var(--shadow); cursor: pointer; transition: all var(--fast); font-weight: 700; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,.3); }
+    .btn-primary, .add { background: linear-gradient(180deg, var(--gold), var(--gold-2)); border: 1px solid rgba(0,0,0,0.2); color: #110d01; }
+    .btn-secondary { background: transparent; color: var(--gold); border-color: rgba(212,175,55,.4); }
+    .btn-secondary:hover { background: rgba(212,175,55,.08); border-color: rgba(212,175,55,.6); }
+
+    /* Seções */
+    section { scroll-margin-top: 84px; padding: 48px 0; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h3 { font-size: 48px; margin-bottom: 8px; }
+    .section-header p { color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+    /* Filtro */
+    .filter { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+    .chip { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--outline); background: #121216; color: #d8d8de; cursor: pointer; transition: all var(--fast); }
+    .chip.active { border-color: rgba(212,175,55,.4); color: var(--gold); background: rgba(212,175,55,.1); }
+
+    /* Grid de Produtos */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); transition: transform var(--slow), box-shadow var(--slow), border-color var(--fast); display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(0,0,0,.55); border-color: rgba(255,255,255,.15); }
+    .card .ico { font-size: 32px; }
+    .card h4 { margin: 12px 0 8px; font-size: 22px; }
+    .card p { margin: 0 0 16px; color: #d0d0d6; flex-grow: 1; min-height: 70px; }
+    .price { font-weight: 700; color: #fff; font-size: 18px; }
+    .features { margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { display: inline-block; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(232,180,184,.25); background: rgba(232,180,184,.1); color: var(--rose); font-size: 12px; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+    .add { height: 44px; padding: 0 16px; border-radius: 12px; }
+    .card .btn-secondary { height: 44px; }
+
+    /* Carrinho */
+    .cart-toggle { position: relative; }
+    .cart-count { position: absolute; top: -4px; right: -8px; height: 22px; min-width: 22px; padding: 0 6px; border-radius: 999px; background: var(--gold); color: #110d01; font-weight: 700; display: grid; place-items: center; font-size: 12px; border: 2px solid var(--bg); }
+    .cart { position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 100%; background: #121216; border-left: 1px solid var(--outline); box-shadow: var(--shadow); transform: translateX(100%); transition: transform var(--slow); z-index: 60; display: flex; flex-direction: column; }
+    .cart.open { transform: none; }
+    .cart .head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--outline); flex-shrink: 0; }
+    .cart .head strong { font-family: 'Playfair Display', serif; font-size: 22px; }
+    .cart .items { flex-grow: 1; overflow-y: auto; padding: 10px 20px; }
+    .cart .item { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--outline); }
+    .cart .qty { display: flex; align-items: center; gap: 8px; }
+    .cart .qty button { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--outline); background: #0f0f12; color: #fff; cursor: pointer; }
+    .cart .rm { background: none; border: none; color: #ffb1b1; cursor: pointer; font-size: 18px; }
+    .cart .foot { padding: 20px; border-top: 1px solid var(--outline); flex-shrink: 0; }
+    .cart .total { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 18px; }
+    .cart .total span { color: var(--muted); }
+    .cart #checkout { width: 100%; }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--outline); margin-top: 60px; padding: 40px 0 20px; }
+    .footer .top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; }
+    .footer h6 { font-size: 18px; margin-bottom: 12px; }
+    .footer ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .footer a { color: var(--muted); transition: color var(--fast); }
+    .footer a:hover { color: var(--gold); }
+    .footer .bottom { padding: 24px 0; margin-top: 30px; border-top: 1px solid var(--outline); color: var(--muted); text-align: center; font-size: 14px; }
+
+    /* --- PONTO DE VIRADA PRINCIPAL (TABLETS E CELULARES GRANDES) --- */
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .footer .top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .hero h2 { font-size: 54px; }
+    }
+
+    /* --- PONTO DE VIRADA PARA CELULARES --- */
+    @media (max-width: 720px) {
+      /* Esconde navegação desktop e mostra o botão de menu */
+      .nav { display: none; }
+      .menu-toggle { display: flex; flex-direction: column; gap: 5px; width: 42px; height: 42px; justify-content: center; background: none; border: none; cursor: pointer; }
+      .menu-toggle span { display: block; height: 2px; background: #fff; border-radius: 1px; transition: var(--fast); }
+      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .menu-toggle.active span:nth-child(2) { opacity: 0; }
+      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+      .nav.mobile.open { display: block; }
+
+      /* Ajustes de layout e tamanho de fonte para telas pequenas */
+      .hero h2 { font-size: 44px; }
+      .hero p { font-size: 16px; }
+      .section-header h3 { font-size: 38px; }
+      .grid { grid-template-columns: 1fr; } /* Uma coluna no celular */
+      .footer .top { grid-template-columns: 1fr; }
+      .btn { height: 48px; padding: 0 22px; }
+      .cart { width: 100%; } /* Carrinho ocupa a tela toda */
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="wrap">
+        <div class="logo">
+          <h1>AVZ</h1>
+          <span>PropTech</span>
         </div>
-    
-        <div class="product-card animate" data-category="fisicos">
-            <div class="product-icon">🌐</div>
-            <h3>AVZ Web3 Starter</h3>
-            <p>Versão inicial do software de acesso à Web3 para iniciantes</p>
-            <div class="product-price">R$ 599,90</div>
-            <div class="product-features">
-                <span class="feature-tag">✓ Acesso básico Web3</span><span class="feature-tag">✓ Tutorial integrado</span><span class="feature-tag">✓ Suporte técnico</span><span class="feature-tag">✓ Atualizações gratuitas</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-add-cart" onclick="addToCart(2)">
-                    Adicionar ao Carrinho
-                </button>
-            </div>
+
+        <nav class="nav" aria-label="Primária">
+          <a href="index.html">Loja</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <div class="actions">
+          <button class="icon-btn" aria-label="Pesquisar" title="Pesquisar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </button>
+
+          <button class="icon-btn cart-toggle" id="openCart" aria-label="Carrinho" title="Carrinho">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5 3H2"/><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+
+          <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
-    
-        <div class="product-card animate" data-category="fisicos">
-            <div class="product-icon">🏢</div>
-            <h3>AVZ Enterprise Suite</h3>
-            <p>Solução empresarial completa para acesso à Web3 e DeFi</p>
-            <div class="product-price">R$ 2.999,90</div>
-            <div class="product-features">
-                <span class="feature-tag">✓ Multi-usuário</span><span class="feature-tag">✓ API completa</span><span class="feature-tag">✓ Consultoria dedicada</span><span class="feature-tag">✓ Integração personalizada</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-add-cart" onclick="addToCart(3)">
-                    Adicionar ao Carrinho
-                </button>
-            </div>
-        </div>
+      </div>
+
+      <nav class="nav mobile" id="mobileNav" aria-label="Menu móvel">
+        <a href="index.html">Loja</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
     </div>
-        </div>
-    </section>
+  </header>
 
-    <!-- About Section -->
-    <section class="about-section" id="sobre">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Sobre a AVZ PropTech</h2>
-                    <p>Somos uma empresa inovadora especializada em software de acesso à Web3 e tokenização de recebíveis através de NFTs, oferecendo soluções tecnológicas avançadas para o mercado financeiro descentralizado.</p>
-                    <div class="features">
-                        <div class="feature animate">
-                            <div class="feature-icon">🌐</div>
-                            <h3>Acesso à Web3</h3>
-                            <p>Software especializado para interação com blockchain e carteiras descentralizadas</p>
-                        </div>
-                        <div class="feature animate">
-                            <div class="feature-icon">🎨</div>
-                            <h3>NFTs de Recebíveis</h3>
-                            <p>Tokenização de antecipação de recebíveis através de contratos inteligentes</p>
-                        </div>
-                        <div class="feature animate">
-                            <div class="feature-icon">🔒</div>
-                            <h3>Segurança Total</h3>
-                            <p>Tecnologia blockchain e smart contracts para máxima segurança</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container inner">
+      <h2>Loja AVZ</h2>
+      <p>Tecnologia imobiliária premium para investidores inteligentes</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <a class="btn btn-primary" href="#produtos">Explorar Produtos</a>
+        <a class="btn btn-secondary" href="#sobre">Saiba Mais</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Carrinho de Compras</h3>
-            <button class="cart-close" onclick="toggleCart()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-        
-        <div class="cart-items" id="cartItems">
-            <div class="cart-item">
-                <div class="cart-item-info">
-                    <div class="cart-item-name">NFT Recebível Starter</div>
-                    <div class="cart-item-price">R$ 1.000,00</div>
-                </div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn" onclick="updateQuantity(5, -1)">-</button>
-                    <span>1</span>
-                    <button class="quantity-btn" onclick="updateQuantity(5, 1)">+</button>
-                </div>
-                <button class="cart-remove" onclick="removeFromCart(5)" title="Remover item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-        
-            <div class="cart-item">
-                <div class="cart-item-info">
-                    <div class="cart-item-name">AVZ Wallet Pro</div>
-                    <div class="cart-item-price">R$ 1.299,90</div>
-                </div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn" onclick="updateQuantity(1, -1)">-</button>
-                    <span>2</span>
-                    <button class="quantity-btn" onclick="updateQuantity(1, 1)">+</button>
-                </div>
-                <button class="cart-remove" onclick="removeFromCart(1)" title="Remover item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-        
-            <div class="cart-item">
-                <div class="cart-item-info">
-                    <div class="cart-item-name">AVZ Web3 Starter</div>
-                    <div class="cart-item-price">R$ 599,90</div>
-                </div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn" onclick="updateQuantity(2, -1)">-</button>
-                    <span>1</span>
-                    <button class="quantity-btn" onclick="updateQuantity(2, 1)">+</button>
-                </div>
-                <button class="cart-remove" onclick="removeFromCart(2)" title="Remover item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total: R$ <span id="cartTotal">4.199,70</span></span>
-            </div>
-            <button class="btn btn-primary btn-full" onclick="checkout()">Finalizar Compra</button>
-        </div>
+  <!-- Produtos -->
+  <section id="produtos" class="container">
+    <div class="section-header">
+      <h3>Nossos Produtos</h3>
+      <p>Software de acesso à Web3 e NFTs de antecipação de recebíveis</p>
     </div>
 
-    <!-- Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="filter" role="tablist">
+      <button class="chip active" data-filter="all">Todos</button>
+      <button class="chip" data-filter="fisicos">Produtos Físicos</button>
+      <button class="chip" data-filter="digitais">Produtos Digitais</button>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <h3>AVZ PropTech</h3>
-                        <p>Inovação em tecnologia imobiliária</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Produtos</h4>
-                    <ul>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#fisicos">Produtos Físicos</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#digitais">Produtos Digitais</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#web3">Acesso Web3</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Empresa</h4>
-                    <ul>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sobre">Sobre Nós</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#investidores">Investidores</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#desenvolvedores">Desenvolvedores</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contato</h4>
-                    <ul>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#suporte">Suporte</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#contato">Fale Conosco</a></li>
-                        <li><a href="file:///C:/Users/usuario/Desktop/LOJA%20AVZ/index.html#sustentabilidade">Sustentabilidade</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
-            </div>
+    <div class="grid" id="grid">
+      <!-- Cards são gerados via JS -->
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre" class="container">
+      <div class="section-header">
+        <h3>Sobre a AVZ PropTech</h3>
+        <p>Inovação em software de acesso à Web3, tokenização via NFTs e segurança com smart contracts.</p>
+      </div>
+      <div class="items" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <div class="item" style="background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 24px;">
+          <div class="ico" style="font-size: 28px;">🌐</div>
+          <h5 style="margin:10px 0 6px;font-size:20px">Acesso à Web3</h5>
+          <p style="margin:0;color:var(--muted)">Interaja com carteiras e protocolos de blockchain com praticidade e segurança.</p>
         </div>
-    </footer>
+        <div class="item" style="background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 24px;">
+          <div class="ico" style="font-size: 28px;">🎨</div>
+          <h5 style="margin:10px 0 6px;font-size:20px">NFTs de Recebíveis</h5>
+          <p style="margin:0;color:var(--muted)">Tokenização de antecipação de recebíveis com contratos auditáveis.</p>
+        </div>
+        <div class="item" style="background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 24px;">
+          <div class="ico" style="font-size: 28px;">🔒</div>
+          <h5 style="margin:10px 0 6px;font-size:20px">Segurança Total</h5>
+          <p style="margin:0;color:var(--muted)">Arquitetura sem custódia e criptografia moderna para proteger seu patrimônio.</p>
+        </div>
+      </div>
+  </section>
 
-    <script src="./Loja AVZ - PropTech Premium_files/script.js"></script>
+  <!-- Contato -->
+  <section id="contato" class="container">
+    <div class="card" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding:30px;">
+      <div>
+        <h4 style="margin:0 0 6px;font-size:24px;">Quer falar com a AVZ?</h4>
+        <p style="margin:0;color:#cfcfd6">Envie uma mensagem e retornaremos em breve.</p>
+      </div>
+      <a class="btn btn-primary" href="#">Fale Conosco</a>
+    </div>
+  </section>
 
+  <!-- Carrinho -->
+  <aside class="cart" id="cart" aria-label="Carrinho de compras" aria-hidden="true">
+    <div class="head">
+      <strong>Carrinho</strong>
+      <button class="icon-btn" id="closeCart" aria-label="Fechar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="items" id="cartItems"></div>
+    <div class="foot">
+      <div class="total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <button class="btn btn-primary" id="checkout">Finalizar Compra</button>
+    </div>
+  </aside>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="top">
+        <div>
+          <h6>AVZ PropTech</h6>
+          <p style="margin:0;color:#cfcfd6">Tecnologia imobiliária para investidores exigentes.</p>
+        </div>
+        <div>
+          <h6>Produtos</h6>
+          <ul>
+            <li><a href="#produtos">Catálogo</a></li>
+            <li><a href="#produtos">Web3</a></li>
+            <li><a href="#produtos">NFTs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Empresa</h6>
+          <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="#">Políticas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Social</h6>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">© 2025 AVZ PropTech. Todos os direitos reservados.</div>
+    </div>
+  </footer>
 
-</body></html>
+  <!-- JS embutido (sem alterações) -->
+  <script>
+    // Catálogo simples (pode editar os preços/nomes à vontade)
+    const catalogo = [
+      {id:1, cat:'fisicos',  ico:'💎', nome:'AVZ Wallet Pro', desc:'Acesso completo à Web3 com carteira descentralizada integrada.', preco:1299.90, features:['Carteira multi-chain','Interface intuitiva','Segurança avançada','Suporte 24/7']},
+      {id:2, cat:'fisicos',  ico:'🌐', nome:'AVZ Web3 Starter', desc:'Versão inicial e econômica para começar na Web3.', preco:599.90, features:['Acesso básico','Tutorial integrado','Suporte técnico','Atualizações gratuitas']},
+      {id:3, cat:'fisicos',  ico:'🏢', nome:'AVZ Enterprise Suite', desc:'Solução completa para times e empresas.', preco:2999.90, features:['Multi-usuário','API completa','Consultoria dedicada','Integração personalizada']},
+      {id:4, cat:'digitais', ico:'🎫', nome:'NFT Recebível Starter', desc:'Tokenização de recebíveis em lote inicial.', preco:1000.00, features:['On-chain','Sem custódia','Transparente','Auditável']},
+      {id:5, cat:'digitais', ico:'📜', nome:'NFT Contrato Premium', desc:'Modelo contratual com utilidades estendidas.', preco:1590.00, features:['Royalties','Metadados estendidos','Oráculos','Suporte Pro']}
+    ];
+
+    const grid = document.getElementById('grid');
+
+    function formatBR(v){
+      return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    }
+
+    function cardHTML(p){
+      return `
+        <article class="card" data-cat="${p.cat}">
+          <div class="row"><div class="ico">${p.ico}</div><div class="price">${formatBR(p.preco)}</div></div>
+          <h4>${p.nome}</h4>
+          <p>${p.desc}</p>
+          <div class="features">
+            ${p.features.map(f=>`<span class="tag">${f}</span>`).join('')}
+          </div>
+          <div class="row">
+            <button class="add btn btn-primary" onclick="add(${p.id})">Adicionar</button>
+            <a href="#contato" class="btn btn-secondary">Detalhes</a>
+          </div>
+        </article>`;
+    }
+
+    function render(filter='all'){
+      grid.innerHTML = catalogo
+        .filter(p => filter==='all' || p.cat===filter)
+        .map(cardHTML).join('');
+    }
+
+    // Filtro de chips
+    document.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active');
+        render(chip.dataset.filter);
+      });
+    });
+
+    // Carrinho
+    const cartBtn = document.getElementById('openCart');
+    const closeCartBtn = document.getElementById('closeCart');
+    const cart = document.getElementById('cart');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
+
+    const carrinho = new Map(); // id -> {produto, qty}
+
+    function updateCartUI(){
+      let total = 0; let count = 0;
+      cartItems.innerHTML = '';
+      if (carrinho.size === 0) {
+        cartItems.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--muted);">Seu carrinho está vazio.</p>';
+      } else {
+        carrinho.forEach(({produto, qty})=>{
+          total += produto.preco * qty; count += qty;
+          const row = document.createElement('div');
+          row.className = 'item';
+          row.innerHTML = `
+            <div><strong>${produto.nome}</strong><div style="color:#cfcfd6;font-size:13px">${formatBR(produto.preco)}</div></div>
+            <div class="qty">
+              <button onclick="add(${produto.id},-1)">-</button>
+              <span>${qty}</span>
+              <button onclick="add(${produto.id},1)">+</button>
+            </div>
+            <button class="rm" onclick="removeItem(${produto.id})" title="Remover">✕</button>`;
+          cartItems.appendChild(row);
+        });
+      }
+      cartTotal.textContent = formatBR(total);
+      cartCount.textContent = count;
+      cartCount.style.display = count > 0 ? 'grid' : 'none';
+    }
+
+    function add(id, delta = 1){
+      const produto = catalogo.find(p=>p.id===id);
+      const atual = carrinho.get(id) || {produto, qty:0};
+      atual.qty = Math.max(0, atual.qty + delta);
+      if(atual.qty === 0){ carrinho.delete(id); } else { carrinho.set(id, atual); }
+      updateCartUI();
+      openCart();
+    }
+
+    function removeItem(id){
+      carrinho.delete(id); updateCartUI();
+    }
+
+    function openCart(){ cart.classList.add('open'); cart.setAttribute('aria-hidden','false'); }
+    function closeCart(){ cart.classList.remove('open'); cart.setAttribute('aria-hidden','true'); }
+
+    cartBtn.addEventListener('click', openCart);
+    closeCartBtn.addEventListener('click', closeCart);
+
+    document.getElementById('checkout').addEventListener('click',()=>{
+      if (carrinho.size === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+      alert('Checkout demonstrativo. Integre aqui seu provedor de pagamento.');
+    });
+
+    // Menu móvel
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav  = document.getElementById('mobileNav');
+    menuToggle.addEventListener('click',()=>{
+      menuToggle.classList.toggle('active');
+      mobileNav.classList.toggle('open');
+    });
+
+    // Render inicial
+    render();
+    updateCartUI(); // Para esconder o contador se o carrinho estiver vazio
+  </script>
+</body>
+</html>
