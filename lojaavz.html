@@ -1,175 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loja AVZ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-  
-    /* === ESTILOS ORIGINAIS DO esse.html (mantidos) === */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --black: #0a0a0a; --dark-black: #000000;
-      --gold: #d4af37; --light-gold: #f4e4bc;
-      --rose-gold: #e8b4b8; --white: #ffffff;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
-      color: var(--white); display: flex; flex-direction: column;
-      align-items: center; min-height: 100vh; text-align: center; padding: 20px;
-    }
-    header { width: 100%; padding: 15px 0; display: flex; justify-content: center;
-      background: rgba(0,0,0,0.6); position: sticky; top: 0; z-index: 5; }
-    nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-    nav a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
-    nav a:hover { color: var(--gold); }
-    h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 20px 0;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p.subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
-    .main-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black); font-size: 1.2rem; font-weight: bold; padding: 15px 35px;
-      border-radius: 50px; text-decoration: none; margin-bottom: 30px; transition: 0.3s; cursor: pointer; }
-    .main-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(212,175,55,0.5); }
-    .divider { width: 80%; height: 2px; margin: 20px auto;
-      background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
-      border-radius: 2px; }
-    footer { margin-top: auto; padding: 15px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; }
-
-    /* === POPUP DE SENHA (de desenvolver.html) === */
-    .popup-overlay {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(8px);
-      display: flex; justify-content: center; align-items: center;
-      z-index: 9999;
-    }
-    .popup-content {
-      background: #1a1a1a; padding: 30px; border-radius: 15px;
-      border: 1px solid var(--gold); text-align: center;
-      width: 90%; max-width: 400px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    }
-    .popup-content h2 {
-      font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px;
-    }
-    .popup-content p { margin-bottom: 20px; color: rgba(255,255,255,0.8); }
-    .popup-content input[type="password"] {
-      width: 100%; padding: 12px; margin-bottom: 15px;
-      border-radius: 8px; border: 1px solid #444; background: #222;
-      color: white; font-size: 1rem;
-    }
-    .popup-content button {
-      background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black); font-weight: bold;
-      padding: 12px 30px; border: none; border-radius: 8px;
-      cursor: pointer; transition: all 0.3s ease; font-size: 1rem;
-    }
-    .popup-content button:hover { transform: scale(1.05); }
-    .error-message { color: var(--rose-gold); margin-top: 15px; font-weight: bold; }
-    .popup-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
-    .popup-links a {
-      font-weight: bold; text-decoration: none; font-size: 1rem;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      transition: all 0.3s ease;
-    }
-    .popup-links a:hover {
-      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 8px rgba(212,175,55,0.6);
-    }
-  
-
-  /* Ajuste específico para a loja */
-  .denied {
-    color: var(--rose-gold);
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin: 20px 0;
-  }
-  .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 20px auto;
-  }
-  .product-card {
-    background: #1a1a1a;
-    border: 1px solid var(--gold);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(212,175,55,0.5);
-  }
-  .product-card h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-  .product-card p {
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 15px;
-  }
-  .product-card .buy-btn {
-    background: linear-gradient(135deg, var(--gold), var(--light-gold));
-    color: var(--black);
-    font-weight: bold;
-    padding: 10px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.3s;
-  }
-  .product-card .buy-btn:hover {
-    transform: scale(1.05);
-  }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja AVZ - PropTech Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="sobre.html">Institucional</a>
-      <a href="desenvolvedores.html">Desenvolvedores</a>
-      <a href="investidores.html">Investidores</a>
-      <a href="Quiz_AVZ">Sustentabilidade</a>
-    </nav>
-  </header>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>AVZ</h1>
+                    <span>PropTech</span>
+                </div>
+                
+                <nav class="nav">
+                    <a href="#home">Início</a>
+                    <a href="#produtos">Produtos</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#contato">Contato</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="search-btn" aria-label="Buscar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    
+                    <button class="cart-btn" onclick="toggleCart()" aria-label="Carrinho">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
+                            <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
+                            <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                    
+                    <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <main>
-    <h1>Loja AVZ</h1>
-    <p class="denied">Acesso negado ao painel restrito. Você foi redirecionado para a Loja AVZ.</p>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Loja AVZ</h1>
+                <p class="hero-subtitle">Tecnologia imobiliária premium para investidores inteligentes</p>
+                <div class="hero-actions">
+                    <a href="#produtos" class="btn btn-primary">Explorar Produtos</a>
+                    <a href="#sobre" class="btn btn-secondary">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="products">
-      <div class="product-card">
-        <h3>Token AVZ</h3>
-        <p>Invista em nossa tecnologia imobiliária.</p>
-        <a href="#" class="buy-btn">Comprar</a>
-      </div>
-      <div class="product-card">
-        <h3>Plano Premium</h3>
-        <p>Acesse benefícios exclusivos no ecossistema AVZ.</p>
-        <a href="#" class="buy-btn">Assinar</a>
-      </div>
-      <div class="product-card">
-        <h3>Consultoria</h3>
-        <p>Receba suporte especializado em investimentos.</p>
-        <a href="#" class="buy-btn">Contratar</a>
-      </div>
+    <!-- Products Section -->
+    <section class="products-section" id="produtos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Produtos</h2>
+                <p>Software de acesso à Web3 e NFTs de antecipação de recebíveis</p>
+            </div>
+            
+            <div class="products-filter">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="fisicos">Produtos Físicos</button>
+                <button class="filter-btn" data-filter="digitais">Produtos Digitais</button>
+            </div>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Produtos serão inseridos via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="sobre">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre a AVZ PropTech</h2>
+                    <p>Somos uma empresa inovadora especializada em software de acesso à Web3 e tokenização de recebíveis através de NFTs, oferecendo soluções tecnológicas avançadas para o mercado financeiro descentralizado.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <div class="feature-icon">🌐</div>
+                            <h3>Acesso à Web3</h3>
+                            <p>Software especializado para interação com blockchain e carteiras descentralizadas</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🎨</div>
+                            <h3>NFTs de Recebíveis</h3>
+                            <p>Tokenização de antecipação de recebíveis através de contratos inteligentes</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Segurança Total</h3>
+                            <p>Tecnologia blockchain e smart contracts para máxima segurança</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Carrinho de Compras</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <p>Seu carrinho está vazio</p>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
+                    <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
+                    <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: R$ <span id="cartTotal">0,00</span></span>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="checkout()">Finalizar Compra</button>
+        </div>
     </div>
-  </main>
 
-  <footer>
-    <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
-  </footer>
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>AVZ PropTech</h3>
+                        <p>Inovação em tecnologia imobiliária</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="#fisicos">Produtos Físicos</a></li>
+                        <li><a href="#digitais">Produtos Digitais</a></li>
+                        <li><a href="#web3">Acesso Web3</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#investidores">Investidores</a></li>
+                        <li><a href="#desenvolvedores">Desenvolvedores</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="#suporte">Suporte</a></li>
+                        <li><a href="#contato">Fale Conosco</a></li>
+                        <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 AVZ PropTech. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
