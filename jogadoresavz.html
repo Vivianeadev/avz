@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVZ Games - Jogos da Economia Verde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000, #1a1a1a, #0d1b0d);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4af37, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #22c55e;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #d4af37, #22c55e);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(26,26,26,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="%2322c55e" stop-opacity="0.1"/><stop offset="100%" stop-color="%23000" stop-opacity="0"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23g)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            margin-bottom: 1.3rem;
+            background: linear-gradient(135deg, #d4af37, #22c55e, #e8b4b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
+            color: #e5e5e5;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #22c55e);
+            color: #000;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3), 0 0 20px rgba(233, 180, 184, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4), 0 0 30px rgba(233, 180, 184, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 8px 25px rgba(233, 180, 184, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(233, 180, 184, 0.3);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #0a1a0a, #1a1a1a);
+            position: relative;
+        }
+
+        .games-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2322c55e" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #22c55e, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 0;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #22c55e;
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 60%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .game-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            margin-bottom: 0.8rem;
+            color: #22c55e;
+        }
+
+        .game-card p {
+            color: #e5e5e5;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #d4af37, #22c55e);
+            color: #000;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 180, 184, 0.2);
+        }
+
+        .play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 180, 184, 0.3);
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+            text-align: left;
+            border-left: 4px solid #22c55e;
+            padding-left: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: 2.5rem 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            color: #888;
+            margin-bottom: 0.9rem;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin: 1.8rem 0;
+        }
+
+        .social-links a {
+            color: #d4af37;
+            font-size: 1.35rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #22c55e;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                padding: 0.8rem 1.6rem;
+                font-size: 0.9rem;
+            }
+
+            .game-content {
+                padding: 1.2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">AVZ Games</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#jogos">Jogos</a></li>
+                <li><a href="#categorias">Categorias</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Jogos da Economia Verde</h1>
+            <p>Divirta-se enquanto aprende sobre sustentabilidade, agricultura e economia verde. Jogos educativos que transformam conhecimento em diversão e impacto positivo no mundo.</p>
+            <div class="cta-buttons">
+                <a href="#jogos" class="btn btn-primary">
+                    <i class="fas fa-play"></i>
+                    Começar a Jogar
+                </a>
+                <a href="#categorias" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i>
+                    Ver Categorias
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="jogos" class="games-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Nossos Jogos</h2>
+            
+            <!-- Jogos Educativos -->
+            <div class="category-section fade-in">
+                <h3 class="category-title">
+                    <i class="fas fa-graduation-cap" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                    Jogos Educativos
+                </h3>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\"><defs><linearGradient id=\"bg\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%2322c55e\"/><stop offset=\"100%\" stop-color=\"%2316a34a\"/></linearGradient></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23bg)\"/><circle cx=\"200\" cy=\"150\" r=\"60\" fill=\"%23fbbf24\"/><rect x=\"120\" y=\"220\" width=\"160\" height=\"80\" rx=\"10\" fill=\"%23ffffff\" opacity=\"0.9\"/><text x=\"200\" y=\"250\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"14\" font-family=\"Arial\">ENERGIA</text><text x=\"200\" y=\"270\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"14\" font-family=\"Arial\">RENOVÁVEL</text><path d=\"M150 320 L200 280 L250 320 Z\" fill=\"%23ffffff\"/></svg>')"></div>
+                        <div class="game-content">
+                            <h3>EcoAprendiz</h3>
+                            <p>Aprenda sobre energia renovável de forma divertida! Construa usinas solares e eólicas enquanto descobre como funciona a energia limpa.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\"><defs><linearGradient id=\"bg2\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%2322c55e\"/><stop offset=\"100%\" stop-color=\"%23059669\"/></linearGradient></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23bg2)\"/><circle cx=\"200\" cy=\"200\" r=\"120\" fill=\"%234ade80\" opacity=\"0.8\"/><rect x=\"150\" y=\"150\" width=\"100\" height=\"100\" rx=\"20\" fill=\"%23ffffff\" opacity=\"0.9\"/><text x=\"200\" y=\"190\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"16\" font-family=\"Arial\">🌍</text><text x=\"200\" y=\"220\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"12\" font-family=\"Arial\">PLANETA</text><text x=\"200\" y=\"235\" text-anchor=\"middle\" fill=\"%23000\" font-size=\"12\" font-family=\"Arial\">VERDE</text></svg>')"></div>
+                        <div class="game-content">
+                            <h3>Planeta Verde</h3>
+                            <p>Salve o planeta tomando decisões sustentáveis! Gerencie recursos naturais e aprenda sobre conservação ambiental.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/UBEJIt4yCMaz.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Água Pura</h3>
+                            <p>Descubra a importância da água limpa! Construa sistemas de tratamento e aprenda sobre o ciclo da água.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogos Cognitivos -->
+            <div class="category-section fade-in">
+                <h3 class="category-title">
+                    <i class="fas fa-brain" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                    Jogos Cognitivos
+                </h3>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_cognitive.png')"></div>
+                        <div class="game-content">
+                            <h3>EcoLogic</h3>
+                            <p>Desafie sua mente com quebra-cabeças ambientais! Resolva problemas de sustentabilidade usando lógica e criatividade.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/oykhj5YTnHPx.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Sustenta Mente</h3>
+                            <p>Treine seu cérebro com desafios de sustentabilidade! Memória, atenção e raciocínio lógico em um só jogo.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/7skrLnj40DpQ.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Verde Estratégia</h3>
+                            <p>Desenvolva estratégias para um mundo mais verde! Planeje cidades sustentáveis e tome decisões inteligentes.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogos de Saúde -->
+            <div class="category-section fade-in">
+                <h3 class="category-title">
+                    <i class="fas fa-heartbeat" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                    Jogos de Saúde
+                </h3>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_health.png')"></div>
+                        <div class="game-content">
+                            <h3>Vida Saudável</h3>
+                            <p>Aprenda hábitos saudáveis brincando! Exercícios, alimentação orgânica e bem-estar em um ambiente natural.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/D4Kf0X1c1Lbc.jpg')"></div>
+                        <div class="game-content">
+                            <h3>EcoSaúde</h3>
+                            <p>Descubra como o meio ambiente afeta sua saúde! Aprenda sobre ar puro, água limpa e alimentação natural.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/C2tixO9n98CC.jpeg')"></div>
+                        <div class="game-content">
+                            <h3>Natureza Cura</h3>
+                            <p>Explore os benefícios da natureza para a saúde! Caminhadas virtuais, meditação e conexão com o verde.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogos de Agricultura -->
+            <div class="category-section fade-in">
+                <h3 class="category-title">
+                    <i class="fas fa-seedling" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                    Agricultura Sustentável
+                </h3>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_agriculture.png')"></div>
+                        <div class="game-content">
+                            <h3>Fazenda Verde</h3>
+                            <p>Gerencie sua fazenda sustentável! Plante, colha e cuide do meio ambiente enquanto produz alimentos saudáveis.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/VaJwBvVFy6X0.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Água na Agricultura</h3>
+                            <p>Aprenda sobre irrigação inteligente! Gerencie recursos hídricos e descubra técnicas de economia de água.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/j7oXGbY5cu4L.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Colheita Inteligente</h3>
+                            <p>Otimize sua produção agrícola! Use tecnologia e sustentabilidade para maximizar a colheita.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogos de Economia Verde -->
+            <div class="category-section fade-in">
+                <h3 class="category-title">
+                    <i class="fas fa-leaf" style="color: #22c55e; margin-right: 0.5rem;"></i>
+                    Economia Verde
+                </h3>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/assets/game_green_economy.png')"></div>
+                        <div class="game-content">
+                            <h3>Cidade Sustentável</h3>
+                            <p>Construa a cidade do futuro! Gerencie recursos, energia limpa e transporte sustentável em uma metrópole verde.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/j7oXGbY5cu4L.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Negócios Verdes</h3>
+                            <p>Empreenda de forma sustentável! Crie empresas que lucram enquanto cuidam do planeta.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/home/ubuntu/upload/search_images/7skrLnj40DpQ.jpg')"></div>
+                        <div class="game-content">
+                            <h3>Mercado Verde</h3>
+                            <p>Negocie produtos sustentáveis! Aprenda sobre economia circular e comércio responsável.</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                                Jogar Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2025 AVZ Games. Todos os direitos reservados. Jogos que transformam o mundo.</p>
+            <p style="color: #22c55e; font-size: 0.9rem;">
+                "Aprender brincando, transformar jogando."
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+
+        // Game card interactions
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Play button clicks
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const gameName = btn.closest('.game-card').querySelector('h3').textContent;
+                alert(`Iniciando ${gameName}... Em breve disponível!`);
+            });
+        });
+    </script>
+</body>
+</html>
+
