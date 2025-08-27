@@ -1,80 +1,241 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>AVZ PropTech - Sobre & Contato</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre Nós - AVZ PropTech</title>
+  <meta name="description" content="Conheça a AVZ PropTech, a empresa brasileira que está revolucionando a tokenização de ativos com segurança e educação." />
+  
+  <!-- 1. Importar Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- 2. CSS da Página Institucional -->
   <style>
-    /* (copiei exatamente o mesmo CSS da sua página original para manter padrão) */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --black:#0a0a0a; --dark-black:#000; --gold:#d4af37; --light-gold:#f4e4bc;
-      --rose-gold:#e8b4b8; --dark-rose:#c49497; --white:#fff; --light-gray:#f8f8f8;
-      --medium-gray:#888; --dark-gray:#333;
+      --bg: #0a0a0a;
+      --bg-soft: #141414;
+      --card: #1a1a1a;
+      --text: #e8e8ea;
+      --muted: #b7b7bc;
+      --gold: #c6a22f; /* Ouro mais escuro e sóbrio */
+      --gold-light: #d4af37;
+      --rose-shadow: rgba(232, 180, 184, 0.1 ); /* Sombra rosé sutil */
+      --gold-shadow: rgba(212, 175, 55, 0.2);
+      --outline: rgba(255, 255, 255, 0.12);
+      --radius: 16px;
+      --fast: .2s ease;
+      --max: 960px; /* Largura mais focada para leitura */
     }
-    body { font-family:'Inter',sans-serif; background:linear-gradient(135deg,var(--dark-black),#1a1a1a,var(--black)); color:var(--white); line-height:1.7; background-attachment:fixed; }
-    header { background:rgba(0,0,0,0.85); padding:20px 30px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(212,175,55,0.3); backdrop-filter:blur(12px);}
-    header h1 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:2rem; font-weight:700;}
-    nav a { color:var(--white); text-decoration:none; margin-left:20px; font-weight:500; transition:0.3s;}
-    nav a:hover { color:var(--gold); text-shadow:0 0 10px rgba(212,175,55,0.4);}
-    section { padding:60px 20px; max-width:1000px; margin:40px auto; background:rgba(255,255,255,0.05); border-radius:16px; box-shadow:0 25px 50px rgba(0,0,0,0.3); backdrop-filter:blur(18px); border:1px solid rgba(212,175,55,0.15);}
-    h2,h3 { font-family:'Playfair Display',serif; background:linear-gradient(135deg,var(--rose-gold),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;}
-    .highlight { font-size:1.5rem; font-weight:700; margin:15px 0; background:linear-gradient(135deg,var(--gold),var(--light-gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
-    .card { background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(212,175,55,0.2);}
-    .contact-container { background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(232,180,184,0.3);}
-    input,textarea { padding:14px; border:none; border-radius:8px; font-size:1rem; width:100%; margin-bottom:12px; background:rgba(255,255,255,0.1); color:var(--white);}
-    input:focus,textarea:focus { outline:none; border:1px solid var(--gold); box-shadow:0 0 10px rgba(212,175,55,0.3);}
-    input[type="submit"] { background:linear-gradient(135deg,var(--gold),var(--light-gold)); color:var(--black); font-weight:bold; cursor:pointer;}
-    .return-home-container { text-align:center; margin:40px 0;}
-    .return-home-btn { padding:14px 30px; font-weight:bold; background:linear-gradient(135deg,var(--gold),var(--rose-gold)); border-radius:50px; color:var(--black); text-decoration:none;}
-    footer { text-align:center; padding:20px; background:rgba(0,0,0,0.9); color:rgba(255,255,255,0.6);}
+
+    /* Reset e Configurações Globais */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    a { color: var(--gold-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Tipografia */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      text-shadow: 0 4px 20px var(--gold-shadow);
+      margin: 0;
+      line-height: 1.2;
+    }
+    h1 { font-size: 3.5rem; font-weight: 800; }
+    h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+    p { margin: 0 0 1.5rem; }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* Header (Consistente com as outras páginas) */
+    .header { position: sticky; top: 0; z-index: 40; background: rgba(10,10,10,.85); backdrop-filter: saturate(120%) blur(10px); border-bottom: 1px solid var(--outline); }
+    .header .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    .logo h1 { font-size: 28px; color: var(--gold-light); }
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: #e0e0e0; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 5rem 0;
+      background: radial-gradient(ellipse at 50% -20%, var(--rose-shadow), transparent 70%);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 1rem auto 0;
+    }
+
+    /* Seções de Conteúdo */
+    .content-section { padding: 4rem 0; border-bottom: 1px solid var(--outline); }
+    .content-section:last-child { border-bottom: none; }
+
+    /* Missão, Visão, Valores */
+    .core-values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .value-card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--outline);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .value-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    /* Seção de Alerta (Destaque) */
+    .alert-section {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://www.transparenttextures.com/patterns/carbon-fibre-v2.png' );
+      background-color: var(--card);
+      padding: 3rem;
+      border-radius: var(--radius);
+      border-left: 5px solid var(--gold);
+      margin-top: 2rem;
+    }
+    .alert-section h3 { color: var(--gold-light); }
+
+    /* Mensagem da CEO */
+    .ceo-message {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .ceo-message .text { flex: 2; min-width: 300px; }
+    .ceo-message .signature {
+      margin-top: 1.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .ceo-message .signature strong {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--text);
+    }
+    .ceo-message .signature span {
+      font-size: 1rem;
+      color: var(--gold);
+    }
+
+    /* Footer */
+    .footer { text-align: center; padding: 3rem 0 2rem; color: var(--muted); }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .nav { display: none; } /* Simplificando header para o exemplo */
+      .hero { padding: 3rem 0; }
+      .alert-section { padding: 2rem; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>AVZ PropTech</h1>
-  <nav>
-    <a href="#sobre">Sobre Nós</a>
-    <a href="#contato">Contato</a>
-  </nav>
-</header>
+  <!-- Header -->
+  <header class="header">
+    <div class="wrap">
+      <a href="index.html" class="logo"><h1>AVZ</h1></a>
+      <nav class="nav" aria-label="Primária">
+        <a href="index.html">Loja</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="sobre.html">Sobre Nós</a>
+      </nav>
+    </div>
+  </header>
 
-<section id="sobre">
-  <h2>Sobre Nós</h2>
-  <div class="highlight">🌟 Nossa missão é transformar o mercado imobiliário com inovação e transparência</div>
-  <p>Aqui você pode escrever a introdução sobre sua empresa e sua história.</p>
-  <h3>Nossos Valores</h3>
-  <div class="grid">
-    <div class="card"><h3>🤝 Confiança</h3><p>Texto sobre confiança.</p></div>
-    <div class="card"><h3>💡 Inovação</h3><p>Texto sobre inovação.</p></div>
-    <div class="card"><h3>🌱 Sustentabilidade</h3><p>Texto sobre sustentabilidade.</p></div>
-  </div>
-  <h3>Nossa História</h3>
-  <p>Espaço para contar a trajetória da empresa e conquistas.</p>
-</section>
+  <main class="container">
 
-<section id="contato">
-  <h2>Contato</h2>
-  <div class="contact-container">
-    <h3>📧 Fale Conosco</h3>
-    <form>
-      <input type="text" name="nome" placeholder="Seu Nome" required>
-      <input type="email" name="email" placeholder="Seu E-mail" required>
-      <textarea name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
-      <input type="submit" value="Enviar">
-    </form>
-  </div>
-</section>
+    <!-- Seção Hero -->
+    <section class="hero">
+      <h1>O Futuro é Tangível</h1>
+      <p>Somos a AVZ PropTech. Nascemos no Brasil para descodificar o universo dos ativos digitais e construir uma ponte segura entre o mundo físico e a economia do futuro.</p>
+    </section>
 
-<div class="return-home-container">
-  <a href="index.html" class="return-home-btn">← Retornar à Home</a>
-</div>
+    <!-- Missão, Visão e Valores -->
+    <section class="content-section">
+      <div class="core-values">
+        <div class="value-card">
+          <div class="icon">🎯</div>
+          <h3>Nossa Missão</h3>
+          <p>Democratizar o acesso a ativos tokenizados, capacitando brasileiros com educação, segurança e tecnologia de ponta para que possam investir e transacionar com total confiança e clareza.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🔭</div>
+          <h3>Nossa Visão</h3>
+          <p>Ser a principal referência em tokenização e segurança Web3 na América Latina, transformando qualquer bem, físico ou digital, em um ativo líquido, transparente e acessível globalmente.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🛡️</div>
+          <h3>Nossos Valores</h3>
+          <p><strong>Educação</strong> acima de tudo. <strong>Segurança</strong> inegociável. <strong>Transparência</strong> radical. <strong>Inovação</strong> com propósito. <strong>Conformidade</strong> como alicerce.</p>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <p>© 2025 AVZ PropTech - Todos os direitos reservados</p>
-</footer>
+    <!-- O que é um Ativo Digital? -->
+    <section class="content-section">
+      <h2>Desmistificando o Ativo Digital</h2>
+      <p>Um ativo digital, ou token, é a representação digital de um bem ou direito em uma rede blockchain. Pense nele como um "contrato digital" superpoderoso: ele pode representar uma fração de um imóvel, um recebível de uma empresa, uma obra de arte ou até mesmo um crédito de carbono.</p>
+      <p>Seus benefícios são transformadores: <strong>liquidez</strong> (facilidade de comprar e vender), <strong>fracionamento</strong> (você pode ser dono de uma pequena parte de um grande ativo), <strong>transparência</strong> (todas as transações são registradas publicamente) e <strong>acessibilidade</strong> (investimentos antes restritos a poucos, agora disponíveis para muitos).</p>
+    </section>
+
+    <!-- O Alerta sobre Segurança na Web3 -->
+    <section class="content-section">
+      <h2>Segurança na Web3: O Pilar Inegociável</h2>
+      <p>A mesma tecnologia que permite a criação de ativos digitais legítimos também abre portas para fraudes. Qualquer pessoa com conhecimento técnico mínimo pode criar um token e lançá-lo no mercado. Sem um projeto sólido, uma auditoria de segurança e uma empresa responsável por trás, esses tokens são meras especulações sem valor real, criadas para enganar investidores.</p>
+      
+      <div class="alert-section">
+        <h3>O Perigo dos Tokens Vazios</h3>
+        <p>A maioria esmagadora dos tokens criados diariamente não possui qualquer base sólida. São projetos sem fundamento, promessas vazias que resultam em perdas financeiras significativas. A AVZ PropTech nasceu do compromisso de ser o antídoto para este cenário: cada token emitido por nós é lastreado em um ativo real, com contratos auditáveis e uma estrutura empresarial que garante sua legitimidade.</p>
+        <p><strong>Nossa regra de ouro:</strong> Se você não entende o ativo por trás do token, o risco é imensurável. Nós garantimos que você entenda.</p>
+      </div>
+    </section>
+
+    <!-- O Propósito e a Legalidade no Brasil -->
+    <section class="content-section">
+      <h2>Nosso Propósito: Inovação com Responsabilidade</h2>
+      <p>Acreditamos que a inovação só prospera dentro de um ambiente de segurança jurídica. Por isso, a AVZ PropTech opera em estrita conformidade com a legislação de cada país. No Brasil, nosso caminho é claro e alinhado às diretrizes da CVM (Comissão de Valores Mobiliários).</p>
+      
+      <h3>Utility Token: A Chave para o Mercado Brasileiro</h3>
+      <p>É fundamental compreender a natureza dos nossos tokens no Brasil. Eles são classificados como <strong>Ativos Utilitários (Utility Tokens)</strong>. Isso significa que eles não são valores mobiliários e não se destinam à especulação financeira.</p>
+      <p>Na prática, um Utility Token da AVZ confere ao seu detentor o direito a benefícios, produtos ou serviços. Ele é uma chave de acesso, um voucher digital, um meio para usufruir do ecossistema que criamos. Ele representa um direito de uso, não uma participação nos lucros ou no capital da empresa. Esta distinção é crucial, pois garante nossa conformidade regulatória e protege nossos clientes, focando no valor real e na utilidade do ativo.</p>
+    </section>
+
+    <!-- Mensagem da CEO -->
+    <section class="content-section">
+      <div class="ceo-message">
+        <div class="text">
+          <h2>Mensagem da Liderança</h2>
+          <p><em>"Fundamos a AVZ PropTech com uma convicção: a tecnologia blockchain não é sobre especulação, é sobre empoderamento. É sobre transformar iliquidez em oportunidade, complexidade em simplicidade e desconfiança em transparência auditável."</em></p>
+          <p><em>"Nosso compromisso não é apenas com a tecnologia, mas com as pessoas. Estamos aqui para construir, educar e proteger. Queremos que cada brasileiro se sinta seguro para participar desta nova economia, sabendo que por trás de cada token AVZ existe valor real, trabalho sério e um compromisso inabalável com a integridade. O futuro não é um lugar para se temer, mas um território para se construir juntos, com responsabilidade e visão."</em></p>
+          <div class="signature">
+            <strong>Viviane Baz</strong>
+            <span>CEO & Fundadora, AVZ PropTech</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
+  </footer>
 
 </body>
 </html>
