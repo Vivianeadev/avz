@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVZ PropTech - Parceiros Lojistas</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+        :root {
+            --radius: 0.625rem;
+            --background: #000000;
+            --foreground: #f0f0f0;
+            --card: #1a1a1a;
+            --card-foreground: #f0f0f0;
+            --popover: #1a1a1a;
+            --popover-foreground: #f0f0f0;
+            --primary: #d4af37;
+            --primary-foreground: #000000;
+            --secondary: #333333;
+            --secondary-foreground: #f0f0f0;
+            --muted: #333333;
+            --muted-foreground: #aaaaaa;
+            --accent: #d4af37;
+            --accent-foreground: #000000;
+            --destructive: #ef4444;
+            --border: rgba(255, 255, 255, 0.1);
+            --input: rgba(255, 255, 255, 0.15);
+            --ring: #888888;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            margin: 0;
+            font-family: "Inter", system-ui, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .space-x-2 > *:not(:first-child) {
+            margin-left: 0.5rem;
+        }
+
+        .space-x-6 > *:not(:first-child) {
+            margin-left: 1.5rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem;
+        }
+
+        .mb-16 {
+            margin-bottom: 4rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-20 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .text-7xl {
+            font-size: 4.5rem;
+            line-height: 1;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .leading-tight {
+            line-height: 1.25;
+        }
+
+        .max-w-3xl {
+            max-width: 48rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .bg-background {
+            background-color: var(--background);
+        }
+
+        .text-foreground {
+            color: var(--foreground);
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .border-t {
+            border-top-width: 1px;
+        }
+
+        .border-border\/40 {
+            border-color: rgba(var(--border), 0.4);
+        }
+
+        .bg-card\/50 {
+            background-color: rgba(var(--card), 0.5);
+        }
+
+        .backdrop-blur-sm {
+            backdrop-filter: blur(4px);
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .w-8 {
+            width: 2rem;
+        }
+
+        .h-8 {
+            height: 2rem;
+        }
+
+        .bg-primary {
+            background-color: var(--primary);
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .text-primary-foreground {
+            color: var(--primary-foreground);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .md\:flex {
+            display: flex;
+        }
+
+        .hover\:text-primary:hover {
+            color: var(--primary);
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .bg-primary\/20 {
+            background-color: rgba(var(--primary), 0.2);
+        }
+
+        .text-primary {
+            color: var(--primary);
+        }
+
+        .border-primary\/30 {
+            border-color: rgba(var(--primary), 0.3);
+        }
+
+        .w-4 {
+            width: 1rem;
+        }
+
+        .h-4 {
+            height: 1rem;
+        }
+
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        .text-muted-foreground {
+            color: var(--muted-foreground);
+        }
+
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .py-6 {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .md\:grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .lg\:grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .w-12 {
+            width: 3rem;
+        }
+
+        .h-12 {
+            height: 3rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .hover\:border-primary\/40:hover {
+            border-color: rgba(var(--primary), 0.4);
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+
+        .bg-card\/30 {
+            background-color: rgba(var(--card), 0.3);
+        }
+
+        .gap-12 {
+            gap: 3rem;
+        }
+
+        .md\:grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .md\:grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .w-16 {
+            width: 4rem;
+        }
+
+        .h-16 {
+            height: 4rem;
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+
+        .space-y-6 > *:not(:first-child) {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-8 > *:not(:first-child) {
+            margin-top: 2rem;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .text-base {
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        .w-6 {
+            width: 1.5rem;
+        }
+
+        .h-6 {
+            height: 1.5rem;
+        }
+
+        .min-h-\[120px\] {
+            min-height: 120px;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .avz-title {
+            font-family: "Playfair Display", serif;
+            color: #d4af37;
+        }
+
+        .avz-text {
+            font-family: "Inter", system-ui, sans-serif;
+        }
+
+        .avz-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #e8b4b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .avz-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .avz-hero {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+        }
+
+        .avz-section {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .avz-button {
+            background: linear-gradient(135deg, #d4af37 0%, #e8b4b8 100%);
+            color: #000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .avz-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .avz-icon {
+            color: #d4af37;
+        }
+
+        .avz-accent {
+            color: #e8b4b8;
+        }
+
+        /* Card specific styles */
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            text-align: center;
+        }
+
+        .card-content {
+            font-size: 1rem;
+            color: var(--muted-foreground);
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            background-color: rgba(var(--background), 0.5);
+            color: var(--foreground);
+        }
+
+        .textarea-field {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            background-color: rgba(var(--background), 0.5);
+            color: var(--foreground);
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .md\:flex {
+                display: none;
+            }
+            .md\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            .lg\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            .md\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            .md\:grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+            .text-7xl {
+                font-size: 3.5rem;
+            }
+            .text-4xl {
+                font-size: 2rem;
+            }
+            .gap-12 {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-background text-foreground">
+        <!-- Header -->
+        <header class="border-b border-border/40 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <span class="text-primary-foreground font-bold text-lg">A</span>
+                    </div>
+                    <span class="avz-title text-2xl font-bold">AVZ</span>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#produtos" class="avz-text hover:text-primary transition-colors">Produtos</a>
+                    <a href="#beneficios" class="avz-text hover:text-primary transition-colors">Benefícios</a>
+                    <a href="#contato" class="avz-text hover:text-primary transition-colors">Contato</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="avz-hero py-20 px-4">
+            <div class="container mx-auto text-center">
+                <span class="mb-6 bg-primary/20 text-primary border-primary/30" style="display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    O Futuro é Tangível
+                </span>
+                <h1 class="avz-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    AVZ: O Futuro do <br>
+                    <span class="avz-gradient">Varejo é Agora!</span>
+                </h1>
+                <p class="avz-text text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+                    Expanda seus negócios com a inovação da Web3 e produtos físicos que abrem portas para um universo digital
+                </p>
+                <a href="#contato" class="avz-button text-lg px-8 py-6 rounded-full" style="display: inline-flex; align-items: center; text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Seja um Parceiro AVZ!
+                </a>
+            </div>
+        </section>
+
+        <!-- Produtos Section -->
+        <section id="produtos" class="py-20 px-4 avz-section">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="avz-title text-4xl md:text-5xl font-bold mb-6">
+                        Produtos Físicos, <span class="avz-accent">Conexão Digital</span>
+                    </h2>
+                    <p class="avz-text text-xl text-muted-foreground max-w-3xl mx-auto">
+                        A Wallet do Futuro em Suas Mãos
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="avz-card border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mb-4"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h13a1 1 0 0 0 1-1v-3"/><path d="M19 20v-2a4 4 0 0 0-4-4H9"/></svg>
+                            <h3 class="avz-title card-title">Wallets Físicas</h3>
+                            <p class="avz-text card-description">
+                                Camisetas, garrafas e produtos exclusivos que funcionam como chaves para o mundo Web3
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Cada item é uma wallet física, um portal para a descentralização e a nova economia digital.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="avz-card border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mb-4"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                            <h3 class="avz-title card-title">Acesso Exclusivo</h3>
+                            <p class="avz-text card-description">
+                                Canal responsivo e educativo para seus clientes
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Venda mais do que um produto; venda acesso, conhecimento e inovação.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="avz-card border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mb-4"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                            <h3 class="avz-title card-title">Web3 Simplificado</h3>
+                            <p class="avz-text card-description">
+                                Democratizando o acesso à tecnologia descentralizada
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Transforme produtos físicos em pontes para o futuro digital.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Suporte Section -->
+        <section class="py-20 px-4 bg-card/30">
+            <div class="container mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="avz-title text-4xl md:text-5xl font-bold mb-6">
+                            <span class="avz-accent">Conhecimento</span> é Poder
+                        </h2>
+                        <p class="avz-text text-xl text-muted-foreground mb-8">
+                            Suporte e Educação para o Sucesso
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon mt-1"><path d="M4 22v-7m-2 2h4m-2-2v-2.5C2 12 3 11 4 11h.5A2.5 2.5 0 0 1 7 8.5V5c0-1.5 1.5-3 3-3h5c1.5 0 3 1.5 3 3v14.5c0 1.5-1.5 3-3 3h-5c-1.5 0-3-1.5-3-3V17"/></svg>
+                                <div>
+                                    <h3 class="avz-title text-xl font-semibold mb-2">Educação Completa</h3>
+                                    <p class="avz-text text-muted-foreground">
+                                        No Brasil, a AVZ se dedica a democratizar o acesso à Web3 com suporte inicial completo.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon mt-1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                                <div>
+                                    <h3 class="avz-title text-xl font-semibold mb-2">Segurança Garantida</h3>
+                                    <p class="avz-text text-muted-foreground">
+                                        Desmistificamos a tecnologia, garantindo navegação segura e confiante no universo descentralizado.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="avz-card p-8 rounded-2xl">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    </div>
+                                    <h4 class="avz-title text-2xl font-bold">1000+</h4>
+                                    <p class="avz-text text-muted-foreground">Lojistas Parceiros</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><path d="M12 17.75l-6.172 3.245 1.179-6.873-5-4.867 6.908-1.004 3.086-6.257 3.086 6.257 6.908 1.004-5 4.867 1.179 6.873z"/></svg>
+                                    </div>
+                                    <h4 class="avz-title text-2xl font-bold">4.9/5</h4>
+                                    <p class="avz-text text-muted-foreground">Satisfação</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inovação Section -->
+        <section class="py-20 px-4 avz-section">
+            <div class="container mx-auto text-center">
+                <h2 class="avz-title text-4xl md:text-5xl font-bold mb-6">
+                    <span class="avz-accent">Tokenização:</span> O Próximo Nível da Inovação
+                </h2>
+                <p class="avz-text text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+                    Faça parte de um movimento que está tokenizando tudo, desde produtos físicos até imóveis
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="avz-card border-primary/20 text-center">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mx-auto mb-4"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            <h3 class="avz-title card-title">Produtos Físicos</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Tokenização de produtos físicos para maior transparência e rastreabilidade
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="avz-card border-primary/20 text-center">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mx-auto mb-4"><rect width="16" height="16" x="4" y="2" rx="2" ry="2"/><path d="M10 9h4"/><path d="M10 13h4"/><path d="M10 17h4"/><path d="M10 21h4"/></svg>
+                            <h3 class="avz-title card-title">Imóveis</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Projeto grandioso de tokenização de imóveis, revolucionando o mercado imobiliário
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="avz-card border-primary/20 text-center">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 avz-icon mx-auto mb-4"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            <h3 class="avz-title card-title">Futuro Digital</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="avz-text text-muted-foreground">
+                                Prepare-se para um futuro onde cada ativo pode ser digitalizado e negociado
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefícios Section -->
+        <section id="beneficios" class="py-20 px-4 bg-card/30">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="avz-title text-4xl md:text-5xl font-bold mb-6">
+                        Por Que Ser um <span class="avz-accent">Parceiro AVZ?</span>
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <h3 class="avz-title text-xl font-semibold mb-4">Aumente o Faturamento</h3>
+                        <p class="avz-text text-muted-foreground">
+                            Produtos inovadores e de alta demanda para impulsionar suas vendas
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="avz-title text-xl font-semibold mb-4">Nova Clientela</h3>
+                        <p class="avz-text text-muted-foreground">
+                            Atraia clientes interessados em tecnologia e Web3
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3 class="avz-title text-xl font-semibold mb-4">Hub de Inovação</h3>
+                        <p class="avz-text text-muted-foreground">
+                            Posicione sua loja como referência em inovação
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 avz-icon"><path d="M4 22v-7m-2 2h4m-2-2v-2.5C2 12 3 11 4 11h.5A2.5 2.5 0 0 1 7 8.5V5c0-1.5 1.5-3 3-3h5c1.5 0 3 1.5 3 3v14.5c0 1.5-1.5 3-3 3h-5c-1.5 0-3-1.5-3-3V17"/></svg>
+                        </div>
+                        <h3 class="avz-title text-xl font-semibold mb-4">Suporte Contínuo</h3>
+                        <p class="avz-text text-muted-foreground">
+                            Treinamento e suporte para garantir seu sucesso
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="py-20 px-4 avz-section">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="avz-title text-4xl md:text-5xl font-bold mb-6">
+                        Fale Conosco e <span class="avz-accent">Transforme</span> Seu Negócio!
+                    </h2>
+                    <p class="avz-text text-xl text-muted-foreground max-w-3xl mx-auto">
+                        Interessado em se tornar um parceiro AVZ? Nossa equipe está pronta para tirar suas dúvidas e iniciar essa parceria de sucesso.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="avz-card border-primary/20">
+                        <div class="card-header" style="align-items: flex-start;">
+                            <h3 class="avz-title card-title" style="margin-top: 0;">Entre em Contato</h3>
+                            <p class="avz-text card-description" style="text-align: left;">
+                                Preencha o formulário e nossa equipe entrará em contato
+                            </p>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="avz-text label">Nome</label>
+                                    <input type="text" placeholder="Seu nome" class="input-field" />
+                                </div>
+                                <div>
+                                    <label class="avz-text label">Empresa</label>
+                                    <input type="text" placeholder="Nome da empresa" class="input-field" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="avz-text label">Email</label>
+                                <input type="email" placeholder="seu@email.com" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="avz-text label">Telefone</label>
+                                <input type="text" placeholder="(11) 99999-9999" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="avz-text label">Mensagem</label>
+                                <textarea placeholder="Conte-nos sobre seu negócio e interesse em nossa parceria..." class="textarea-field"></textarea>
+                            </div>
+                            <button class="avz-button w-full" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; border-radius: 0.375rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.73a1.8 1.8 0 0 1-2.06 0L2 7"/></svg>
+                                Enviar Mensagem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="avz-card border-primary/20">
+                            <div class="p-6 flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 avz-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.73a1.8 1.8 0 0 1-2.06 0L2 7"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="avz-title text-lg font-semibold">Email</h3>
+                                    <p class="avz-text text-muted-foreground">parceiros@avzproptech.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="avz-card border-primary/20">
+                            <div class="p-6 flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 avz-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="avz-title text-lg font-semibold">Telefone</h3>
+                                    <p class="avz-text text-muted-foreground">+55 (11) 9999-9999</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="avz-card border-primary/20">
+                            <div class="p-6 flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 avz-icon"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="avz-title text-lg font-semibold">Endereço</h3>
+                                    <p class="avz-text text-muted-foreground">São Paulo, SP - Brasil</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="avz-card p-6 rounded-lg text-center">
+                            <h3 class="avz-title text-xl font-semibold mb-4">Pronto para Começar?</h3>
+                            <p class="avz-text text-muted-foreground mb-6">
+                                Junte-se a mais de 1000 lojistas que já fazem parte da revolução AVZ
+                            </p>
+                            <a href="#contato" class="avz-button" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; border-radius: 0.375rem; text-decoration: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                Quero Ser Parceiro
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-border/40 bg-card/50 py-12 px-4">
+            <div class="container mx-auto text-center">
+                <div class="flex items-center justify-center space-x-2 mb-6">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <span class="text-primary-foreground font-bold text-lg">A</span>
+                    </div>
+                    <span class="avz-title text-2xl font-bold">AVZ PropTech</span>
+                </div>
+                <p class="avz-text text-muted-foreground mb-4">
+                    Nascemos no Brasil para descodificar o universo dos ativos digitais e construir uma ponte segura entre o mundo físico e a economia do futuro.
+                </p>
+                <p class="avz-text text-sm text-muted-foreground">
+                    © 2025 AVZ PropTech. Todos os direitos reservados.
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+
+
