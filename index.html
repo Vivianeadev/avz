@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AVZ PropTech - Início</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,33 +16,19 @@
       --rose-gold: #e8b4b8;
       --dark-rose: #c49497;
       --white: #ffffff;
-      --error: #ff6b6b;
-      --ok: #2ecc71;
-      --light-gray: #f8f8f8;
-      --medium-gray: #888;
-      --dark-gray: #333;
     }
 
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, var(--dark-black) 0%, var(--black) 25%, #1a1a1a 50%, var(--black) 75%, var(--dark-black) 100%);
       color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
       text-align: center;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 20%, rgba(212,175,55,0.05) 0%, transparent 50%),
-                 radial-gradient(circle at 80% 80%, rgba(232,180,184,0.05) 0%, transparent 50%),
-                 radial-gradient(circle at 40% 60%, rgba(212,175,55,0.03) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: -1;
+      padding: 20px;
     }
 
     header {
@@ -54,7 +39,6 @@
       display: flex;
       justify-content: center;
       padding: 10px 0;
-      z-index: 1;
     }
 
     nav {
@@ -77,15 +61,6 @@
     nav a:hover {
       color: var(--gold);
       text-shadow: 0 0 8px rgba(212,175,55,0.5);
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
     }
 
     h1 {
@@ -115,6 +90,7 @@
       box-shadow: 0 10px 30px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
       transition: all 0.3s ease;
       margin-bottom: 40px;
+      cursor: pointer;
     }
 
     .main-btn:hover {
@@ -143,7 +119,12 @@
       overflow: hidden;
     }
 
-    .ticker__viewport { position: relative; width: 100%; overflow: hidden; }
+    .ticker__viewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
     .ticker__track {
       display: inline-flex;
       gap: 28px;
@@ -152,16 +133,31 @@
       will-change: transform;
       animation: ticker-scroll 30s linear infinite;
     }
-    @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    .ticker__item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; letter-spacing: 0.3px; }
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+
     .ticker__sym {
       font-weight: 700;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .ticker__price { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; opacity: 0.9; }
+
+    .ticker__price {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      opacity: 0.9;
+    }
 
     .btn-row {
       display: flex;
@@ -169,13 +165,13 @@
       justify-content: center;
       width: 100%;
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 10px auto;
       flex-wrap: wrap;
     }
 
     .key-btn {
       flex: 1;
-      min-width: 200px;
+      min-width: 160px;
       padding: 16px 20px;
       background: linear-gradient(135deg, var(--rose-gold), var(--gold));
       color: var(--black);
@@ -186,348 +182,361 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
     }
 
-    .key-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(212,175,55,0.6); }
-
-    /* Área de consulta de saldo */
-    .saldo-area {
-      display: none;
-      width: 100%;
-      max-width: 1000px;
-      margin: 30px auto 0;
-      padding: 0;
-    }
-
-    .saldo-area.show {
-      display: block;
-    }
-
-    .liquidez-container {
-      background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-      backdrop-filter: blur(25px);
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      position: relative;
-      border-radius: 24px;
-      padding: 40px 30px;
-      text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-
-    .liquidez-container h2 {
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--rose-gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .liquidez-container p {
-      color: rgba(255,255,255,0.9);
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-    }
-
-    .wallet-input {
-      padding: 12px 16px;
-      width: 70%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: 1px solid rgba(212,175,55,0.35);
-      background: rgba(0,0,0,0.5);
-      color: var(--white);
-      outline: none;
-      font-size: 1rem;
-      margin-right: 10px;
-    }
-
-    .wallet-input:focus {
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
-    }
-
-    .consultar-btn {
-      padding: 12px 20px;
-      background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .consultar-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(212,175,55,0.4);
-    }
-
-    .consultar-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .loading { font-size: 1.1rem; color: #f4e4bc; }
-    .error { color: red; }
-
-    .token-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      margin: 6px 0;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: background 0.3s;
-    }
-
-    .token-item:hover { background: rgba(255,255,255,0.1); }
-
-    .token-info { display: flex; flex-direction: column; text-align: left; }
-    .token-symbol { font-size: 1.1rem; font-weight: 600; color: var(--gold); }
-    .token-name { font-size: 0.9rem; color: var(--medium-gray); }
-    .token-balance { text-align: right; }
-    .token-amount { font-size: 1rem; font-weight: 600; color: #fff; }
-    .token-item.zero-balance .token-amount { color: #888; }
-
-    .projection-currency { font-size: 0.8rem; color: var(--medium-gray); margin-left: 5px; }
-
-    .fechar-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, var(--rose-gold), var(--dark-rose));
-      color: var(--white);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .fechar-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(232,180,184,0.4);
+    .key-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(212,175,55,0.6);
     }
 
     footer {
       position: absolute;
       bottom: 10px;
-      left: 0;
-      right: 0;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
     }
 
-    @media (max-width: 640px) {
-      .btn-row { gap: 10px; }
-      .key-btn { min-width: calc(50% - 10px); }
-      .wallet-input { width: 100%; margin-right: 0; margin-bottom: 10px; }
+    /* ====== RESPONSIVIDADE MOBILE ====== */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      header {
+        top: 15px;
+        padding: 10px 15px;
+      }
+
+      nav {
+        padding: 10px 16px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      nav a {
+        margin: 0 6px;
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p.subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+
+      .main-btn {
+        font-size: 1.2rem;
+        padding: 16px 35px;
+      }
+
+      .btn-row { 
+        gap: 10px; 
+      }
+      
+      .key-btn { 
+        min-width: calc(50% - 5px);
+        font-size: 1rem;
+        padding: 14px 18px;
+      }
+
+      .ticker {
+        margin: 15px auto 20px;
+      }
+
+      .ticker__track {
+        gap: 20px;
+        padding: 6px 10px;
+      }
+
+      .ticker__item {
+        font-size: 0.85rem;
+      }
+
+      footer {
+        position: relative;
+        margin-top: 30px;
+        bottom: auto;
+        font-size: 0.8rem;
+        text-align: center;
+        padding: 0 15px;
+      }
     }
 
-    /* ===== Overlay de Login ===== */
-    .login-overlay {
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p.subtitle {
+        font-size: 1rem;
+      }
+
+      .main-btn {
+        font-size: 1.1rem;
+        padding: 14px 30px;
+      }
+
+      nav {
+        padding: 8px 12px;
+      }
+
+      nav a {
+        font-size: 0.8rem;
+        margin: 0 4px;
+      }
+
+      .key-btn {
+        font-size: 0.95rem;
+        padding: 12px 16px;
+      }
+    }
+
+    /* ====== SISTEMA DE OFUSCAÇÃO ====== */
+    .protected-content {
+      opacity: 0.1;
+      pointer-events: none;
+      filter: blur(3px);
+      transition: all 0.8s ease;
+    }
+
+    .protected-content.unlocked {
+      opacity: 1;
+      pointer-events: auto;
+      filter: blur(0px);
+    }
+
+    /* Mensagem de área protegida */
+    .access-message {
       position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(10,10,10,0.95));
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(26, 26, 26, 0.95);
+      padding: 20px 30px;
+      border-radius: 15px;
+      border: 1px solid var(--gold);
+      text-align: center;
+      max-width: 350px;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .access-message.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .access-message h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .access-message p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ====== ESTILOS DO POP-UP DE ACESSO ====== */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .popup-content h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+
+    .popup-content p {
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .popup-content input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .popup-content .remember-me {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
-    }
-    .login-card {
-      width: 90%;
-      max-width: 420px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(232,180,184,0.25);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      text-align: left;
-    }
-    .login-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 4px;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .login-sub {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 18px;
-    }
-    .input-wrap { margin-top: 14px; }
-    .input-label { font-size: 0.9rem; color: rgba(255,255,255,0.85); margin-bottom: 8px; display: block; }
-    .pwd-input {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(212,175,55,0.35);
-      background: rgba(0,0,0,0.5);
-      color: var(--white);
-      outline: none;
-      transition: box-shadow 0.2s ease, transform 0.1s ease;
-      font-size: 1rem;
-    }
-    .pwd-input:focus { box-shadow: 0 0 0 3px rgba(212,175,55,0.25); }
-    .login-btn {
-      margin-top: 14px;
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: none;
+      margin-bottom: 20px;
+      gap: 8px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 1rem;
+    }
+    
+    .popup-content .remember-me label {
+        cursor: pointer;
+    }
+
+    .popup-content button {
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
       color: var(--black);
-      box-shadow: 0 10px 20px rgba(212,175,55,0.35);
-      transition: transform 0.1s ease, box-shadow 0.2s ease;
+      font-weight: bold;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
     }
-    .login-btn:active { transform: translateY(1px); box-shadow: 0 6px 14px rgba(212,175,55,0.35); }
-    .hint { margin-top: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
-    .error { display: none; margin-top: 10px; font-size: 0.9rem; color: var(--error); }
-    .ok { display: none; margin-top: 10px; font-size: 0.9rem; color: var(--ok); }
-    .remember { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+
+    .popup-content button:hover {
+      transform: scale(1.05);
+    }
+
+    .error-message {
+      color: var(--rose-gold);
+      margin-top: 15px;
+      height: 20px;
+      font-weight: bold;
+    }
+
+    /* Responsividade do popup para mobile */
+    @media (max-width: 480px) {
+      .popup-content {
+        padding: 25px 20px;
+        margin: 0 15px;
+      }
+
+      .popup-content h2 {
+        font-size: 1.3rem;
+      }
+
+      .popup-content p {
+        font-size: 0.9rem;
+      }
+
+      .popup-content input[type="password"] {
+        font-size: 0.9rem;
+      }
+
+      .popup-content button {
+        font-size: 0.9rem;
+        width: 100%;
+      }
+
+      .popup-content .remember-me {
+        font-size: 0.8rem;
+      }
+
+      .access-message {
+        max-width: 90%;
+        padding: 15px 20px;
+      }
+
+      .access-message h3 {
+        font-size: 1.1rem;
+      }
+
+      .access-message p {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Conteúdo principal -->
-  <header>
+  <!-- Mensagem de área protegida (flutuante) -->
+  <div id="access-message" class="access-message">
+    <h3>Área Protegida</h3>
+    <p>Clique em "Acessar Carteira" para liberar o conteúdo</p>
+  </div>
+
+  <header class="protected-content">
     <nav>
-      <a href="sobre">Sobre Nós</a>
-      <a href="investidores.html">Investidores</a>
-      <a href="desenvolvedores.html">Para Desenvolvedores</a>
-      <a href="Quiz_AVZ">Games</a>
+      <a href="sobre.html">Sobre Nós</a>
+      <a href="investidores.html">Institucional</a>
+      <a href="#desenvolvedores">Filantropia</a>
+      <a href="Quiz_AVZ">Sustentabilidade</a>
     </nav>
   </header>
 
   <main>
-    <h1>AVZ PropTech</h1>
-    <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
-    <a href="https://play.google.com/store/apps/details?id=io.metamask" class="main-btn">Acessar Carteira</a>
+    <h1 class="protected-content">AVZ PropTech</h1>
+    <p class="subtitle protected-content">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
+    <!-- O 'href' foi removido e um 'id' foi adicionado para controle via JS -->
+    <a id="access-wallet-btn" class="main-btn">Acessar Carteira</a>
 
-    <div class="divider"></div>
+    <div class="divider protected-content"></div>
 
-    <div class="ticker" role="region" aria-label="Cotações cripto">
+    <!-- ====== TICKER ====== -->
+    <div class="ticker protected-content" role="region" aria-label="Cotações cripto">
       <div class="ticker__viewport" aria-live="polite">
         <div id="ticker-track" class="ticker__track"></div>
       </div>
     </div>
 
-    <div class="btn-row">
-      <button onclick="toggleSaldoArea()" class="key-btn">Consulta Carteira</button>
-      <a href="investidores.html" class="key-btn">Investidores</a>
-      <a href="liquidez.html" class="key-btn">Informativo de Liquidez</a>
-      <a href="jogadoresavz.html" class="key-btn">Jogos AVZ</a>
+    <!-- ====== BOTÕES EM DUAS LINHAS ====== -->
+    <div class="btn-row protected-content">
+      <a href="#" target="_blank" class="key-btn">Games</a>
+      <a href="liquidez.html" class="key-btn">Produtos</a>
     </div>
-
-    <!-- Área de consulta de saldo -->
-    <div id="saldoArea" class="saldo-area">
-      <div class="liquidez-container">
-        <h2>AVZ PropTech - Acesso à Web3</h2>
-        <p>Digite o endereço da carteira para consultar os tokens e saldo MATIC.</p>
-        <div style="margin-bottom: 20px;">
-          <input type="text" id="walletAddress" placeholder="Endereço da carteira" class="wallet-input">
-          <button id="lookupBtn" onclick="lookupWallet()" class="consultar-btn">Consultar</button>
-        </div>
-        <div id="nativeBalance" class="loading">Carregando saldo MATIC...</div>
-        <div id="tokensList" class="tokens-title">Tokens ERC-20 (0)</div>
-        <div id="tokensMessage" class="loading"></div>
-      </div>
-
-      <!-- Projeção de Valor -->
-      <div class="liquidez-container" id="projection">
-        <h2 style="background:linear-gradient(135deg,var(--gold),var(--rose-gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">📊 Projeção de Valor</h2>
-        <p style="color:#ccc; font-size:1rem; margin-bottom:20px;">Valores estimados em várias moedas. Podem variar a qualquer momento.</p>
-        <div id="projectionData" style="color:#fff; font-size:1.1rem;">Carregando projeção de valores...</div>
-      </div>
-
-      <button class="fechar-btn" onclick="toggleSaldoArea()">Fechar Consulta</button>
+    <div class="btn-row protected-content">
+      <a href="investidores.html" class="key-btn">Investidores</a>
+      <a href="lei.html" class="key-btn">A Lei e AVZ</a>
     </div>
   </main>
 
-  <footer>
+  <footer class="protected-content">
     © 2025 AVZ PropTech - Todos os direitos reservados
   </footer>
 
-  <!-- Overlay de Login -->
-  <div id="login" class="login-overlay" aria-modal="true" role="dialog">
-    <div class="login-card">
-      <div class="login-title">Acesso restrito</div>
-      <div class="login-sub">Digite a senha para entrar.</div>
-      <div class="input-wrap">
-        <label class="input-label" for="pwd">Senha</label>
-        <input id="pwd" class="pwd-input" type="password" placeholder="••••••••••" autocomplete="current-password">
+  <!-- ==================== POP-UP DE ACESSO RESTRITO ==================== -->
+  <div id="access-popup" class="popup-overlay">
+    <div class="popup-content">
+      <h2>Acesso restrito</h2>
+      <p>Digite a senha para entrar.</p>
+      <input type="password" id="password-input" placeholder="••••••••••">
+      <div class="remember-me">
+        <input type="checkbox" id="remember-access">
+        <label for="remember-access">Lembrar acesso neste navegador</label>
       </div>
-      <label class="remember"><input type="checkbox" id="remember"> Lembrar acesso neste navegador</label>
-      <button id="enter" class="login-btn">Entrar</button>
-      <div id="err" class="error">Senha incorreta.</div>
-      <div id="ok" class="ok">Acesso liberado!</div>
-      <div class="hint">Dica: a senha diferencia maiúsculas e minúsculas.</div>
+      <button id="submit-password-btn">Entrar</button>
+      <p id="error-message" class="error-message"></p>
+      <p class="popup-hint">Dica: a senha diferencia maiúsculas e minúsculas.</p>
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- ====== Scripts do ticker ====== -->
   <script>
-    // ======= Login simples (client-side) =======
-    (function() {
-      const CORRECT = "AVZ-7K2J8"; // senha solicitada
-      const login = document.getElementById('login');
-      const pwd = document.getElementById('pwd');
-      const btn = document.getElementById('enter');
-      const err = document.getElementById('err');
-      const ok = document.getElementById('ok');
-      const remember = document.getElementById('remember');
-
-      function unlock() {
-        login.style.display = 'none';
-      }
-
-      function handleAuth() {
-        const val = pwd.value.trim();
-        if (val === CORRECT) {
-          ok.style.display = 'block';
-          err.style.display = 'none';
-          if (remember.checked && window.sessionStorage) {
-            sessionStorage.setItem('avz_auth', '1');
-          }
-          // pequena pausa visual
-          setTimeout(unlock, 250);
-        } else {
-          ok.style.display = 'none';
-          err.style.display = 'block';
-          pwd.focus();
-          pwd.select();
-        }
-      }
-
-      // Já autenticado nesta sessão?
-      try {
-        if (sessionStorage.getItem('avz_auth') === '1') {
-          unlock();
-        }
-      } catch (e) {}
-
-      btn.addEventListener('click', handleAuth);
-      pwd.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') handleAuth();
-      });
-      // Foco inicial
-      setTimeout(() => pwd.focus(), 100);
-    })();
-
-    // ======= Ticker (como no template) =======
     const COINGECKO_IDS = {
       BTC: 'bitcoin',
       ETH: 'ethereum',
@@ -537,6 +546,7 @@
       USDT: 'tether'
     };
 
+    // Endereços originais (mantidos, caso precise)
     const TOKENS_BY_ADDRESS = [
       { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
       { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
@@ -581,26 +591,12 @@
       }
     }
 
-    async function fetchDexPrice(addr) {
-      try {
-        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${addr}`);
-        if (!res.ok) throw new Error('Dexscreener error');
-        const data = await res.json();
-        const pair = (data && data.pairs && data.pairs[0]) || null;
-        return pair ? Number(pair.priceUsd) : null;
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }
-
+    // Preços fixos para AVZ e AV9
     async function fetchAVZ_AV9() {
-      const results = [];
-      for (const t of TOKENS_BY_ADDRESS) {
-        const p = await fetchDexPrice(t.address);
-        results.push({ sym: t.sym, price: p });
-      }
-      return results;
+      return [
+        { sym: 'AVZ', price: 0.04 },
+        { sym: 'AV9', price: 0.006 }
+      ];
     }
 
     async function refreshTicker() {
@@ -629,173 +625,121 @@
     refreshTicker();
     setInterval(refreshTicker, 60000);
 
-    // ======= Funcionalidade de consulta de saldo =======
-    let provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
-    let currentAddress = '';
-    let tokens = [];
-    let isLookingUp = false;
+    // ==================== LÓGICA DO POP-UP DE ACESSO E OFUSCAÇÃO ====================
+    
+    // Senha de acesso configurada
+    const SENHA_CORRETA = "AVZ-7K2J8"; 
+    const STORAGE_KEY = 'avz_access_granted';
+    const DESTINATION_URL = 'cliente.html';
 
-    const popularPolygonTokens = [
-      { address:'0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4', symbol:'AVZ', name:'AVZ', decimals:18 },
-      { address:'0x2EfADD20B18E551d97994790D217915e56005b4f', symbol:'AV9', name:'AV9', decimals:18 }
-    ];
+    const accessWalletBtn = document.getElementById('access-wallet-btn');
+    const popup = document.getElementById('access-popup');
+    const passwordInput = document.getElementById('password-input');
+    const rememberCheckbox = document.getElementById('remember-access');
+    const submitPasswordBtn = document.getElementById('submit-password-btn');
+    const errorMessage = document.getElementById('error-message');
+    const accessMessage = document.getElementById('access-message');
+    const protectedElements = document.querySelectorAll('.protected-content');
 
-    function toggleSaldoArea() {
-      const saldoArea = document.getElementById('saldoArea');
-      saldoArea.classList.toggle('show');
+    function unlockContent() {
+      // Remove a mensagem de área protegida
+      accessMessage.classList.add('hidden');
       
-      if (!saldoArea.classList.contains('show')) {
-        // Reset quando fechar
-        document.getElementById('walletAddress').value = '';
-        document.getElementById('nativeBalance').textContent = 'Carregando saldo MATIC...';
-        document.getElementById('tokensList').textContent = 'Tokens ERC-20 (0)';
-        document.getElementById('tokensMessage').textContent = '';
-        document.getElementById('projectionData').textContent = 'Carregando projeção de valores...';
-        currentAddress = '';
-        tokens = [];
+      // Desbloqueie todos os elementos protegidos
+      protectedElements.forEach(element => {
+        element.classList.add('unlocked');
+      });
+    }
+
+    function proceedToWallet() {
+        window.location.href = DESTINATION_URL;
+    }
+
+    function handlePasswordCheck() {
+      if (passwordInput.value === SENHA_CORRETA) {
+        if (rememberCheckbox.checked) {
+          // Salva a permissão no localStorage por 30 dias
+          const expirationDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ expires: expirationDate }));
+        }
+        
+        // Primeiro desbloqueia o conteúdo
+        unlockContent();
+        
+        // Fecha o popup
+        popup.style.display = 'none';
+        
+        // Aguarda um pouco para o usuário ver o conteúdo desbloqueado, depois redireciona
+        setTimeout(() => {
+          proceedToWallet();
+        }, 1500);
+      } else {
+        errorMessage.textContent = 'Senha incorreta. Tente novamente.';
+        passwordInput.value = '';
+        passwordInput.focus();
       }
     }
 
-    function isValidAddress(address){ return ethers.utils.isAddress(address); }
-
-    async function lookupWallet() {
-      if(isLookingUp) return;
-      const addressInput = document.getElementById('walletAddress');
-      const address = addressInput.value.trim();
-      if(!address){ alert('Insira um endereço de carteira.'); return; }
-      if(!isValidAddress(address)){ alert('Endereço Ethereum inválido.'); return; }
-      isLookingUp = true;
-      const lookupBtn = document.getElementById('lookupBtn');
-      const originalText = lookupBtn.textContent;
-      lookupBtn.textContent='Consultando...'; lookupBtn.disabled=true;
-      try{
-        currentAddress=address;
-        await updateWalletInfo();
-        await fetchAllTokensIncludingZero();
-        await fetchProjection();
-      }catch(err){ alert("Erro ao consultar carteira: "+err.message); }
-      finally{ isLookingUp=false; lookupBtn.textContent=originalText; lookupBtn.disabled=false; }
-    }
-
-    async function updateWalletInfo(){
-      if(!provider||!currentAddress) return;
-      try{
-        document.getElementById('nativeBalance').textContent='Carregando saldo MATIC...';
-        const balance = await provider.getBalance(currentAddress);
-        const balanceInMatic = ethers.utils.formatEther(balance);
-        document.getElementById('nativeBalance').textContent = `${parseFloat(balanceInMatic).toFixed(4)} MATIC`;
-      }catch(err){ document.getElementById('nativeBalance').textContent='Erro ao carregar saldo'; }
-    }
-
-    async function fetchAllTokensIncludingZero(){
-      if(!currentAddress) return;
-      try{
-        document.getElementById('tokensMessage').textContent='Buscando tokens...';
-        let discoveredTokens = new Map();
-        const polygonscanApiKey = 'YourApiKeyToken';
-        const response = await fetch(`https://api.polygonscan.com/api?module=account&action=tokentx&address=${currentAddress}&startblock=0&endblock=999999999&sort=asc&apikey=${polygonscanApiKey}`);
-        if(response.ok){
-          const data = await response.json();
-          if(data.status==='1' && data.result){
-            data.result.forEach(tx=>{
-              if(tx.contractAddress && tx.tokenSymbol && tx.tokenName){
-                discoveredTokens.set(tx.contractAddress.toLowerCase(),{
-                  address:tx.contractAddress,
-                  symbol:tx.tokenSymbol,
-                  name:tx.tokenName,
-                  decimals:parseInt(tx.tokenDecimal)||18
-                });
-              }
-            });
-          }
+    function checkStoredAccess() {
+      const savedAccess = localStorage.getItem(STORAGE_KEY);
+      
+      if (savedAccess) {
+        const { expires } = JSON.parse(savedAccess);
+        if (new Date().getTime() < expires) {
+          console.log("Acesso lembrado. Desbloqueando conteúdo...");
+          unlockContent();
+          return true;
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
         }
-        popularPolygonTokens.forEach(token=>{
-          if(!discoveredTokens.has(token.address.toLowerCase())) discoveredTokens.set(token.address.toLowerCase(),token);
-        });
-        const allTokens = Array.from(discoveredTokens.values());
-        tokens=[];
-        for(let token of allTokens){
-          try{
-            const contract = new ethers.Contract(token.address,['function balanceOf(address) view returns (uint256)'],provider);
-            const balance = await contract.balanceOf(currentAddress);
-            const balanceFormatted = ethers.utils.formatUnits(balance,token.decimals);
-            tokens.push({...token,balance,balanceFormatted,balanceNumber:parseFloat(balanceFormatted)});
-          }catch(e){ tokens.push({...token,balance:0,balanceFormatted:'0',balanceNumber:0}); }
-        }
-        const uniqueTokens=[];
-        const seen=new Set();
-        tokens.forEach(token=>{ if(!seen.has(token.symbol)){ seen.add(token.symbol); uniqueTokens.push(token); } });
-        tokens=uniqueTokens;
-        tokens.sort((a,b)=>{
-          if(a.balanceNumber>0 && b.balanceNumber===0) return -1;
-          if(a.balanceNumber===0 && b.balanceNumber>0) return 1;
-          return a.symbol.localeCompare(b.symbol);
-        });
-        updateTokensList();
-      }catch(err){ document.getElementById('tokensMessage').textContent='Erro ao carregar tokens'; }
+      }
+      return false;
     }
 
-    function updateTokensList(){
-      const tokensListDiv = document.getElementById('tokensList');
-      if(tokens.length===0){ tokensListDiv.innerHTML='Tokens ERC-20 (0)';
-        document.getElementById('tokensMessage').textContent='Insira um endereço para consultar todos os tokens.'; return; }
-      tokensListDiv.innerHTML=`<div style="font-size:1.1rem; font-weight:600; margin-bottom:15px; color:var(--gold);">Tokens ERC-20 (${tokens.length})</div>`; 
-      document.getElementById('tokensMessage').textContent='';
-      let html = tokens.map(token=>`
-        <div class="token-item ${token.balanceNumber===0?'zero-balance':''}">
-          <div class="token-info">
-            <div class="token-symbol">${token.symbol}</div>
-            <div class="token-name">${token.name}</div>
-          </div>
-          <div class="token-balance">
-            <div class="token-amount">${parseFloat(token.balanceFormatted).toFixed(6)}</div>
-          </div>
-        </div>
-      `).join('');
-      tokensListDiv.innerHTML += html;
-    }
-
-    async function fetchProjection(){
-      if(!currentAddress) return;
-      try{
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network,tether&vs_currencies=usd,brl,eur,gbp');
-        if(!response.ok) throw new Error('Erro ao buscar preços');
-        const prices = await response.json();
-
-        let projectionHTML='';
-        const maticToken = tokens.find(t=>t.symbol==='MATIC');
-        const maticAmount = maticToken ? maticToken.balanceNumber : 0;
-        const otherTokens = tokens.filter(t=>t.symbol!=='MATIC');
-
-        const formatCurrencies = (amountUSD)=>{
-          const usd = amountUSD;
-          const brl = amountUSD * prices['matic-network'].brl/prices['matic-network'].usd;
-          const eur = amountUSD * prices['matic-network'].eur/prices['matic-network'].usd;
-          const gbp = amountUSD * prices['matic-network'].gbp/prices['matic-network'].usd;
-          return `US$ ${usd.toFixed(2)} <span class="projection-currency">R$ ${brl.toFixed(2)} | € ${eur.toFixed(2)} | £ ${gbp.toFixed(2)}</span>`;
-        };
-
-        const maticUSD = maticAmount * prices['matic-network'].usd;
-        projectionHTML+=`<div class="token-item">
-          <div class="token-info"><div class="token-symbol">MATIC</div><div class="token-name">Polygon</div></div>
-          <div class="token-balance"><div class="token-amount">${formatCurrencies(maticUSD)}</div></div>
-        </div>`;
-
-        otherTokens.forEach(token=>{
-          const usd = token.balanceNumber * prices['tether'].usd;
-          projectionHTML+=`<div class="token-item">
-            <div class="token-info"><div class="token-symbol">${token.symbol}</div><div class="token-name">${token.name}</div></div>
-            <div class="token-balance"><div class="token-amount">${formatCurrencies(usd)}</div></div>
-          </div>`;
-        });
-
-        document.getElementById('projectionData').innerHTML=projectionHTML;
-      }catch(err){
-        document.getElementById('projectionData').textContent='Não foi possível carregar projeção de valor';
+    function showPopupOnLoad() {
+      // Verifica se já tem acesso salvo
+      if (!checkStoredAccess()) {
+        // Se não tem acesso salvo, mostra o popup automaticamente
+        popup.style.display = 'flex';
+        setTimeout(() => {
+          passwordInput.focus();
+        }, 100);
       }
     }
 
-    setInterval(fetchProjection,60000);
+    accessWalletBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      
+      // Se já tem acesso salvo, vai direto para a carteira
+      if (checkStoredAccess()) {
+        proceedToWallet();
+        return;
+      }
+      
+      // Caso contrário, mostra o pop-up
+      popup.style.display = 'flex';
+      passwordInput.focus();
+    });
+
+    submitPasswordBtn.addEventListener('click', handlePasswordCheck);
+    passwordInput.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        handlePasswordCheck();
+      }
+    });
+    
+    // Permite fechar o pop-up clicando fora da caixa de conteúdo
+    popup.addEventListener('click', (event) => {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+
+    // Mostra o popup automaticamente quando a página carrega (se não tiver acesso salvo)
+    window.addEventListener('load', () => {
+      showPopupOnLoad();
+    });
+
   </script>
 </body>
 </html>
