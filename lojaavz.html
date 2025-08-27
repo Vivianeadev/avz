@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja AVZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+  
+    /* === ESTILOS ORIGINAIS DO esse.html (mantidos) === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --dark-black: #000000;
+      --gold: #d4af37; --light-gold: #f4e4bc;
+      --rose-gold: #e8b4b8; --white: #ffffff;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+      color: var(--white); display: flex; flex-direction: column;
+      align-items: center; min-height: 100vh; text-align: center; padding: 20px;
+    }
+    header { width: 100%; padding: 15px 0; display: flex; justify-content: center;
+      background: rgba(0,0,0,0.6); position: sticky; top: 0; z-index: 5; }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    nav a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
+    nav a:hover { color: var(--gold); }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 20px 0;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p.subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
+    .main-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black); font-size: 1.2rem; font-weight: bold; padding: 15px 35px;
+      border-radius: 50px; text-decoration: none; margin-bottom: 30px; transition: 0.3s; cursor: pointer; }
+    .main-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(212,175,55,0.5); }
+    .divider { width: 80%; height: 2px; margin: 20px auto;
+      background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
+      border-radius: 2px; }
+    footer { margin-top: auto; padding: 15px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; }
+
+    /* === POPUP DE SENHA (de desenvolver.html) === */
+    .popup-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999;
+    }
+    .popup-content {
+      background: #1a1a1a; padding: 30px; border-radius: 15px;
+      border: 1px solid var(--gold); text-align: center;
+      width: 90%; max-width: 400px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .popup-content h2 {
+      font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px;
+    }
+    .popup-content p { margin-bottom: 20px; color: rgba(255,255,255,0.8); }
+    .popup-content input[type="password"] {
+      width: 100%; padding: 12px; margin-bottom: 15px;
+      border-radius: 8px; border: 1px solid #444; background: #222;
+      color: white; font-size: 1rem;
+    }
+    .popup-content button {
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black); font-weight: bold;
+      padding: 12px 30px; border: none; border-radius: 8px;
+      cursor: pointer; transition: all 0.3s ease; font-size: 1rem;
+    }
+    .popup-content button:hover { transform: scale(1.05); }
+    .error-message { color: var(--rose-gold); margin-top: 15px; font-weight: bold; }
+    .popup-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+    .popup-links a {
+      font-weight: bold; text-decoration: none; font-size: 1rem;
+      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+    .popup-links a:hover {
+      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px rgba(212,175,55,0.6);
+    }
+  
+
+  /* Ajuste específico para a loja */
+  .denied {
+    color: var(--rose-gold);
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 20px 0;
+  }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+  .product-card {
+    background: #1a1a1a;
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(212,175,55,0.5);
+  }
+  .product-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .product-card p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 15px;
+  }
+  .product-card .buy-btn {
+    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+    color: var(--black);
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+  }
+  .product-card .buy-btn:hover {
+    transform: scale(1.05);
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="sobre.html">Institucional</a>
+      <a href="desenvolvedores.html">Desenvolvedores</a>
+      <a href="investidores.html">Investidores</a>
+      <a href="Quiz_AVZ">Sustentabilidade</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Loja AVZ</h1>
+    <p class="denied">Acesso negado ao painel restrito. Você foi redirecionado para a Loja AVZ.</p>
+
+    <div class="products">
+      <div class="product-card">
+        <h3>Token AVZ</h3>
+        <p>Invista em nossa tecnologia imobiliária.</p>
+        <a href="#" class="buy-btn">Comprar</a>
+      </div>
+      <div class="product-card">
+        <h3>Plano Premium</h3>
+        <p>Acesse benefícios exclusivos no ecossistema AVZ.</p>
+        <a href="#" class="buy-btn">Assinar</a>
+      </div>
+      <div class="product-card">
+        <h3>Consultoria</h3>
+        <p>Receba suporte especializado em investimentos.</p>
+        <a href="#" class="buy-btn">Contratar</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
