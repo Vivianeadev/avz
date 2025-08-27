@@ -173,6 +173,8 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 1rem;
+      /* 👇 Ajuste solicitado para descer o botão */
+      margin-top: 20px;
     }
 
     .popup-content button:hover {
@@ -221,6 +223,7 @@
       <button id="submit-password-btn">Entrar</button>
       <p id="error-message" class="error-message"></p>
       <p class="popup-hint">Dica: a senha diferencia maiúsculas e minúsculas.</p>
+      <hr style="border: none; height: 1px; background-color: #ffc0cb;">
 
       <!-- LINKS NO FINAL -->
       <div class="popup-links">
@@ -234,7 +237,6 @@
   <!-- Conteúdo protegido -->
   <header class="protected-content">
     <nav>
-      <a href="sobre.html">Institucional</a>
       <a href="desenvolvedores.html">Desenvolvedores</a>
       <a href="investidores.html">Investidores</a>
       <a href="Quiz_AVZ">Sustentabilidade</a>
