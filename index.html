@@ -546,7 +546,6 @@
       USDT: 'tether'
     };
 
-    // Endereços originais (mantidos, caso precise)
     const TOKENS_BY_ADDRESS = [
       { sym: 'AVZ', address: '0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4' },
       { sym: 'AV9', address: '0x2EfADD20B18E551d97994790D217915e56005b4f' }
@@ -591,7 +590,6 @@
       }
     }
 
-    // Preços fixos para AVZ e AV9
     async function fetchAVZ_AV9() {
       return [
         { sym: 'AVZ', price: 0.04 },
@@ -625,12 +623,9 @@
     refreshTicker();
     setInterval(refreshTicker, 60000);
 
-    // ==================== LÓGICA DO POP-UP DE ACESSO E OFUSCAÇÃO ====================
-    
-    // Senha de acesso configurada
+    // ==================== LÓGICA DO POP-UP ====================
     const SENHA_CORRETA = "AVZ-7K2J8"; 
     const STORAGE_KEY = 'avz_access_granted';
-    const DESTINATION_URL = 'cliente.html';
 
     const accessWalletBtn = document.getElementById('access-wallet-btn');
     const popup = document.getElementById('access-popup');
@@ -642,37 +637,21 @@
     const protectedElements = document.querySelectorAll('.protected-content');
 
     function unlockContent() {
-      // Remove a mensagem de área protegida
       accessMessage.classList.add('hidden');
-      
-      // Desbloqueie todos os elementos protegidos
       protectedElements.forEach(element => {
         element.classList.add('unlocked');
       });
     }
 
-    function proceedToWallet() {
-        window.location.href = DESTINATION_URL;
-    }
-
     function handlePasswordCheck() {
       if (passwordInput.value === SENHA_CORRETA) {
         if (rememberCheckbox.checked) {
-          // Salva a permissão no localStorage por 30 dias
           const expirationDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
           localStorage.setItem(STORAGE_KEY, JSON.stringify({ expires: expirationDate }));
         }
-        
-        // Primeiro desbloqueia o conteúdo
         unlockContent();
-        
-        // Fecha o popup
         popup.style.display = 'none';
-        
-        // Aguarda um pouco para o usuário ver o conteúdo desbloqueado, depois redireciona
-        setTimeout(() => {
-          proceedToWallet();
-        }, 1500);
+        // ❌ Não redireciona mais para cliente.html
       } else {
         errorMessage.textContent = 'Senha incorreta. Tente novamente.';
         passwordInput.value = '';
@@ -682,11 +661,9 @@
 
     function checkStoredAccess() {
       const savedAccess = localStorage.getItem(STORAGE_KEY);
-      
       if (savedAccess) {
         const { expires } = JSON.parse(savedAccess);
         if (new Date().getTime() < expires) {
-          console.log("Acesso lembrado. Desbloqueando conteúdo...");
           unlockContent();
           return true;
         } else {
@@ -697,9 +674,7 @@
     }
 
     function showPopupOnLoad() {
-      // Verifica se já tem acesso salvo
       if (!checkStoredAccess()) {
-        // Se não tem acesso salvo, mostra o popup automaticamente
         popup.style.display = 'flex';
         setTimeout(() => {
           passwordInput.focus();
@@ -709,14 +684,10 @@
 
     accessWalletBtn.addEventListener('click', (event) => {
       event.preventDefault();
-      
-      // Se já tem acesso salvo, vai direto para a carteira
       if (checkStoredAccess()) {
-        proceedToWallet();
+        unlockContent();
         return;
       }
-      
-      // Caso contrário, mostra o pop-up
       popup.style.display = 'flex';
       passwordInput.focus();
     });
@@ -728,19 +699,15 @@
       }
     });
     
-    // Permite fechar o pop-up clicando fora da caixa de conteúdo
     popup.addEventListener('click', (event) => {
         if (event.target === popup) {
             popup.style.display = 'none';
         }
     });
 
-    // Mostra o popup automaticamente quando a página carrega (se não tiver acesso salvo)
     window.addEventListener('load', () => {
       showPopupOnLoad();
     });
-
   </script>
 </body>
 </html>
-
