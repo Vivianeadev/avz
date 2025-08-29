@@ -9,109 +9,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
-        body {
+      body {
         margin: 0;
         padding: 0;
         font-family: 'Montserrat', sans-serif;
         background: #000000;
         overflow-x: hidden;
         scroll-behavior: smooth;
-        text-shadow: 1px 1px 2px #e8b4b8;
-      }
-      
-      /* Overlay de autenticação */
-      .auth-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(10px);
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .auth-popup {
-        background: rgba(0, 0, 0, 0.95);
-        border: 2px solid #D4AF37;
-        border-radius: 20px;
-        padding: 3rem;
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
-      }
-      
-      .auth-title {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #D4AF37;
-        margin-bottom: 1rem;
-      }
-      
-      .auth-subtitle {
-        font-size: 1.1rem;
-        color: #FFFFFF;
-        margin-bottom: 2rem;
-        line-height: 1.5;
-      }
-      
-      .auth-input {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.1rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(212, 175, 55, 0.3);
-        border-radius: 10px;
-        color: #FFFFFF;
-        margin-bottom: 1.5rem;
-        outline: none;
-        transition: all 0.3s ease;
-      }
-      
-      .auth-input:focus {
-        border-color: #D4AF37;
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-      }
-      
-      .auth-input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-      }
-      
-      .auth-button {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        background: linear-gradient(135deg, #D4AF37, #F4E87C);
-        color: #000000;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-bottom: 1rem;
-      }
-      
-      .auth-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
-      }
-      
-      .auth-error {
-        color: #ff6b6b;
-        font-size: 0.9rem;
-        margin-top: 1rem;
-        display: none;
-      }
-      
-      .auth-note {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: 1rem;
-        font-style: italic;
       }
       
       /* Navegação */
@@ -151,7 +55,7 @@
       
       .nav-item {
         font-size: clamp(0.8rem, 2vw, 0.9rem);
-        color: #D4AF37;
+        color: #FFFFFF;
         text-decoration: none;
         padding: 0.5rem 1rem;
         border-radius: 5px;
@@ -235,7 +139,7 @@
       .subtitle {
         font-size: clamp(1.5rem, 4vw, 2.5rem);
         font-weight: 600;
-        color: #D4AF37;
+        color: #FFFFFF;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         text-align: center;
         margin-bottom: 1rem;
@@ -250,7 +154,7 @@
       }
       
       .description {
-        color: #D4AF37;
+        color: white;
         font-size: clamp(1rem, 3vw, 1.5rem);
         margin-top: 1.5rem;
         font-weight: 600;
@@ -331,14 +235,6 @@
         .golden-line {
           width: 150px;
           margin: 1.5rem auto;
-        }
-        
-        .auth-popup {
-          padding: 2rem;
-        }
-        
-        .auth-title {
-          font-size: 1.5rem;
         }
       }
       
@@ -422,623 +318,558 @@
           height: 360px;
         }
       }
-      
-      /* Ocultar conteúdo quando não autenticado */
-      .content-hidden {
-        filter: blur(5px);
-        pointer-events: none;
-      }
     </style>
   </head>
   <body>
-    <!-- Overlay de Autenticação -->
-    <div id="authOverlay" class="auth-overlay">
-      <div class="auth-popup">
-        <div class="auth-title">Acesso restrito</div>
-        <div class="auth-subtitle">
-          Esta área é exclusiva para investidores que participaram de reuniões conosco.<br>
-          Insira seu código de autorização para continuar.
-        </div>
-        <input 
-          type="email" 
-          id="authInput" 
-          class="auth-input" 
-          placeholder="Digite seu email de autorização"
-          autocomplete="avzproptech@outlook.com"
-        >
-        <button onclick="authenticate()" class="auth-button">
-          <i class="fas fa-unlock-alt" style="margin-right: 0.5rem;"></i>
-          Acessar Apresentação
+    <!-- Navegação -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">AVZ Key</div>
+        <button class="nav-toggle" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
         </button>
-        <div id="authError" class="auth-error">
-          Email não autorizado. Verifique se você participou de uma reunião conosco.
-        </div>
-        <div class="auth-note">
-          O código de autorização é o email que foi previamente combinado durante nossa reunião.
+        <ul class="nav-menu" id="navMenu">
+          <li><a class="nav-item" href="#slide1">Início</a></li>
+          <li><a class="nav-item" href="#slide2">Problema</a></li>
+          <li><a class="nav-item" href="#slide3">Solução</a></li>
+          <li><a class="nav-item" href="#slide4">Como Funciona</a></li>
+          <li><a class="nav-item" href="#slide5">Modelo de Negócio</a></li>
+          <li><a class="nav-item" href="#slide6">Mercado</a></li>
+          <li><a class="nav-item" href="#slide7">Equipe</a></li>
+          <li><a class="nav-item" href="#slide8">Investimento</a></li>
+          <li><a class="nav-item" href="#slide9">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Slide 1: Início -->
+    <section id="slide1" class="slide slide-1">
+      <img src="slide1_image.png" alt="Fusão de código e criança" class="background-image">
+      <div class="slide-content">
+        <div class="content-wrapper">
+          <h1 class="title-main">AVZ Key</h1>
+          <h2 class="subtitle">Invest in Code, Impact a Generation</h2>
+          <div class="golden-line"></div>
+          <p class="description">Web3 + Impacto Social Auditável</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Conteúdo Principal -->
-    <div id="mainContent" class="content-hidden">
-      <!-- Navegação -->
-      <nav class="navbar">
-        <div class="nav-container">
-          <div class="nav-logo">AVZ Key</div>
-          <button class="nav-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <ul class="nav-menu" id="navMenu">
-            <li><a class="index.html" href="#slide1">Retornar á Wallet</a></li>
-            <li><a class="nav-item" href="#slide2">Problema</a></li>
-            <li><a class="nav-item" href="#slide3">Solução</a></li>
-            <li><a class="nav-item" href="#slide4">Como Funciona</a></li>
-            <li><a class="nav-item" href="#slide5">Modelo de Negócio</a></li>
-            <li><a class="nav-item" href="#slide6">Mercado</a></li>
-            <li><a class="nav-item" href="#slide7">Equipe</a></li>
-            <li><a class="nav-item" href="#slide8">Investimento</a></li>
-            <li><a class="nav-item" href="#slide9">Contato</a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <!-- Slide 1: Início -->
-      <section id="slide1" class="slide slide-1">
-        <img src="slide1_image.png" alt="Fusão de código e criança" class="background-image">
-        <div class="slide-content">
-          <div class="content-wrapper">
-            <h1 class="title-main">AVZ Key</h1>
-            <h2 class="subtitle">Invest in Code, Impact a Generation</h2>
-            <div class="golden-line"></div>
-            <p class="description">Web3 + Impacto Social Auditável</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 2: Problema -->
-      <section id="slide2" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">O Problema: Duas Lacunas, Uma Oportunidade</h1>
-          
-          <div class="grid-2" style="margin-bottom: 2rem;">
-            <div class="problem-box">
-              <div style="text-align: center;">
-                <i class="fas fa-lock icon-large"></i>
-                <h3 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Web3 Complexa</h3>
-                <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #D4AF37; line-height: 1.6; text-align: center;">
-                  • Intimidadora e técnica<br>
-                  • Riscos de segurança<br>
-                  • Falta de porta de entrada simples
-                </p>
-              </div>
-            </div>
-            
-            <div class="problem-box">
-              <div style="text-align: center;">
-                <i class="fas fa-eye-slash icon-large"></i>
-                <h3 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Impacto Social Opaco</h3>
-                <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #D4AF37; line-height: 1.6; text-align: center;">
-                  • Doações sem transparência<br>
-                  • Desconfiança crescente<br>
-                  • Baixo engajamento
-                </p>
-              </div>
+    <!-- Slide 2: Problema -->
+    <section id="slide2" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">O Problema: Duas Lacunas, Uma Oportunidade</h1>
+        
+        <div class="grid-2" style="margin-bottom: 2rem;">
+          <div class="problem-box">
+            <div style="text-align: center;">
+              <i class="fas fa-lock icon-large"></i>
+              <h3 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Web3 Complexa</h3>
+              <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF; line-height: 1.6; text-align: center;">
+                • Intimidadora e técnica<br>
+                • Riscos de segurança<br>
+                • Falta de porta de entrada simples
+              </p>
             </div>
           </div>
           
-          <div style="text-align: center; margin: 2rem 0;">
-            <i class="fas fa-arrow-down" style="font-size: clamp(1.5rem, 4vw, 2.5rem); color: #D4AF37;"></i>
-          </div>
-          
-          <div class="opportunity-box">
-            <div class="opportunity-amount">US$ 1 Trilhão</div>
-            <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #000000;">na intersecção dos mercados</div>
+          <div class="problem-box">
+            <div style="text-align: center;">
+              <i class="fas fa-eye-slash icon-large"></i>
+              <h3 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Impacto Social Opaco</h3>
+              <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF; line-height: 1.6; text-align: center;">
+                • Doações sem transparência<br>
+                • Desconfiança crescente<br>
+                • Baixo engajamento
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+        
+        <div style="text-align: center; margin: 2rem 0;">
+          <i class="fas fa-arrow-down" style="font-size: clamp(1.5rem, 4vw, 2.5rem); color: #D4AF37;"></i>
+        </div>
+        
+        <div class="opportunity-box">
+          <div class="opportunity-amount">US$ 1 Trilhão</div>
+          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #000000;">na intersecção dos mercados</div>
+        </div>
+      </div>
+    </section>
 
-      <!-- Slide 3: Solução -->
-      <section id="slide3" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">A Solução: AVZ Key</h1>
-          
-          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #D4AF37; margin-bottom: 2rem; text-align: center;">
-            Carteira Web3 + Plataforma de Impacto Social Transparente
-          </div>
-          
-          <div class="grid-2">
-            <div style="display: flex; justify-content: center;">
-              <div class="phone-mockup">
-                <div class="phone-screen">
-                  <div class="app-logo">AVZ Key</div>
-                  <div class="dashboard-element active"></div>
-                  <div class="dashboard-element"></div>
-                  <div class="dashboard-element active"></div>
-                  <div class="dashboard-element"></div>
-                  <div class="dashboard-element active"></div>
-                  <div style="text-align: center; margin-top: 1rem;">
-                    <i class="fas fa-heart" style="color: #D4AF37; font-size: 1.5rem;"></i>
-                  </div>
+    <!-- Slide 3: Solução -->
+    <section id="slide3" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">A Solução: AVZ Key</h1>
+        
+        <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #FFFFFF; margin-bottom: 2rem; text-align: center;">
+          Carteira Web3 + Plataforma de Impacto Social Transparente
+        </div>
+        
+        <div class="grid-2">
+          <div style="display: flex; justify-content: center;">
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div class="app-logo">AVZ Key</div>
+                <div class="dashboard-element active"></div>
+                <div class="dashboard-element"></div>
+                <div class="dashboard-element active"></div>
+                <div class="dashboard-element"></div>
+                <div class="dashboard-element active"></div>
+                <div style="text-align: center; margin-top: 1rem;">
+                  <i class="fas fa-heart" style="color: #D4AF37; font-size: 1.5rem;"></i>
                 </div>
               </div>
             </div>
-            
-            <div class="grid-3">
-              <div class="pillar-box">
-                <i class="fas fa-door-open icon-large" style="display: block; text-align: center;"></i>
-                <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Onboarding Simplificado</h3>
-                <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                  Carteira Web3 segura<br>
-                  Rede Polygon<br>
-                  Entrada fácil
-                </p>
-              </div>
-              
-              <div class="pillar-box">
-                <i class="fas fa-heart icon-large" style="display: block; text-align: center;"></i>
-                <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Prova de Impacto</h3>
-                <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                  Doação auditável<br>
-                  R$ 8/criança Angola<br>
-                  100% transparente
-                </p>
-              </div>
-              
-              <div class="pillar-box">
-                <i class="fas fa-certificate icon-large" style="display: block; text-align: center;"></i>
-                <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Certificação Digital</h3>
-                <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                  NFT como prova<br>
-                  Registro imutável<br>
-                  Impacto verificável
-                </p>
-              </div>
-            </div>
           </div>
-          
-          <div class="main-message">
-            <div class="main-message-text">
-              NÃO VENDEMOS CARIDADE.<br>
-              VENDEMOS TECNOLOGIA COM ALMA.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 4: Como Funciona -->
-      <section id="slide4" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">Como Funciona: A Jornada do Usuário</h1>
           
           <div class="grid-3">
-            <div class="step-box">
-              <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">1</div>
-              <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
-                <i class="fas fa-qrcode" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
-              </div>
-              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Ativação</h3>
-              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                QR Code<br>
-                (Cartão/Camiseta)
+            <div class="pillar-box">
+              <i class="fas fa-door-open icon-large" style="display: block; text-align: center;"></i>
+              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Onboarding Simplificado</h3>
+              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+                Carteira Web3 segura<br>
+                Rede Polygon<br>
+                Entrada fácil
               </p>
             </div>
             
-            <div class="step-box">
-              <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">2</div>
-              <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
-                <i class="fas fa-cubes" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
-              </div>
-              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Transação Polygon</h3>
-              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                Doação automática<br>
-                R$ 8 para Angola
+            <div class="pillar-box">
+              <i class="fas fa-heart icon-large" style="display: block; text-align: center;"></i>
+              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Prova de Impacto</h3>
+              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+                Doação auditável<br>
+                R$ 8/criança Angola<br>
+                100% transparente
               </p>
             </div>
             
-            <div class="step-box">
-              <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">3</div>
-              <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
-                <i class="fas fa-chart-line" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
-              </div>
-              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">Dashboard</h3>
-              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #D4AF37; line-height: 1.4; text-align: center;">
-                Carteira Web3<br>
-                Visualização NFT
+            <div class="pillar-box">
+              <i class="fas fa-certificate icon-large" style="display: block; text-align: center;"></i>
+              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Certificação Digital</h3>
+              <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+                NFT como prova<br>
+                Registro imutável<br>
+                Impacto verificável
               </p>
-            </div>
-          </div>
-          
-          <div class="conclusion-box">
-            <div class="conclusion-text">
-              Simples. Instantâneo. 100% à prova de fraudes.
             </div>
           </div>
         </div>
-      </section>
+        
+        <div class="main-message">
+          <div class="main-message-text">
+            NÃO VENDEMOS CARIDADE.<br>
+            VENDEMOS TECNOLOGIA COM ALMA.
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <!-- Slide 5: Modelo de Negócio -->
-      <section id="slide5" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">Modelo de Negócio: Escalável e Lucrativo</h1>
-          
-          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #D4AF37; margin-bottom: 2rem; text-align: center;">
-            Venda de Licenças de Software via Pacotes Físicos
+    <!-- Slide 4: Como Funciona -->
+    <section id="slide4" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">Como Funciona: A Jornada do Usuário</h1>
+        
+        <div class="grid-3">
+          <div class="step-box">
+            <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">1</div>
+            <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
+              <i class="fas fa-qrcode" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
+            </div>
+            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Ativação</h3>
+            <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+              QR Code<br>
+              (Cartão/Camiseta)
+            </p>
           </div>
           
-          <div class="grid-3" style="margin-bottom: 2rem;">
-            <div style="text-align: center; padding: 1rem;">
-              <i class="fas fa-code icon-large"></i>
-              <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #D4AF37;">Software</div>
+          <div class="step-box">
+            <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">2</div>
+            <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
+              <i class="fas fa-cubes" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
             </div>
-            
-            <div style="text-align: center; padding: 1rem;">
-              <i class="fas fa-store icon-large"></i>
-              <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #D4AF37;">Varejo</div>
+            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Transação Polygon</h3>
+            <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+              Software ativado<br>
+              Doação R$ 8
+            </p>
+          </div>
+          
+          <div class="step-box">
+            <div style="background: #D4AF37; color: #000000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; font-size: 1rem;">3</div>
+            <div style="width: 100%; height: 80px; background: #111111; border-radius: 10px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.3);">
+              <i class="fas fa-chart-line" style="font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37;"></i>
             </div>
-            
-            <div style="text-align: center; padding: 1rem;">
-              <i class="fas fa-chart-line icon-large"></i>
-              <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #D4AF37;">Receita</div>
+            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Dashboard</h3>
+            <p style="font-size: clamp(0.8rem, 2.5vw, 1rem); color: #888888; line-height: 1.4; text-align: center;">
+              Carteira Web3<br>
+              Visualização NFT
+            </p>
+          </div>
+        </div>
+        
+        <div class="conclusion-box">
+          <div class="conclusion-text">
+            Simples. Instantâneo. 100% à prova de fraudes.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Modelo de Negócio -->
+    <section id="slide5" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">Modelo de Negócio: Escalável e Lucrativo</h1>
+        
+        <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #FFFFFF; margin-bottom: 2rem; text-align: center;">
+          Venda de Licenças de Software via Pacotes Físicos
+        </div>
+        
+        <div class="grid-3" style="margin-bottom: 2rem;">
+          <div style="text-align: center; padding: 1rem;">
+            <i class="fas fa-code icon-large"></i>
+            <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #FFFFFF;">Software</div>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem;">
+            <i class="fas fa-store icon-large"></i>
+            <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #FFFFFF;">Varejo</div>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem;">
+            <i class="fas fa-chart-line icon-large"></i>
+            <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 600; color: #FFFFFF;">Receita</div>
+          </div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="chart-container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 0.5rem;">
+              <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Edição</div>
+              <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Preço</div>
+              <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Custo</div>
+              <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Margem</div>
+              <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Canal</div>
+              
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">AVZ Key - Edição Padrão (Cartão)</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 149,90</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 9,50</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; font-weight: 600; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 140,40</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">Varejo, Online</div>
+              
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">AVZ Key - Edição Embaixador (Camiseta)</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 199,90</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 43,00</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; font-weight: 600; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 156,90</div>
+              <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #FFFFFF; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">Online, Eventos</div>
             </div>
           </div>
           
-          <div class="grid-2">
+          <div>
+            <div style="background: rgba(212, 175, 55, 0.1); border-radius: 15px; padding: 1.5rem; text-align: center; border: 2px solid rgba(212, 175, 55, 0.3); margin-bottom: 2rem;">
+              <div style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Meta Inicial</div>
+              <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); color: #FFFFFF; line-height: 1.6;">
+                150 licenças/dia = <br>
+                150 crianças sustentadas + <br>
+                <span style="color: #D4AF37; font-weight: 600;">R$ 22.000/dia</span> receita
+              </div>
+            </div>
+            
+            <div class="chart-wrapper">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Mercado -->
+    <section id="slide6" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">Mercado e Oportunidade</h1>
+        
+        <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #FFFFFF; margin-bottom: 2rem; text-align: center;">
+          Confluência de Mercados em Crescimento
+        </div>
+        
+        <div class="grid-2">
+          <div>
             <div class="chart-container">
-              <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 0.5rem;">
-                <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Edição</div>
-                <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Preço</div>
-                <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Custo</div>
-                <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Margem</div>
-                <div style="font-size: clamp(0.8rem, 2.5vw, 1rem); font-weight: 700; color: #D4AF37; padding: 0.5rem; border-bottom: 2px solid rgba(212, 175, 55, 0.3); text-align: center;">Canal</div>
-                
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">AVZ Key - Edição Padrão (Cartão)</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 149,90</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 9,50</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; font-weight: 600; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 140,40</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">Varejo, Online</div>
-                
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">AVZ Key - Edição Embaixador (Camiseta)</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 199,90</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 43,00</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; font-weight: 600; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">R$ 156,90</div>
-                <div style="font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; padding: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">Online, Eventos</div>
-              </div>
-            </div>
-            
-            <div>
-              <div style="background: rgba(212, 175, 55, 0.1); border-radius: 15px; padding: 1.5rem; text-align: center; border: 2px solid rgba(212, 175, 55, 0.3); margin-bottom: 2rem;">
-                <div style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Meta Inicial</div>
-                <div style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); color: #D4AF37; line-height: 1.6;">
-                  150 licenças/dia = <br>
-                  150 crianças sustentadas + <br>
-                  <span style="color: #D4AF37; font-weight: 600;">R$ 22.000/dia</span> receita
-                </div>
-              </div>
-              
+              <h3 style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem; text-align: center;">Mercado Global de Blockchain</h3>
               <div class="chart-wrapper">
-                <canvas id="revenueChart"></canvas>
+                <canvas id="blockchainChart"></canvas>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 6: Mercado -->
-      <section id="slide6" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">Mercado e Oportunidade</h1>
-          
-          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: #D4AF37; margin-bottom: 2rem; text-align: center;">
-            Confluência de Mercados em Crescimento
-          </div>
-          
-          <div class="grid-2">
-            <div>
-              <div class="chart-container">
-                <h3 style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem; text-align: center;">Mercado Global de Blockchain</h3>
-                <div class="chart-wrapper">
-                  <canvas id="blockchainChart"></canvas>
-                </div>
-                <p style="font-size: clamp(0.7rem, 2vw, 0.8rem); color: #D4AF37; margin-top: 0.5rem; text-align: right; font-style: italic;">Fonte: Statista, 2023</p>
-              </div>
-              
-              <div class="chart-container">
-                <h3 style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem; text-align: center;">Investimento de Impacto Social</h3>
-                <div class="chart-wrapper">
-                  <canvas id="impactChart"></canvas>
-                </div>
-                <p style="font-size: clamp(0.7rem, 2vw, 0.8rem); color: #D4AF37; margin-top: 0.5rem; text-align: right; font-style: italic;">Fonte: GIIN, 2023</p>
-              </div>
+              <p style="font-size: clamp(0.7rem, 2vw, 0.8rem); color: #888888; margin-top: 0.5rem; text-align: right; font-style: italic;">Fonte: Statista, 2023</p>
             </div>
             
-            <div class="audience-container">
-              <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 1.5rem; text-align: center;">Público-Alvo</h3>
-              
-              <div style="display: flex; align-items: flex-start; margin-bottom: 1.5rem; flex-direction: column; text-align: center;">
-                <i class="fas fa-search-dollar" style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; color: #D4AF37;"></i>
-                <div>
-                  <h4 style="font-size: clamp(0.9rem, 2.5vw, 1rem); font-weight: 600; color: #D4AF37; margin-bottom: 0.5rem;">Cripto-Curiosos</h4>
-                  <p style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: #D4AF37; line-height: 1.4;">
-                    Pessoas interessadas em Web3 mas intimidadas pela complexidade técnica. Buscam uma porta de entrada segura e simplificada.
-                  </p>
-                </div>
+            <div class="chart-container">
+              <h3 style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem; text-align: center;">Investimento de Impacto Social</h3>
+              <div class="chart-wrapper">
+                <canvas id="impactChart"></canvas>
               </div>
-              
-              <div style="display: flex; align-items: flex-start; margin-bottom: 1.5rem; flex-direction: column; text-align: center;">
-                <i class="fas fa-hand-holding-heart" style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; color: #D4AF37;"></i>
-                <div>
-                  <h4 style="font-size: clamp(0.9rem, 2.5vw, 1rem); font-weight: 600; color: #D4AF37; margin-bottom: 0.5rem;">Investidores de Impacto</h4>
-                  <p style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: #D4AF37; line-height: 1.4;">
-                    Indivíduos e organizações que buscam gerar retorno financeiro enquanto causam impacto social positivo e mensurável.
-                  </p>
-                </div>
-              </div>
-              
-              <div style="text-align: center; margin-top: 1rem;">
-                <p style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 600;">Mercado potencial: <span style="color: #D4AF37;">US$ 1 Trilhão</span></p>
-              </div>
+              <p style="font-size: clamp(0.7rem, 2vw, 0.8rem); color: #888888; margin-top: 0.5rem; text-align: right; font-style: italic;">Fonte: GIIN, 2023</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Slide 7: Equipe -->
-      <section id="slide7" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">A Equipe</h1>
           
-          <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 0.5rem;">
-            <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; padding: 0 0.5rem;">Paixão</div>
-            <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #D4AF37; padding: 0 0.5rem;">+</div>
-            <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; padding: 0 0.5rem;">Expertise</div>
-            <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #D4AF37; padding: 0 0.5rem;">=</div>
-            <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; padding: 0 0.5rem;">Realidade</div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="team-member">
-              <div style="width: clamp(120px, 20vw, 180px); height: clamp(120px, 20vw, 180px); border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F4E87C); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
-                <i class="fas fa-user-tie" style="font-size: clamp(3rem, 8vw, 5rem); color: #000000;"></i>
-              </div>
-              <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">[Nome do CEO]</h3>
-              <h4 style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem; text-align: center;">CEO & Visionário</h4>
-              <div style="text-align: center;">
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Empreendedorismo</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Impacto Social</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Estratégia</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Liderança</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Captação</span>
-              </div>
-            </div>
+          <div class="audience-container">
+            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #D4AF37; margin-bottom: 1.5rem; text-align: center;">Público-Alvo</h3>
             
-            <div class="team-member">
-              <div style="width: clamp(120px, 20vw, 180px); height: clamp(120px, 20vw, 180px); border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F4E87C); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
-                <i class="fas fa-laptop-code" style="font-size: clamp(3rem, 8vw, 5rem); color: #000000;"></i>
-              </div>
-              <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">[Nome do CTO]</h3>
-              <h4 style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem; text-align: center;">CTO</h4>
-              <div style="text-align: center;">
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Blockchain</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Smart Contracts</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Web3</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">DApps</span>
-                <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">Polygon</span>
-              </div>
-            </div>
-          </div>
-          
-          <div style="text-align: center; margin-top: 2rem;">
-            <p style="color: #D4AF37; font-size: clamp(0.9rem, 2.5vw, 1.1rem); line-height: 1.5;">Uma equipe comprometida com a transformação digital e o impacto social.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 8: Investimento -->
-      <section id="slide8" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">A Solicitação (The Ask)</h1>
-          
-          <div class="grid-2">
-            <div class="investment-box">
-              <div style="font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">R$ 500.000</div>
-              <div style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem; text-align: center;">por 15% de Equity</div>
-              <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #D4AF37; line-height: 1.6; text-align: center;">
-                Investimento em um futuro transparente, tecnológico e socialmente responsável.
-              </p>
-            </div>
-            
-            <div class="investment-box">
-              <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 1.5rem; text-align: center;">Uso dos Recursos</h3>
+            <div style="display: flex; align-items: flex-start; margin-bottom: 1.5rem; flex-direction: column; text-align: center;">
+              <i class="fas fa-search-dollar" style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; color: #D4AF37;"></i>
               <div>
-                <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
-                  <i class="fas fa-code" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.5rem); margin-right: 0.5rem;"></i>
-                  <span style="color: #D4AF37; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">60% - Desenvolvimento</span>
-                </div>
-                <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
-                  <i class="fas fa-bullhorn" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.5rem); margin-right: 0.5rem;"></i>
-                  <span style="color: #D4AF37; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">25% - Marketing</span>
-                </div>
-                <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
-                  <i class="fas fa-cogs" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.5rem); margin-right: 0.5rem;"></i>
-                  <span style="color: #D4AF37; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">15% - Operações</span>
-                </div>
+                <h4 style="font-size: clamp(0.9rem, 2.5vw, 1rem); font-weight: 600; color: #FFFFFF; margin-bottom: 0.5rem;">Cripto-Curiosos</h4>
+                <p style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: #888888; line-height: 1.4;">
+                  Pessoas interessadas em Web3 mas intimidadas pela complexidade técnica. Buscam uma porta de entrada segura e simplificada.
+                </p>
+              </div>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start; margin-bottom: 1.5rem; flex-direction: column; text-align: center;">
+              <i class="fas fa-hand-holding-heart" style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; color: #D4AF37;"></i>
+              <div>
+                <h4 style="font-size: clamp(0.9rem, 2.5vw, 1rem); font-weight: 600; color: #FFFFFF; margin-bottom: 0.5rem;">Investidores de Impacto</h4>
+                <p style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: #888888; line-height: 1.4;">
+                  Indivíduos e organizações que buscam gerar retorno financeiro enquanto causam impacto social positivo e mensurável.
+                </p>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+              <p style="color: white; font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 600;">Mercado potencial: <span style="color: #D4AF37;">US$ 1 Trilhão</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Equipe -->
+    <section id="slide7" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">A Equipe</h1>
+        
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #FFFFFF; padding: 0 0.5rem;">Paixão</div>
+          <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #D4AF37; padding: 0 0.5rem;">+</div>
+          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #FFFFFF; padding: 0 0.5rem;">Expertise</div>
+          <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); color: #D4AF37; padding: 0 0.5rem;">=</div>
+          <div style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; padding: 0 0.5rem;">Realidade</div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="team-member">
+            <div style="width: clamp(120px, 20vw, 180px); height: clamp(120px, 20vw, 180px); border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F4E87C); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+              <i class="fas fa-user-tie" style="font-size: clamp(3rem, 8vw, 5rem); color: #000000;"></i>
+            </div>
+            <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">[Nome do CEO]</h3>
+            <h4 style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem; text-align: center;">CEO & Visionário</h4>
+            <div style="text-align: center;">
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Empreendedorismo</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Impacto Social</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Estratégia</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Liderança</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Captação</span>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div style="width: clamp(120px, 20vw, 180px); height: clamp(120px, 20vw, 180px); border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F4E87C); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+              <i class="fas fa-laptop-code" style="font-size: clamp(3rem, 8vw, 5rem); color: #000000;"></i>
+            </div>
+            <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">[Nome do CTO]</h3>
+            <h4 style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem; text-align: center;">CTO</h4>
+            <div style="text-align: center;">
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Blockchain</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Smart Contracts</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Web3</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">DApps</span>
+              <span style="display: inline-block; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 0.5rem 1rem; margin: 0.25rem; font-size: clamp(0.7rem, 2vw, 0.9rem); color: #888888; border: 1px solid rgba(212, 175, 55, 0.3);">Polygon</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+          <p style="color: white; font-size: clamp(0.9rem, 2.5vw, 1.1rem); line-height: 1.5;">Uma equipe comprometida com a transformação digital e o impacto social.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: Investimento -->
+    <section id="slide8" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">A Solicitação (The Ask)</h1>
+        
+        <div class="grid-2">
+          <div class="investment-box">
+            <div style="font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem; text-align: center;">R$ 500.000</div>
+            <div style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; color: #FFFFFF; margin-bottom: 1rem; text-align: center;">por 15% de Equity</div>
+            <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF; line-height: 1.6; text-align: center;">
+              Investimento em um futuro transparente, tecnológico e socialmente responsável.
+            </p>
+          </div>
+          
+          <div class="investment-box">
+            <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #FFFFFF; margin-bottom: 1.5rem; text-align: center;">Uso dos Recursos</h3>
+            <div>
+              <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
+                <i class="fas fa-code" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.2rem); margin-right: 1rem;"></i>
+                <span style="color: #FFFFFF; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">Desenvolvimento final</span>
+              </div>
+              <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
+                <i class="fas fa-box" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.2rem); margin-right: 1rem;"></i>
+                <span style="color: #FFFFFF; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">Produção inicial</span>
+              </div>
+              <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
+                <i class="fas fa-bullhorn" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.2rem); margin-right: 1rem;"></i>
+                <span style="color: #FFFFFF; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">Marketing e lançamento</span>
+              </div>
+              <div style="display: flex; align-items: center; margin-bottom: 1rem; justify-content: center;">
+                <i class="fas fa-chart-line" style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.2rem); margin-right: 1rem;"></i>
+                <span style="color: #FFFFFF; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">Expansão de mercado</span>
               </div>
             </div>
           </div>
-          
-          <div style="text-align: center; margin-top: 2rem;">
-            <p style="color: #D4AF37; font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 600;">
-              Juntos, vamos transformar a Web3 em uma força para o bem.
-            </p>
-          </div>
         </div>
-      </section>
-
-      <!-- Slide 9: Contato -->
-      <section id="slide9" class="slide">
-        <div class="slide-content">
-          <h1 class="slide-title">Vamos Conversar?</h1>
-          
-          <div style="text-align: center; margin-bottom: 3rem;">
-            <p style="font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 600; color: #D4AF37; margin-bottom: 1rem;">
-              Pronto para fazer parte da revolução?
-            </p>
-            <p style="font-size: clamp(1rem, 3vw, 1.5rem); color: #D4AF37; line-height: 1.6;">
-              Entre em contato conosco e descubra como podemos transformar o mundo juntos.
-            </p>
-          </div>
-          
-          <div class="grid-2">
-            <div style="text-align: center; padding: 2rem;">
-              <i class="fas fa-envelope" style="font-size: clamp(3rem, 8vw, 4rem); color: #D4AF37; margin-bottom: 1rem;"></i>
-              <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Email</h3>
-              <p style="font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37;">contato@avzkey.com</p>
+        
+        <div style="position: relative; margin-top: 2rem;">
+          <div style="position: absolute; top: 30px; left: 10%; width: 80%; height: 4px; background: #D4AF37; z-index: 1; display: none;" id="timelineLine"></div>
+          <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div style="position: relative; z-index: 2; text-align: center; margin-bottom: 2rem;">
+              <div style="width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); background: #000000; border: 3px solid #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); color: #D4AF37;">
+                <i class="fas fa-code"></i>
+              </div>
+              <div style="font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">3 meses</div>
+              <div style="font-size: clamp(0.8rem, 2vw, 1rem); color: #888888; line-height: 1.4;">Desenvolvimento Final<br>(Smart Contract, App)</div>
             </div>
             
-            <div style="text-align: center; padding: 2rem;">
-              <i class="fas fa-phone" style="font-size: clamp(3rem, 8vw, 4rem); color: #D4AF37; margin-bottom: 1rem;"></i>
-              <h3 style="font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #D4AF37; margin-bottom: 1rem;">Telefone</h3>
-              <p style="font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37;">+55 (11) 99999-9999</p>
+            <div style="position: relative; z-index: 2; text-align: center; margin-bottom: 2rem;">
+              <div style="width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); background: #000000; border: 3px solid #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); color: #D4AF37;">
+                <i class="fas fa-box"></i>
+              </div>
+              <div style="font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">1 mês</div>
+              <div style="font-size: clamp(0.8rem, 2vw, 1rem); color: #888888; line-height: 1.4;">Produção Inicial<br>(5.000 cartões, 1.000 camisetas)</div>
             </div>
-          </div>
-          
-          <div style="text-align: center; margin-top: 3rem;">
-            <div style="background: linear-gradient(135deg, #D4AF37, #F4E87C); border-radius: 15px; padding: 2rem; display: inline-block;">
-              <p style="font-size: clamp(1.2rem, 4vw, 1.8rem); font-weight: 700; color: #000000; margin: 0;">
-                Obrigado pela atenção!
-              </p>
+            
+            <div style="position: relative; z-index: 2; text-align: center; margin-bottom: 2rem;">
+              <div style="width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); background: #000000; border: 3px solid #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); color: #D4AF37;">
+                <i class="fas fa-bullhorn"></i>
+              </div>
+              <div style="font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">2 meses</div>
+              <div style="font-size: clamp(0.8rem, 2vw, 1rem); color: #888888; line-height: 1.4;">Marketing e Lançamento<br>(20 lojistas)</div>
+            </div>
+            
+            <div style="position: relative; z-index: 2; text-align: center; margin-bottom: 2rem;">
+              <div style="width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); background: #000000; border: 3px solid #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); color: #D4AF37;">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div style="font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">6 meses</div>
+              <div style="font-size: clamp(0.8rem, 2vw, 1rem); color: #888888; line-height: 1.4;">Tração<br>(150 licenças/dia)</div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+        
+        <div style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 600; color: #FFFFFF; text-align: center; margin-top: 2rem; font-style: italic; line-height: 1.5;">
+          "Investimento em futuro transparente, tecnológico e socialmente responsável."
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: Contato -->
+    <section id="slide9" class="slide">
+      <div class="slide-content">
+        <h1 class="slide-title">Contato</h1>
+        
+        <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); font-weight: 600; color: #FFFFFF; margin-bottom: 3rem; text-align: center;">
+          Descentralizar o impacto. Juntos.
+        </div>
+        
+        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); border: 2px solid rgba(212, 175, 55, 0.3); max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+          <div style="width: 100%;">
+            <div style="display: flex; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+              <div style="width: clamp(40px, 8vw, 50px); height: clamp(40px, 8vw, 50px); background: rgba(212, 175, 55, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">
+                <i class="fas fa-user"></i>
+              </div>
+              <div style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF;">[Seu Nome]</div>
+            </div>
+            
+            <div style="display: flex; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+              <div style="width: clamp(40px, 8vw, 50px); height: clamp(40px, 8vw, 50px); background: rgba(212, 175, 55, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF;">[seu.email@avzimpacto.com]</div>
+            </div>
+            
+            <div style="display: flex; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+              <div style="width: clamp(40px, 8vw, 50px); height: clamp(40px, 8vw, 50px); background: rgba(212, 175, 55, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">
+                <i class="fab fa-linkedin-in"></i>
+              </div>
+              <div style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF;">[seu-linkedin.com]</div>
+            </div>
+            
+            <div style="display: flex; align-items: center; margin-bottom: 1.5rem; justify-content: center;">
+              <div style="width: clamp(40px, 8vw, 50px); height: clamp(40px, 8vw, 50px); background: rgba(212, 175, 55, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: clamp(1rem, 3vw, 1.2rem); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3);">
+                <i class="fas fa-globe"></i>
+              </div>
+              <div style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #FFFFFF;">[avzkey.com]</div>
+            </div>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: clamp(150px, 30vw, 200px); height: clamp(150px, 30vw, 200px); background: #FFFFFF; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 3px solid #D4AF37;">
+              <i class="fas fa-qrcode" style="font-size: clamp(4rem, 15vw, 6rem); color: #333333;"></i>
+            </div>
+            <div style="font-size: clamp(0.8rem, 2vw, 1rem); color: #888888; text-align: center;">
+              Escaneie para visitar nosso website
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+          <div style="font-size: clamp(1rem, 3vw, 1.1rem); color: #FFFFFF; font-style: italic;">
+            Obrigado pelo seu tempo e interesse!
+          </div>
+          <div style="width: 100px; height: 3px; background: linear-gradient(90deg, #D4AF37, #F4E87C); margin: 1rem auto 0;"></div>
+        </div>
+      </div>
+    </section>
 
     <script>
-      // Lista de emails autorizados (simulação - em produção seria validado no backend)
-      const authorizedEmails = ["avzproptech@outlook.com"];
-
-
-
-      function authenticate() {
-        const email = document.getElementById('authInput').value.trim().toLowerCase();
-        const errorDiv = document.getElementById('authError');
-        
-        if (!email) {
-          errorDiv.textContent = 'Por favor, insira seu email de autorização.';
-          errorDiv.style.display = 'block';
-          return;
-        }
-        
-        // Validação simples de email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          errorDiv.textContent = 'Por favor, insira um email válido.';
-          errorDiv.style.display = 'block';
-          return;
-        }
-        
-        // Verificar se o email está autorizado
-        if (authorizedEmails.includes(email)) {
-          // Acesso autorizado
-          document.getElementById('authOverlay').style.display = 'none';
-          document.getElementById('mainContent').classList.remove('content-hidden');
-          
-          // Salvar no localStorage para sessões futuras
-          localStorage.setItem('avz_authorized', 'true');
-          localStorage.setItem('avz_user_email', email);
-          
-          // Inicializar gráficos após o acesso
-          setTimeout(initializeCharts, 100);
-        } else {
-          // Acesso negado
-          errorDiv.textContent = 'Email não autorizado. Verifique se você participou de uma reunião conosco.';
-          errorDiv.style.display = 'block';
-        }
-      }
-
-      // Verificar se o usuário já está autorizado
-      function checkAuthorization() {
-        const isAuthorized = localStorage.getItem('avz_authorized');
-        if (isAuthorized === 'true') {
-          document.getElementById('authOverlay').style.display = 'none';
-          document.getElementById('mainContent').classList.remove('content-hidden');
-          setTimeout(initializeCharts, 100);
-        }
-      }
-
-      // Permitir autenticação com Enter
-      document.getElementById('authInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          authenticate();
-        }
-      });
-
-      // Função para toggle do menu mobile
+      // Navegação mobile
       function toggleMenu() {
         const navMenu = document.getElementById('navMenu');
         navMenu.classList.toggle('active');
       }
 
-      // Inicializar gráficos
-      function initializeCharts() {
-        // Gráfico de receita
+      // Smooth scroll para navegação
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+          // Fechar menu mobile após clique
+          document.getElementById('navMenu').classList.remove('active');
+        });
+      });
+
+      // Gráfico de receita diária (Slide 5)
+      window.addEventListener('load', function() {
         const revenueCtx = document.getElementById('revenueChart');
         if (revenueCtx) {
-          new Chart(revenueCtx, {
-            type: 'line',
-            data: {
-              labels: ['Mês 1', 'Mês 3', 'Mês 6', 'Mês 12'],
-              datasets: [{
-                label: 'Receita (R$ mil)',
-                data: [22, 66, 132, 264],
-                borderColor: '#D4AF37',
-                backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                tension: 0.4
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  labels: {
-                    color: '#FFFFFF'
-                  }
-                }
-              },
-              scales: {
-                y: {
-                  grid: {
-                    color: 'rgba(255, 255, 255, 0.1)'
-                  },
-                  ticks: {
-                    color: '#FFFFFF'
-                  }
-                },
-                x: {
-                  grid: {
-                    color: 'rgba(255, 255, 255, 0.1)'
-                  },
-                  ticks: {
-                    color: '#FFFFFF'
-                  }
-                }
-              }
-            }
-          });
-        }
-
-        // Gráfico de blockchain
-        const blockchainCtx = document.getElementById('blockchainChart');
-        if (blockchainCtx) {
-          new Chart(blockchainCtx, {
+          const revenueChart = new Chart(revenueCtx.getContext('2d'), {
             type: 'bar',
             data: {
-              labels: ['2021', '2022', '2023', '2024', '2025'],
+              labels: ['Dia 1', 'Dia 30', 'Dia 90', 'Dia 180', 'Dia 365'],
               datasets: [{
-                label: 'Mercado (US$ Bi)',
-                data: [5.9, 11.5, 23.3, 39.7, 67.4],
-                backgroundColor: '#D4AF37'
+                label: 'Receita Diária Projetada (R$)',
+                data: [22000, 22000, 22000, 22000, 22000],
+                backgroundColor: '#D4AF37',
+                borderColor: '#F4E87C',
+                borderWidth: 1
               }]
             },
             options: {
@@ -1053,6 +884,62 @@
               },
               scales: {
                 y: {
+                  beginAtZero: true,
+                  ticks: {
+                    color: '#888888'
+                  },
+                  grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                  }
+                },
+                x: {
+                  ticks: {
+                    color: '#888888'
+                  },
+                  grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                  }
+                }
+              }
+            }
+          });
+        }
+
+        // Gráfico de Blockchain (Slide 6)
+        const blockchainCtx = document.getElementById('blockchainChart');
+        if (blockchainCtx) {
+          const blockchainChart = new Chart(blockchainCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+              labels: ['2023', '2024', '2025', '2026', '2027'],
+              datasets: [{
+                label: 'Mercado Global (US$ Bilhões)',
+                data: [67, 89, 117, 148, 163],
+                backgroundColor: '#D4AF37',
+                borderColor: '#F4E87C',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false
+                },
+                tooltip: {
+                  mode: 'index',
+                  intersect: false,
+                  titleColor: '#FFFFFF',
+                  bodyColor: '#FFFFFF',
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  borderColor: '#D4AF37',
+                  borderWidth: 1
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
                   grid: {
                     color: 'rgba(255, 255, 255, 0.1)'
                   },
@@ -1073,19 +960,21 @@
           });
         }
 
-        // Gráfico de impacto social
+        // Gráfico de Impacto Social (Slide 6)
         const impactCtx = document.getElementById('impactChart');
         if (impactCtx) {
-          new Chart(impactCtx, {
+          const impactChart = new Chart(impactCtx.getContext('2d'), {
             type: 'line',
             data: {
-              labels: ['2019', '2020', '2021', '2022', '2023'],
+              labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
               datasets: [{
-                label: 'Investimento (US$ Bi)',
-                data: [715, 685, 776, 1164, 1270],
+                label: 'Investimento de Impacto (US$ Bilhões)',
+                data: [715, 830, 950, 1100, 1200, 1300],
+                backgroundColor: 'rgba(212, 175, 55, 0.2)',
                 borderColor: '#D4AF37',
-                backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                tension: 0.4
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
               }]
             },
             options: {
@@ -1093,13 +982,21 @@
               maintainAspectRatio: false,
               plugins: {
                 legend: {
-                  labels: {
-                    color: '#FFFFFF'
-                  }
+                  display: false
+                },
+                tooltip: {
+                  mode: 'index',
+                  intersect: false,
+                  titleColor: '#FFFFFF',
+                  bodyColor: '#FFFFFF',
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  borderColor: '#D4AF37',
+                  borderWidth: 1
                 }
               },
               scales: {
                 y: {
+                  beginAtZero: false,
                   grid: {
                     color: 'rgba(255, 255, 255, 0.1)'
                   },
@@ -1119,11 +1016,26 @@
             }
           });
         }
-      }
 
-      // Verificar autorização ao carregar a página
-      document.addEventListener('DOMContentLoaded', function() {
-        checkAuthorization();
+        // Mostrar linha do timeline em desktop
+        if (window.innerWidth >= 768) {
+          const timelineLine = document.getElementById('timelineLine');
+          if (timelineLine) {
+            timelineLine.style.display = 'block';
+          }
+        }
+      });
+
+      // Atualizar timeline line no resize
+      window.addEventListener('resize', function() {
+        const timelineLine = document.getElementById('timelineLine');
+        if (timelineLine) {
+          if (window.innerWidth >= 768) {
+            timelineLine.style.display = 'block';
+          } else {
+            timelineLine.style.display = 'none';
+          }
+        }
       });
     </script>
   </body>
