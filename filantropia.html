@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVZ Key · Cadastro de 150 Famílias – Angola</title>
+  <!-- Tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold: #D4AF37; /* ouro (igual ao modelo) */
+      --gold-soft: #F4E87C;
+      --bg: #000000; /* fundo preto */
+      --panel: rgba(255,255,255,0.05);
+      --border: rgba(212,175,55,0.35);
+      --text: #D4AF37;
+    }
+    html, body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); }
+    .card {
+      background: var(--panel);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      backdrop-filter: blur(8px);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #000;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(212,175,55,.35); }
+    .input {
+      background: rgba(255,255,255,0.06);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      color: #fff;
+    }
+    .input:focus { outline: none; box-shadow: 0 0 0 3px rgba(212,175,55,.35); border-color: var(--gold); }
+    .badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #000; font-weight: 800; border-radius: 9999px;
+    }
+    .divider { height: 3px; width: 120px; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); box-shadow: 0 0 10px rgba(212,175,55,.45); }
+    .hidden-admin { display: none; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- NAV -->
+  <header class="w-full fixed top-0 left-0 z-40 bg-black bg-opacity-90 border-b-2" style="border-color: var(--border)">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-key text-2xl" style="color: var(--gold)"></i>
+        <span class="font-extrabold tracking-wide" style="color: var(--gold)">AVZ Key</span>
+        <span class="mx-2 opacity-60">•</span>
+        <span class="text-sm md:text-base opacity-90">Cadastro – Angola</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="slotsBadge" class="badge px-3 py-1 text-xs md:text-sm">Vagas disponíveis: <b id="slotsLeft">150</b>/150</span>
+        <button id="openAdmin" class="text-xs md:text-sm underline opacity-80 hover:opacity-100">Área do Organizador</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="pt-28 pb-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-3xl md:text-5xl font-extrabold">Programa de Distribuição de Renda · Angola</h1>
+      <div class="mx-auto my-4 divider"></div>
+      <p class="max-w-3xl mx-auto opacity-90 text-sm md:text-base">
+        Cadastramento de <b>150 famílias</b> em situação de vulnerabilidade para receber benefícios diários,
+        condicionado à participação e frequência dos filhos nos <b>cursos educacionais do projeto</b>.
+        As <b>150 carteiras Web3</b> das crianças já estão <b>reservadas</b> e prontas para ativação.
+      </p>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <main class="max-w-6xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <form id="cadastroForm" class="card p-5 lg:col-span-2">
+      <h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-file-pen"></i> Formulário de Cadastro da Família</h2>
+
+      <!-- Responsável -->
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-sm opacity-90">Nome completo do(a) responsável *</label>
+          <input class="input w-full mt-1 p-3" name="responsavel" required placeholder="Ex.: Maria António" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Nº de telefone (WhatsApp) *</label>
+          <input class="input w-full mt-1 p-3" name="telefone" required pattern="[0-9+()\-\s]{7,}" placeholder="Ex.: +244 923 000 000" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Email</label>
+          <input type="email" class="input w-full mt-1 p-3" name="email" placeholder="Ex.: nome@exemplo.com" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Documento (BI/Passaporte)</label>
+          <input class="input w-full mt-1 p-3" name="documento" placeholder="Nº do documento" />
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div class="mt-5 grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-sm opacity-90">Província *</label>
+          <select class="input w-full mt-1 p-3" name="provincia" required>
+            <option value="">Selecione…</option>
+            <option>Bengo</option>
+            <option>Benguela</option>
+            <option>Bié</option>
+            <option>Cabinda</option>
+            <option>Cuando Cubango</option>
+            <option>Cuanza Norte</option>
+            <option>Cuanza Sul</option>
+            <option>Cunene</option>
+            <option>Huambo</option>
+            <option>Huíla</option>
+            <option>Luanda</option>
+            <option>Lunda Norte</option>
+            <option>Lunda Sul</option>
+            <option>Malanje</option>
+            <option>Moxico</option>
+            <option>Namibe</option>
+            <option>Uíge</option>
+            <option>Zaire</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Município *</label>
+          <input class="input w-full mt-1 p-3" name="municipio" required placeholder="Ex.: Viana" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Bairro</label>
+          <input class="input w-full mt-1 p-3" name="bairro" placeholder="Bairro" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Rua/Referência</label>
+          <input class="input w-full mt-1 p-3" name="rua" placeholder="Rua, casa nº, ponto de referência" />
+        </div>
+      </div>
+
+      <!-- Crianças -->
+      <div class="mt-6">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <h3 class="text-lg md:text-xl font-bold"><i class="fa-solid fa-children"></i> Filhos(as) que participarão nos cursos *</h3>
+          <div class="flex items-center gap-2">
+            <label class="text-sm opacity-90">Qtd.</label>
+            <input id="qtdCriancas" type="number" min="1" max="10" value="1" class="input w-24 p-2 text-center" />
+            <button type="button" id="aplicarQtd" class="btn-gold px-3 py-2 text-sm">Aplicar</button>
+          </div>
+        </div>
+        <div id="listaCriancas" class="mt-3 grid md:grid-cols-2 gap-3"></div>
+      </div>
+
+      <!-- Educação -->
+      <div class="mt-6 grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-sm opacity-90">Escola (preferencial/sugerida)</label>
+          <input class="input w-full mt-1 p-3" name="escola" placeholder="Nome da escola" />
+        </div>
+        <div>
+          <label class="text-sm opacity-90">Renda familiar estimada</label>
+          <select class="input w-full mt-1 p-3" name="renda">
+            <option value="">Prefiro não informar</option>
+            <option>até 50.000 Kz</option>
+            <option>50.001 – 100.000 Kz</option>
+            <option>100.001 – 200.000 Kz</option>
+            <option>acima de 200.000 Kz</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Consentimentos -->
+      <div class="mt-6 space-y-3">
+        <label class="flex items-start gap-3"><input type="checkbox" class="mt-1" id="consensoCursos" required /> <span>Concordo que os filhos/dependentes listados irão <b>matricular-se e frequentar</b> os cursos do projeto como condição para o benefício.</span></label>
+        <label class="flex items-start gap-3"><input type="checkbox" class="mt-1" id="consensoDados" required /> <span>Autorizo o tratamento dos dados fornecidos exclusivamente para execução e auditoria do projeto, conforme as melhores práticas de proteção de dados.</span></label>
+      </div>
+
+      <!-- Ações -->
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button class="btn-gold px-5 py-3" type="submit"><i class="fa-solid fa-paper-plane mr-2"></i>Enviar cadastro</button>
+        <button class="px-5 py-3 border-2 rounded-lg" style="border-color: var(--border)" type="reset"><i class="fa-solid fa-eraser mr-2"></i>Limpar</button>
+      </div>
+
+      <!-- Avisos -->
+      <p class="text-xs opacity-80 mt-4">Ao submeter, um <b>protocolo</b> é gerado. Caso as 150 vagas já estejam preenchidas, o sistema adicionará a família à <b>lista de espera</b>.</p>
+    </form>
+
+    <!-- INFO LATERAL -->
+    <aside class="card p-5 space-y-4">
+      <h3 class="text-xl font-bold">Transparência & Impacto</h3>
+      <p class="text-sm opacity-90">Cada venda de software direciona <b>R$ 8</b> por dia para uma criança. As carteiras Web3 das 150 crianças estão <b>reservadas</b> e serão ativadas no início do programa.</p>
+      <div class="p-4 rounded-lg" style="background: rgba(212,175,55,0.08); border:1px dashed var(--border)">
+        <div class="flex items-center gap-2"><i class="fa-solid fa-wallet"></i><b> Status das carteiras</b></div>
+        <ul class="mt-2 text-sm list-disc ml-5 space-y-1">
+          <li>150 carteiras criadas (a serem vinculadas às famílias).</li>
+          <li>Rastreio auditável por blockchain.</li>
+          <li>Depósitos diários condicionados ao estudo.</li>
+        </ul>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> <span>Sem taxas para inscrição.</span></div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-check-double"></i> <span>Critério: vulnerabilidade + compromisso educacional.</span></div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-users"></i> <span>Meta: 150 famílias beneficiadas.</span></div>
+      </div>
+      <div class="pt-2">
+        <span class="text-xs opacity-70">Dúvidas: contacto@avzkey.com</span>
+      </div>
+    </aside>
+  </main>
+
+  <!-- MODAL CONFIRMAÇÃO -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-70 p-4 z-50">
+    <div class="card w-full max-w-lg p-6">
+      <div class="flex items-start justify-between">
+        <h4 class="text-xl font-bold"><i class="fa-solid fa-circle-check"></i> Cadastro recebido</h4>
+        <button id="fecharModal" aria-label="Fechar" class="text-lg">×</button>
+      </div>
+      <p class="mt-3 text-sm opacity-95">Guarde o seu <b>protocolo</b> e apresente-o quando solicitado.</p>
+      <div class="mt-4 p-4 rounded-lg" style="background: rgba(212,175,55,0.08); border:1px dashed var(--border)">
+        <div class="text-sm">Protocolo:</div>
+        <div id="protocoloOut" class="font-extrabold text-xl">—</div>
+        <div id="situacaoOut" class="mt-1 text-sm"></div>
+      </div>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <button id="baixarComprovante" class="btn-gold px-4 py-2"><i class="fa-solid fa-download mr-2"></i>Baixar comprovante (.txt)</button>
+        <button id="whatsBtn" class="px-4 py-2 border-2 rounded-lg" style="border-color: var(--border)"><i class="fa-brands fa-whatsapp mr-2"></i>Enviar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="adminOverlay" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-80 p-4 z-50">
+    <div class="card w-full max-w-3xl p-6">
+      <div class="flex items-center justify-between">
+        <h4 class="text-xl font-extrabold">Área do Organizador</h4>
+        <button id="fecharAdmin" class="text-lg">×</button>
+      </div>
+      <div id="adminAuth" class="mt-4">
+        <label class="text-sm">Código de acesso</label>
+        <div class="flex gap-2 mt-1">
+          <input id="adminCode" class="input flex-1 p-3" placeholder="Introduza o código" />
+          <button id="entrarAdmin" class="btn-gold px-4">Entrar</button>
+        </div>
+        <p class="text-xs opacity-70 mt-2">Sugestão de código inicial: <b>avz-admin</b> (altere no script se desejar).</p>
+      </div>
+      <div id="adminArea" class="hidden-admin mt-5">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <div class="badge px-3 py-1 inline-block">Registos: <b id="countReg">0</b>/150</div>
+          </div>
+          <div class="flex gap-2">
+            <button id="exportCsv" class="btn-gold px-4 py-2"><i class="fa-solid fa-file-csv mr-2"></i>Exportar CSV</button>
+            <button id="limparTudo" class="px-4 py-2 border-2 rounded-lg" style="border-color: var(--border)"><i class="fa-solid fa-trash mr-2"></i>Limpar todos os registos</button>
+          </div>
+        </div>
+        <div class="mt-4 overflow-auto max-h-80 border-2 rounded-lg" style="border-color: var(--border)">
+          <table class="w-full text-sm">
+            <thead class="bg-black bg-opacity-40">
+              <tr>
+                <th class="p-2 text-left">Data</th>
+                <th class="p-2 text-left">Protocolo</th>
+                <th class="p-2 text-left">Responsável</th>
+                <th class="p-2 text-left">Telefone</th>
+                <th class="p-2 text-left">Província</th>
+                <th class="p-2 text-left">Município</th>
+                <th class="p-2 text-left">Crianças</th>
+                <th class="p-2 text-left">Situação</th>
+              </tr>
+            </thead>
+            <tbody id="adminTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pb-10 text-center opacity-70 text-xs">© AVZ Key – Impacto social auditável</footer>
+
+  <script>
+    // ======= CONFIG =======
+    const MAX_FAMILIAS = 150;
+    const ADMIN_CODE = 'avz-admin';
+
+    // ======= STATE =======
+    const form = document.getElementById('cadastroForm');
+    const slotsLeftEl = document.getElementById('slotsLeft');
+    const listaCriancas = document.getElementById('listaCriancas');
+    const qtdCriancasEl = document.getElementById('qtdCriancas');
+
+    const modal = document.getElementById('modal');
+    const fecharModalBtn = document.getElementById('fecharModal');
+    const protocoloOut = document.getElementById('protocoloOut');
+    const situacaoOut = document.getElementById('situacaoOut');
+    const baixarComprovante = document.getElementById('baixarComprovante');
+    const whatsBtn = document.getElementById('whatsBtn');
+
+    const adminOverlay = document.getElementById('adminOverlay');
+    const openAdmin = document.getElementById('openAdmin');
+    const fecharAdmin = document.getElementById('fecharAdmin');
+    const adminAuth = document.getElementById('adminAuth');
+    const adminArea = document.getElementById('adminArea');
+    const adminCode = document.getElementById('adminCode');
+    const entrarAdmin = document.getElementById('entrarAdmin');
+    const adminTable = document.getElementById('adminTable');
+    const countReg = document.getElementById('countReg');
+    const exportCsv = document.getElementById('exportCsv');
+    const limparTudo = document.getElementById('limparTudo');
+
+    const aplicarQtd = document.getElementById('aplicarQtd');
+
+    // ======= HELPERS =======
+    function storageKey() { return 'avz_angola_familias'; }
+    function getAll() { return JSON.parse(localStorage.getItem(storageKey()) || '[]'); }
+    function setAll(arr) { localStorage.setItem(storageKey(), JSON.stringify(arr)); }
+    function genProtocolo() { return 'AVZ-ANG-' + Date.now().toString(36).toUpperCase(); }
+    function formatDate(d) { const x = new Date(d); return x.toLocaleString('pt-PT'); }
+
+    function updateSlots() {
+      const n = getAll().filter(x => x.situacao === 'APROVADO').length;
+      const left = Math.max(0, MAX_FAMILIAS - n);
+      slotsLeftEl.textContent = left;
+    }
+
+    function renderChildrenInputs(qtd) {
+      listaCriancas.innerHTML = '';
+      const n = Math.max(1, Math.min(10, Number(qtd||1)));
+      for (let i=1;i<=n;i++) {
+        const wrap = document.createElement('div');
+        wrap.className = 'grid grid-cols-5 gap-2 items-end';
+        wrap.innerHTML = `
+          <div class="col-span-3">
+            <label class="text-xs opacity-90">Nome da criança ${i} *</label>
+            <input class="input w-full mt-1 p-2" name="crianca_nome_${i}" required placeholder="Nome completo" />
+          </div>
+          <div>
+            <label class="text-xs opacity-90">Idade *</label>
+            <input type="number" min="1" max="18" class="input w-full mt-1 p-2" name="crianca_idade_${i}" required />
+          </div>
+          <div>
+            <label class="text-xs opacity-90">Ano</label>
+            <input class="input w-full mt-1 p-2" name="crianca_ano_${i}" placeholder="Ex.: 5º" />
+          </div>
+        `;
+        listaCriancas.appendChild(wrap);
+      }
+    }
+
+    // Inicial
+    renderChildrenInputs(qtdCriancasEl.value);
+    updateSlots();
+
+    // Eventos
+    aplicarQtd.addEventListener('click', () => renderChildrenInputs(qtdCriancasEl.value));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Campos obrigatórios adicionais
+      if (!document.getElementById('consensoCursos').checked || !document.getElementById('consensoDados').checked) {
+        alert('É necessário aceitar os termos para prosseguir.');
+        return;
+      }
+
+      const data = new FormData(form);
+      const reg = Object.fromEntries(data.entries());
+
+      // Coletar crianças dinamicamente
+      const criancas = [];
+      const qtd = Math.max(1, Math.min(10, Number(qtdCriancasEl.value||1)));
+      for (let i=1;i<=qtd;i++) {
+        const nome = reg[`crianca_nome_${i}`];
+        const idade = reg[`crianca_idade_${i}`];
+        const ano = reg[`crianca_ano_${i}`] || '';
+        if (nome && idade) criancas.push({ nome, idade, ano });
+        delete reg[`crianca_nome_${i}`];
+        delete reg[`crianca_idade_${i}`];
+        delete reg[`crianca_ano_${i}`];
+      }
+
+      const aprovados = getAll().filter(x => x.situacao === 'APROVADO').length;
+      const situacao = aprovados < MAX_FAMILIAS ? 'APROVADO' : 'ESPERA';
+      const protocolo = genProtocolo();
+
+      const entry = {
+        protocolo,
+        dataISO: new Date().toISOString(),
+        responsavel: reg.responsavel || '',
+        telefone: reg.telefone || '',
+        email: reg.email || '',
+        documento: reg.documento || '',
+        provincia: reg.provincia || '',
+        municipio: reg.municipio || '',
+        bairro: reg.bairro || '',
+        rua: reg.rua || '',
+        escola: reg.escola || '',
+        renda: reg.renda || '',
+        criancas,
+        situacao
+      };
+
+      const all = getAll();
+      all.push(entry);
+      setAll(all);
+
+      updateSlots();
+      loadAdminTable();
+
+      // Modal
+      protocoloOut.textContent = protocolo;
+      situacaoOut.innerHTML = `Situação: <b>${situacao === 'APROVADO' ? 'Aprovado (vaga confirmada)' : 'Lista de espera'}</b>`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      // Limpamos apenas campos de texto; mantemos a qtd de crianças
+      form.reset();
+      renderChildrenInputs(qtdCriancasEl.value);
+    });
+
+    fecharModalBtn.addEventListener('click', () => { modal.classList.add('hidden'); modal.classList.remove('flex'); });
+
+    // Comprovante TXT e WhatsApp
+    baixarComprovante.addEventListener('click', () => {
+      const texto = `Comprovante de Cadastro – AVZ Key (Angola)\nProtocolo: ${protocoloOut.textContent}\n${situacaoOut.textContent}`;
+      const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `${protocoloOut.textContent}.txt`; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    whatsBtn.addEventListener('click', () => {
+      const msg = encodeURIComponent(`Cadastro realizado no AVZ Key (Angola). Protocolo: ${protocoloOut.textContent}. ${situacaoOut.textContent}`);
+      // Número vazio abre seletor do WhatsApp
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    });
+
+    // ====== ADMIN ======
+    openAdmin.addEventListener('click', () => { adminOverlay.classList.remove('hidden'); adminOverlay.classList.add('flex'); });
+    fecharAdmin.addEventListener('click', () => { adminOverlay.classList.add('hidden'); adminOverlay.classList.remove('flex'); });
+
+    entrarAdmin.addEventListener('click', () => {
+      if ((adminCode.value||'').trim() === ADMIN_CODE) {
+        adminAuth.style.display = 'none';
+        adminArea.classList.remove('hidden-admin');
+        loadAdminTable();
+      } else {
+        alert('Código inválido.');
+      }
+    });
+
+    function loadAdminTable() {
+      const all = getAll();
+      countReg.textContent = Math.min(MAX_FAMILIAS, all.filter(x=>x.situacao==='APROVADO').length) + (all.some(x=>x.situacao==='ESPERA')? ` (+${all.filter(x=>x.situacao==='ESPERA').length} espera)`:'');
+      adminTable.innerHTML = all.map(x => `
+        <tr class="border-b border-opacity-20" style="border-color: var(--border)">
+          <td class="p-2">${formatDate(x.dataISO)}</td>
+          <td class="p-2">${x.protocolo}</td>
+          <td class="p-2">${x.responsavel}</td>
+          <td class="p-2">${x.telefone}</td>
+          <td class="p-2">${x.provincia}</td>
+          <td class="p-2">${x.municipio}</td>
+          <td class="p-2">${x.criancas.length}</td>
+          <td class="p-2">${x.situacao}</td>
+        </tr>
+      `).join('');
+    }
+
+    exportCsv.addEventListener('click', () => {
+      const rows = getAll();
+      if (!rows.length) { alert('Sem registos para exportar.'); return; }
+      const header = ['data','protocolo','responsavel','telefone','email','documento','provincia','municipio','bairro','rua','escola','renda','qtd_criancas','criancas'];
+      const csv = [header.join(',')].concat(rows.map(r => {
+        const cri = r.criancas.map(c => `${c.nome}(${c.idade})`).join('|');
+        return [formatDate(r.dataISO), r.protocolo, r.responsavel, r.telefone, r.email, r.documento, r.provincia, r.municipio, r.bairro, r.rua, r.escola, r.renda, r.criancas.length, cri]
+          .map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(',');
+      })).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'cadastros_avz_angola.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    limparTudo.addEventListener('click', () => {
+      if (confirm('Tem a certeza que deseja apagar todos os registos deste dispositivo?')) {
+        setAll([]); loadAdminTable(); updateSlots();
+      }
+    });
+  </script>
+</body>
+</html>
