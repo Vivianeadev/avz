@@ -36,7 +36,7 @@
       border-radius: 2px; }
     footer { margin-top: auto; padding: 15px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; }
 
-    /* === POPUP DE SENHA (mantido do seu código) === */
+    /* === POPUP DE SENHA (intocado) === */
     .popup-overlay {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -79,7 +79,7 @@
       text-shadow: 0 0 8px rgba(212,175,55,0.6);
     }
 
-    /* === CAIXA INTERNA PARA CONTEÚDO (iframe) === */
+    /* === CAIXA INTERNA PARA CONTEÚDO === */
     #content-box {
       margin-top: 30px;
       width: 90%; max-width: 1000px; height: 600px;
@@ -95,7 +95,7 @@
   </style>
 </head>
 <body>
-  <!-- POPUP DE SENHA ORIGINAL -->
+  <!-- POPUP DE SENHA (intocado) -->
   <div class="popup-overlay" id="popup">
     <div class="popup-content">
       <h2>Acesso restrito</h2>
@@ -125,11 +125,12 @@
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
     
-    <a class="main-btn" onclick="abrirNaCaixa('carteira.html')">Acessar Carteira</a>
+    <!-- Botão abre a carteira adaptada -->
+    <a class="main-btn" onclick="abrirNaCaixa('carteira-embed.html')">Acessar Carteira</a>
 
     <div class="divider"></div>
 
-    <!-- Caixa interna que exibe o conteúdo -->
+    <!-- Caixa interna -->
     <div id="content-box">
       <iframe id="content-frame" src=""></iframe>
     </div>
@@ -159,7 +160,7 @@
       if (event.key === "Enter") handlePasswordCheck();
     });
 
-    // FUNÇÃO ABRIR CONTEÚDO NA CAIXA
+    // Função para abrir conteúdo dentro da caixa
     function abrirNaCaixa(url) {
       document.getElementById("content-box").style.display = "block";
       document.getElementById("content-frame").src = url;
