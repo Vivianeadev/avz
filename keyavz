@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key AVZ - Swap USDT → AVZ</title>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.min.js"></script>
+<style>
+body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+.container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+button { width: 100%; padding: 10px; margin-top: 10px; cursor: pointer; }
+input { width: 100%; padding: 10px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Key AVZ</h2>
+<button id="connectButton">Conectar MetaMask</button>
+<p>Endereço: <span id="userAddress">-</span></p>
+<p>Saldo AVZ: <span id="avzBalance">0</span></p>
+
+<h3>Comprar AVZ com USDT</h3>
+<input type="number" id="usdtAmount" placeholder="Quantidade de USDT">
+<button id="swapButton">Confirmar Compra</button>
+
+<p id="status"></p>
+</div>
+
+<script>
+let provider, signer, userAddress;
+
+// Substitua pelos seus contratos na Polygon
+const avzAddress = "0xSeuContratoAVZ";
+const usdtAddress = "0xUSDTnaPolygon";
+const avzAbi = [
+  "function balanceOf(address owner) view returns (uint256)",
+  "function approve(address spender, uint256 amount) returns (bool)"
+];
+
+// Endereço do Router Uniswap v3
+const routerAddress = "0xE592427A0AEce92De3Edee1F18E0157C05861564";
+const routerAbi = [
+  "function exactInputSingle(tuple(address tokenIn,address tokenOut,uint24 fee,address recipient,uint256 deadline,uint256 amountIn,uint256 amountOutMinimum,uint160 sqrtPriceLimitX96)) payable returns (uint256 amountOut)"
+];
+
+document.getElementById("connectButton").onclick = async () => {
+  if (window.ethereum) {
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = await provider.getSigner();
+    userAddress = await signer.getAddress();
+    document.getElementById("userAddress").innerText = userAddress;
+
+    const avzContract = new ethers.Contract(avzAddress, avzAbi, provider);
+    const balance = await avzContract.balanceOf(userAddress);
+    document.getElementById("avzBalance").innerText = ethers.formatUnits(balance, 18);
+    document.getElementById("status").innerText = "MetaMask conectada!";
+  } else {
+    alert("MetaMask não detectada!");
+  }
+};
+
+document.getElementById("swapButton").onclick = async () => {
+  const amountUSDT = document.getElementById("usdtAmount").value;
+  if (!amountUSDT || amountUSDT <= 0) {
+    alert("Informe uma quantidade válida!");
+    return;
+  }
+
+  try {
+    const usdtContract = new ethers.Contract(usdtAddress, [
+      "function approve(address spender, uint256 amount) returns (bool)"
+    ], signer);
+
+    const amountIn = ethers.parseUnits(amountUSDT, 6); // USDT = 6 decimals
+    const approvalTx = await usdtContract.approve(routerAddress, amountIn);
+    await approvalTx.wait();
+    document.getElementById("status").innerText = "USDT aprovado! Aguardando swap...";
+
+    const routerContract = new ethers.Contract(routerAddress, routerAbi, signer);
+
+    const swapParams = {
+      tokenIn: usdtAddress,
+      tokenOut: avzAddress,
+      fee: 3000, // Pool 0.3%
+      recipient: userAddress,
+      deadline: Math.floor(Date.now() / 1000) + 60 * 10, // 10 minutos
+      amountIn: amountIn,
+      amountOutMinimum: 0, // para simplificação, no teste
+      sqrtPriceLimitX96: 0
+    };
+
+    const tx = await routerContract.exactInputSingle(swapParams, { value: 0 });
+    await tx.wait();
+    document.getElementById("status").innerText = "Swap concluído! Verifique sua MetaMask.";
+
+    const avzContract = new ethers.Contract(avzAddress, avzAbi, provider);
+    const newBalance = await avzContract.balanceOf(userAddress);
+    document.getElementById("avzBalance").innerText = ethers.formatUnits(newBalance, 18);
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("status").innerText = "Erro: " + err.message;
+  }
+};
+</script>
+</body>
+</html>
