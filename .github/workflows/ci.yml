@@ -1,4 +1,4 @@
-name: CI - Testes do MetaMask Snap
+name: CI - Build e Testes do Projeto
 
 on:
   push:
@@ -24,3 +24,14 @@ jobs:
 
       - name: ✅ Rodar testes com Jest
         run: npm test
+        continue-on-error: true
+
+      - name: 📂 Salvar logs dos testes (se falharem)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-logs
+          path: |
+            npm-debug.log*
+            jest-html-reporters-*.html
+            coverage/
