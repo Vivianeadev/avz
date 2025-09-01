@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minha Carteira - Preços em Tempo Real</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    body{font-family:Arial,sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:80px;text-align:center}
+    h1{color:#d4af37;margin-bottom:20px}
+    .wallet-input{padding:10px;border-radius:8px;border:none;width:320px;margin-bottom:10px;color:#000}
+    .key-btn{background:linear-gradient(135deg,#e8b4b8,#d4af37);color:#000;font-weight:bold;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;transition:all 0.3s}
+    .key-btn:hover{transform:scale(1.05)}
+    #walletInfo{display:none;margin-top:20px;width:100%;max-width:1200px;background:rgba(0,0,0,.6);padding:20px;border-radius:8px;text-align:left}
+    #walletInfo p{margin-bottom:8px}
+    #errorMessage{color:#ff6b6b;margin-top:10px;text-align:center}
+    table{width:100%;border-collapse:collapse;margin-top:15px}
+    th,td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+    th{color:#d4af37;font-weight:bold}
+    .muted{opacity:.7;font-size:0.9em}
+    .right{text-align:right}
+    .chip{font-size:.85rem;padding:4px 8px;border-radius:8px;background:#1b1b1b;display:inline-block;margin:2px}
+    .total{font-weight:700;color:#d4af37;font-size:1.1em}
+    hr{border:0;border-top:1px solid rgba(255,255,255,.1);margin:6px 0}
+    .loading{color:#d4af37;font-style:italic}
+    .success{color:#4caf50}
+    .error{color:#ff6b6b}
+    .status-box{background:#1a1a1a;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #d4af37}
+    .price-card{background:#1a1a1a;padding:10px;border-radius:5px;margin:5px 0;border-left:3px solid #4caf50}
+    .refresh-btn{background:#333;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:10px;font-size:0.8em}
+    .refresh-btn:hover{background:#555}
+  </style>
+</head>
+<body>
+  <h1>🏦 Minha Carteira Crypto</h1>
+  <p>Consulte seu saldo e preços de tokens em tempo real</p>
+
+  <input type="text" id="walletAddressInput" class="wallet-input" placeholder="Cole seu endereço da carteira (0x...)">
+  <br><br>
+  <button id="checkBalanceBtn" class="key-btn">🔍 Consultar Carteira</button>
+
+  <div id="walletInfo">
+    <div class="status-box">
+      <p><strong>📍 Endereço:</strong> <span id="walletAddress"></span></p>
+      <p><strong>💰 Saldo MATIC:</strong> <span id="ethBalance"></span></p>
+    </div>
+
+    <div class="status-box">
+      <p><strong>📊 Status da Consulta:</strong> <button class="refresh-btn" onclick="refreshPrices()">🔄 Atualizar Preços</button></p>
+      <div id="statusLog"></div>
+    </div>
+
+    <div id="tokenSection">
+      <table id="tokenTable">
+        <thead>
+          <tr>
+            <th>🪙 Token</th>
+            <th>💼 Saldo</th>
+            <th>💵 Preço (USD)</th>
+            <th>🇧🇷 Preço (BRL)</th>
+            <th class="right">💰 Valor (USD)</th>
+            <th class="right">🇧🇷 Valor (BRL)</th>
+            <th>📈 Status</th>
+          </tr>
+        </thead>
+        <tbody id="tokenTbody"></tbody>
+        <tfoot>
+          <tr style="border-top:2px solid #d4af37">
+            <td colspan="4" class="right total">💎 TOTAL GERAL</td>
+            <td class="right total" id="totalUsd">—</td>
+            <td class="right total" id="totalBrl">—</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="status-box">
+      <p><strong>📈 Preços de Referência do Mercado:</strong></p>
+      <div id="referenceData">
+        <div class="price-card">
+          <strong>Bitcoin (BTC):</strong> <span id="btcPrice">Carregando...</span>
+        </div>
+        <div class="price-card">
+          <strong>Ethereum (ETH):</strong> <span id="ethPrice">Carregando...</span>
+        </div>
+        <div class="price-card">
+          <strong>Polygon (MATIC):</strong> <span id="maticPrice">Carregando...</span>
+        </div>
+        <div class="price-card">
+          <strong>Taxa USD/BRL:</strong> <span id="usdBrlRate">R$ 5,50</span>
+        </div>
+      </div>
+    </div>
+
+    <p id="errorMessage"></p>
+  </div>
+
+  <script>
+    const networks = {
+      polygon: { 
+        name: "Polygon (MATIC)", 
+        nativeSymbol: "MATIC", 
+        rpc: "https://polygon-rpc.com/",
+        chainId: 137
+      }
+    };
+
+    // Tokens cadastrados
+    const tokens = [
+      { 
+        name: "AVZ Token", 
+        symbol: "AVZ", 
+        contract: "0xcE20F7cb738aA5Cf32441B2ba0EFBA1E6f42c0b4", 
+        decimals: 18
+      },
+      { 
+        name: "AV9 Token", 
+        symbol: "AV9", 
+        contract: "0x2EfADD20B18E551d97994790D217915e56005b4f", 
+        decimals: 18
+      }
+    ];
+
+    let exchangeRate = 5.5;
+    let currentAddress = null;
+
+    function addStatusLog(message, type = 'info') {
+      const statusLog = document.getElementById('statusLog');
+      const timestamp = new Date().toLocaleTimeString('pt-BR');
+      const icon = type === 'error' ? '❌' : type === 'success' ? '✅' : '⏳';
+      const colorClass = type === 'error' ? 'error' : type === 'success' ? 'success' : 'loading';
+      statusLog.innerHTML += `<div class="${colorClass}">${icon} [${timestamp}] ${message}</div>`;
+      statusLog.scrollTop = statusLog.scrollHeight;
+    }
+
+    // Função para buscar taxa de câmbio usando API pública
+    async function getExchangeRate() {
+      try {
+        addStatusLog('Buscando taxa de câmbio USD/BRL...');
+        
+        // Usando API pública que não tem CORS
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        const data = await response.json();
+        
+        if (data.rates && data.rates.BRL) {
+          exchangeRate = data.rates.BRL;
+          document.getElementById('usdBrlRate').textContent = `R$ ${exchangeRate.toFixed(4)}`;
+          addStatusLog(`Taxa USD/BRL atualizada: R$ ${exchangeRate.toFixed(4)}`, 'success');
+          return exchangeRate;
+        }
+        throw new Error('Taxa não encontrada');
+      } catch (e) {
+        addStatusLog('Usando taxa padrão USD/BRL: R$ 5,50', 'info');
+        document.getElementById('usdBrlRate').textContent = 'R$ 5,50 (padrão)';
+        return 5.5;
+      }
+    }
+
+    // Função para buscar preços usando CoinGecko (sem CORS)
+    async function getCryptoPrices() {
+      try {
+        addStatusLog('Buscando preços de referência...');
+        
+        // CoinGecko API pública
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,matic-network&vs_currencies=usd&include_24hr_change=true');
+        const data = await response.json();
+        
+        if (data.bitcoin) {
+          const btc = data.bitcoin;
+          const eth = data.ethereum;
+          const matic = data['matic-network'];
+          
+          document.getElementById('btcPrice').innerHTML = `$${btc.usd.toLocaleString()} ${formatChange(btc.usd_24h_change)}`;
+          document.getElementById('ethPrice').innerHTML = `$${eth.usd.toLocaleString()} ${formatChange(eth.usd_24h_change)}`;
+          document.getElementById('maticPrice').innerHTML = `$${matic.usd.toFixed(4)} ${formatChange(matic.usd_24h_change)}`;
+          
+          addStatusLog('Preços de referência atualizados!', 'success');
+          return data;
+        }
+        throw new Error('Dados não encontrados');
+      } catch (e) {
+        addStatusLog('Erro ao buscar preços de referência', 'error');
+        return {};
+      }
+    }
+
+    // Função para buscar preço de token específico
+    async function getTokenPrice(contractAddress) {
+      try {
+        addStatusLog(`Buscando preço para contrato ${contractAddress.substring(0,10)}...`);
+        
+        const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/polygon-pos?contract_addresses=${contractAddress}&vs_currencies=usd&include_24hr_change=true`);
+        const data = await response.json();
+        
+        const tokenData = data[contractAddress.toLowerCase()];
+        if (tokenData && tokenData.usd) {
+          addStatusLog(`Preço encontrado: $${tokenData.usd}`, 'success');
+          return {
+            priceUsd: tokenData.usd,
+            change24h: tokenData.usd_24h_change || 0,
+            source: 'CoinGecko'
+          };
+        }
+        
+        addStatusLog('Token não encontrado no CoinGecko', 'error');
+        return null;
+      } catch (e) {
+        addStatusLog(`Erro ao buscar preço: ${e.message}`, 'error');
+        return null;
+      }
+    }
+
+    function fmt(n, decimals = 4) {
+      if (n === null || n === undefined || isNaN(n)) return "—";
+      const num = Number(n);
+      return num.toLocaleString("pt-BR", { 
+        minimumFractionDigits: decimals, 
+        maximumFractionDigits: decimals 
+      });
+    }
+
+    function formatChange(change) {
+      if (!change || isNaN(change)) return "";
+      const sign = change >= 0 ? "+" : "";
+      const color = change >= 0 ? "#4caf50" : "#ff6b6b";
+      const arrow = change >= 0 ? "📈" : "📉";
+      return `<span style="color: ${color}">${arrow} ${sign}${change.toFixed(2)}%</span>`;
+    }
+
+    async function consultarSaldo() {
+      const address = document.getElementById("walletAddressInput").value.trim();
+      const walletInfoDiv = document.getElementById("walletInfo");
+      const errorMessageP = document.getElementById("errorMessage");
+      const tbody = document.getElementById("tokenTbody");
+      const totalUsdEl = document.getElementById("totalUsd");
+      const totalBrlEl = document.getElementById("totalBrl");
+      const statusLog = document.getElementById("statusLog");
+
+      // Reset
+      walletInfoDiv.style.display = "none";
+      errorMessageP.textContent = "";
+      tbody.innerHTML = "";
+      totalUsdEl.textContent = "—";
+      totalBrlEl.textContent = "—";
+      statusLog.innerHTML = "";
+
+      if (!address) {
+        errorMessageP.textContent = "Por favor, insira um endereço de carteira.";
+        return;
+      }
+
+      if (!ethers.utils.isAddress(address)) {
+        errorMessageP.textContent = "Endereço de carteira inválido. Verifique o formato.";
+        return;
+      }
+
+      currentAddress = address;
+      addStatusLog('🚀 Iniciando consulta da carteira...', 'info');
+      document.getElementById("walletAddress").textContent = address;
+      document.getElementById("ethBalance").textContent = "Carregando...";
+      walletInfoDiv.style.display = "block";
+
+      try {
+        // Conecta à rede Polygon
+        addStatusLog('🔗 Conectando à rede Polygon...');
+        const provider = new ethers.providers.JsonRpcProvider(networks.polygon.rpc);
+        
+        // Busca saldo MATIC
+        addStatusLog('💰 Consultando saldo MATIC...');
+        const balance = await provider.getBalance(address);
+        const formattedBalance = parseFloat(ethers.utils.formatEther(balance));
+        document.getElementById("ethBalance").textContent = `${fmt(formattedBalance, 4)} MATIC`;
+        addStatusLog(`Saldo MATIC: ${fmt(formattedBalance, 4)}`, 'success');
+
+        // Busca taxa de câmbio e preços de referência
+        await Promise.all([
+          getExchangeRate(),
+          getCryptoPrices()
+        ]);
+
+        let totalUsd = 0, totalBrl = 0;
+
+        // Processa cada token
+        for (const token of tokens) {
+          addStatusLog(`🔍 Processando ${token.symbol}...`);
+          
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>${token.symbol}</strong><br><span class="muted">${token.name}</span></td>
+            <td class="loading">⏳ Carregando...</td>
+            <td class="loading">⏳ Carregando...</td>
+            <td class="loading">⏳ Carregando...</td>
+            <td class="right loading">⏳ Carregando...</td>
+            <td class="right loading">⏳ Carregando...</td>
+            <td class="loading">🔍 Consultando...</td>
+          `;
+          tbody.appendChild(tr);
+
+          try {
+            // Busca saldo do token
+            const contract = new ethers.Contract(
+              token.contract,
+              ["function balanceOf(address) view returns (uint256)"],
+              provider
+            );
+            
+            const raw = await contract.balanceOf(address);
+            const bal = Number(ethers.utils.formatUnits(raw, token.decimals));
+            addStatusLog(`Saldo ${token.symbol}: ${fmt(bal, 4)}`, 'success');
+
+            // Busca preço do token
+            const priceData = await getTokenPrice(token.contract);
+            
+            let statusText = "";
+            let valueUsd = null;
+            let valueBrl = null;
+            let priceUsd = null;
+            let priceBrl = null;
+
+            if (priceData && priceData.priceUsd) {
+              priceUsd = priceData.priceUsd;
+              priceBrl = priceUsd * exchangeRate;
+              valueUsd = bal * priceUsd;
+              valueBrl = valueUsd * exchangeRate;
+              
+              totalUsd += valueUsd;
+              totalBrl += valueBrl;
+              
+              const changeText = formatChange(priceData.change24h);
+              statusText = `<span class="success">✅ ${priceData.source}</span><br>${changeText}`;
+            } else {
+              statusText = `<span class="error">❌ Preço não encontrado</span><br><small class="muted">Token não listado</small>`;
+            }
+
+            // Atualiza a linha
+            tr.innerHTML = `
+              <td><strong>${token.symbol}</strong><br><span class="muted">${token.name}</span></td>
+              <td>${fmt(bal, 4)}</td>
+              <td>$${fmt(priceUsd, 6)}</td>
+              <td>R$ ${fmt(priceBrl, 6)}</td>
+              <td class="right">$${fmt(valueUsd, 2)}</td>
+              <td class="right">R$ ${fmt(valueBrl, 2)}</td>
+              <td>${statusText}</td>
+            `;
+
+          } catch (tokenError) {
+            addStatusLog(`❌ Erro ao processar ${token.symbol}: ${tokenError.message}`, 'error');
+            tr.innerHTML = `
+              <td><strong>${token.symbol}</strong><br><span class="muted">${token.name}</span></td>
+              <td class="error">Erro</td>
+              <td class="error">—</td>
+              <td class="error">—</td>
+              <td class="right error">—</td>
+              <td class="right error">—</td>
+              <td><span class="error">❌ Erro na consulta</span></td>
+            `;
+          }
+        }
+
+        totalUsdEl.textContent = `$${fmt(totalUsd, 2)}`;
+        totalBrlEl.textContent = `R$ ${fmt(totalBrl, 2)}`;
+
+        addStatusLog('🎉 Consulta concluída com sucesso!', 'success');
+
+      } catch (err) {
+        addStatusLog(`❌ Erro geral: ${err.message}`, 'error');
+        errorMessageP.textContent = "Erro ao consultar dados. Verifique sua conexão e tente novamente.";
+      }
+    }
+
+    async function refreshPrices() {
+      if (currentAddress) {
+        addStatusLog('🔄 Atualizando preços...', 'info');
+        await Promise.all([
+          getExchangeRate(),
+          getCryptoPrices()
+        ]);
+        addStatusLog('✅ Preços atualizados!', 'success');
+      }
+    }
+
+    // Event listeners
+    document.getElementById("checkBalanceBtn").addEventListener("click", consultarSaldo);
+    
+    document.getElementById("walletAddressInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        consultarSaldo();
+      }
+    });
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('💎 Sistema de Carteira Crypto carregado!');
+      
+      // Carrega preços de referência na inicialização
+      getCryptoPrices();
+      getExchangeRate();
+    });
+
+    // Auto-refresh a cada 2 minutos
+    setInterval(() => {
+      if (currentAddress) {
+        refreshPrices();
+      }
+    }, 120000);
+  </script>
+</body>
+</html>
+
