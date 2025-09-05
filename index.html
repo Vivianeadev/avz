@@ -3,115 +3,427 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVZ PropTech - Início</title>
+  <title>AVZ PropTech - Carteira Integrada</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --black: #0a0a0a; --dark-black: #000000;
       --gold: #d4af37; --light-gold: #f4e4bc;
       --rose-gold: #e8b4b8; --white: #ffffff;
+      --green: #4caf50; --red: #f44336;
     }
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
-      color: var(--white); display: flex; flex-direction: column;
-      align-items: center; min-height: 100vh; text-align: center; padding: 20px;
+      color: var(--white); 
+      display: flex; 
+      flex-direction: column;
+      align-items: center; 
+      min-height: 100vh; 
+      text-align: center; 
+      padding: 20px;
     }
-    header { width: 100%; padding: 15px 0; display: flex; justify-content: center;
-      background: rgba(0,0,0,0.6); position: sticky; top: 0; z-index: 5; }
-    nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-    nav a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; cursor: pointer; }
-    nav a:hover { color: var(--gold); }
-    h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 20px 0;
+    header { 
+      width: 100%; 
+      padding: 15px 0; 
+      display: flex; 
+      justify-content: center;
+      background: rgba(0,0,0,0.6); 
+      position: sticky; 
+      top: 0; 
+      z-index: 5; 
+    }
+    nav { 
+      display: flex; 
+      gap: 15px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      align-items: center;
+    }
+    nav a { 
+      color: var(--white); 
+      text-decoration: none; 
+      font-weight: 500; 
+      transition: 0.3s; 
+      cursor: pointer; 
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    nav a:hover { 
+      color: var(--gold); 
+      background: rgba(212, 175, 55, 0.1);
+    }
+    h1 { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 2.5rem; 
+      margin: 20px 0;
       background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p.subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
-    .main-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black); font-size: 1.2rem; font-weight: bold; padding: 15px 35px;
-      border-radius: 50px; text-decoration: none; margin-bottom: 30px; transition: 0.3s; cursor: pointer;
-      box-shadow: 0 8px 20px rgba(232,180,184,0.35); }
-    .main-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(232,180,184,0.55), 0 0 10px rgba(212,175,55,0.35); }
-    .divider { width: 80%; height: 2px; margin: 20px auto;
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+      text-align: center;
+    }
+    p.subtitle { 
+      font-size: 1.2rem; 
+      color: rgba(255,255,255,0.8); 
+      margin-bottom: 30px; 
+      text-align: center;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    .main-btn { 
+      display: inline-block; 
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black); 
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      padding: 15px 35px;
+      border-radius: 50px; 
+      text-decoration: none; 
+      margin-bottom: 30px; 
+      transition: 0.3s; 
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(232,180,184,0.35); 
+      text-align: center;
+    }
+    .main-btn:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 12px 28px rgba(232,180,184,0.55), 0 0 10px rgba(212,175,55,0.35); 
+    }
+    .divider { 
+      width: 80%; 
+      max-width: 600px;
+      height: 2px; 
+      margin: 20px auto;
       background: linear-gradient(90deg, var(--rose-gold), var(--gold), var(--rose-gold));
-      border-radius: 2px; }
-    footer { margin-top: auto; padding: 15px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; }
+      border-radius: 2px; 
+    }
+    footer { 
+      margin-top: 40px; 
+      padding: 15px 0; 
+      font-size: 0.85rem; 
+      color: rgba(255,255,255,0.6); 
+      text-align: center; 
+      width: 100%;
+    }
 
-    /* === POPUP DE SENHA (mantido do seu código) === */
+    /* Área de Carteira Integrada */
+    .wallet-section {
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .wallet-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .wallet-icon {
+      font-size: 2rem;
+      color: var(--gold);
+    }
+    .wallet-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+    .wallet-balance {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 15px 0;
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+    .wallet-address {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-family: monospace;
+      word-break: break-all;
+      color: var(--light-gold);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+    }
+    .wallet-action {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .action-btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .primary-btn {
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black);
+    }
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+    .wallet-transactions {
+      margin-top: 25px;
+      text-align: left;
+    }
+    .transaction-title {
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 8px;
+      text-align: center;
+    }
+    .transaction-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .transaction-amount {
+      font-weight: bold;
+    }
+    .transaction-receive {
+      color: var(--green);
+    }
+    .transaction-send {
+      color: var(--red);
+    }
+    .transaction-date {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    /* Formulário de Login - CENTRALIZADO */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 20px 0;
+    }
+    .login-form {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid var(--gold);
+      max-width: 400px;
+      width: 100%;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--light-gold);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+      font-size: 1rem;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black);
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+    }
+    .form-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Popup */
     .popup-overlay {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0,0,0,0.8);
       backdrop-filter: blur(8px);
-      display: flex; justify-content: center; align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       z-index: 9999;
     }
     .popup-content {
-      background: #1a1a1a; padding: 30px; border-radius: 15px;
-      border: 1px solid var(--gold); text-align: center;
-      width: 90%; max-width: 400px;
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid var(--gold);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
-    .popup-content h2 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px; }
-    .popup-content p { margin-bottom: 20px; color: rgba(255,255,255,0.8); }
-    .popup-content input[type="password"] {
-      width: 100%; padding: 12px; margin-bottom: 15px;
-      border-radius: 8px; border: 1px solid #444; background: #222;
-      color: white; font-size: 1rem;
+    .popup-content h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 15px;
     }
-    .popup-content button {
-      background: linear-gradient(135deg, var(--gold), var(--light-gold));
-      color: var(--black); font-weight: bold;
-      padding: 12px 30px; border: none; border-radius: 8px;
-      cursor: pointer; transition: all 0.3s ease; font-size: 1rem;
-      box-shadow: 0 8px 20px rgba(232,180,184,0.35);
+    .popup-content p {
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
     }
-    .popup-content button:hover { transform: scale(1.05); box-shadow: 0 12px 28px rgba(232,180,184,0.55), 0 0 10px rgba(212,175,55,0.35); }
-    .error-message { color: var(--rose-gold); margin-top: 15px; font-weight: bold; }
-    .popup-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
-    .popup-links a {
-      font-weight: bold; text-decoration: none; font-size: 1rem;
-      background: linear-gradient(135deg, var(--gold), var(--rose-gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      transition: all 0.3s ease; cursor: pointer;
+    .popup-close {
+      background: transparent;
+      border: 1px solid var(--rose-gold);
+      color: var(--rose-gold);
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
     }
-    .popup-links a:hover {
-      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 8px rgba(212,175,55,0.6);
+    .popup-close:hover {
+      background: rgba(232, 180, 184, 0.1);
     }
 
-    /* === CAIXA INTERNA PARA CONTEÚDO (iframe) === */
+    /* Content Box */
     #content-box {
-      margin-top: 30px;
-      width: 90%; max-width: 1000px; height: 600px;
-      border: 2px solid var(--gold);
-      border-radius: 15px;
-      overflow: hidden;
+      width: 100%;
+      max-width: 1000px;
+      margin: 20px auto;
       display: none;
     }
-    #content-box iframe {
-      width: 100%; height: 100%; border: none;
-      background: #111;
+    #content-frame {
+      width: 100%;
+      height: 600px;
+      border: 1px solid var(--gold);
+      border-radius: 10px;
+      background: rgba(30, 30, 30, 0.8);
+    }
+
+    /* Layout Principal - Melhorias de Responsividade */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Responsividade Aprimorada */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p.subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+      .wallet-action {
+        flex-direction: column;
+      }
+      .action-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      nav {
+        gap: 10px;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+      .main-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
+      .wallet-balance {
+        font-size: 2rem;
+      }
+      .wallet-title {
+        font-size: 1.5rem;
+      }
+      .wallet-icon {
+        font-size: 1.5rem;
+      }
+      .login-form {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .wallet-title {
+        font-size: 1.4rem;
+      }
+      .wallet-section, .login-form {
+        padding: 20px 15px;
+      }
+      .wallet-balance {
+        font-size: 1.8rem;
+      }
+      header {
+        padding: 10px 0;
+      }
+      nav a {
+        font-size: 0.8rem;
+      }
+      body {
+        padding: 15px;
+      }
+      .wallet-address {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+      }
+      .transaction-item {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+
+    /* Melhorias para telas grandes */
+    @media (min-width: 1200px) {
+      h1 {
+        font-size: 3rem;
+      }
+      p.subtitle {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- POPUP DE SENHA ORIGINAL -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-content">
-      <h2>Acesso restrito</h2>
-      <p>Digite a senha para entrar.</p>
-      <input type="password" id="password-input" placeholder="••••••••••">
-      <button id="submit-password-btn">Entrar</button>
-      <p id="error-message" class="error-message"></p>
-      <div class="popup-links">
-        <a onclick="abrirNaCaixa('sobre.html')">Institucional</a>
-        <a onclick="abrirNaCaixa('desenvolvedores.html')">Regulamento e Privacidade</a>
-      </div>
-    </div>
-  </div>
-
   <!-- CONTEÚDO PRINCIPAL -->
   <header>
     <nav>
@@ -126,40 +438,92 @@
     <h1>AVZ PropTech</h1>
     <p class="subtitle">Inovando o Mercado Imobiliário com Tecnologia e Transparência</p>
     
-    <!-- Aqui já abre o site da MetaMask dentro da caixa -->
-    <a class="main-btn" onclick="abrirNaCaixa('https://metamask.io/')">Acessar Carteira</a>
+    <!-- Área de Carteira Integrada -->
+    <div id="wallet-area" class="wallet-section" style="display: none;">
+      <div class="wallet-header">
+        <i class="fas fa-wallet wallet-icon"></i>
+        <h2 class="wallet-title">Carteira AVZ</h2>
+      </div>
+      
+      <p>Saldo disponível</p>
+      <div class="wallet-balance" id="wallet-balance">R$ 0,00</div>
+      
+      <div class="wallet-address" id="wallet-address">
+        Conecte-se para visualizar seu endereço
+      </div>
+      
+      <div class="wallet-action">
+        <button class="action-btn primary-btn" onclick="showPopup('deposit')">
+          <i class="fas fa-arrow-down"></i> Depositar
+        </button>
+        <button class="action-btn secondary-btn" onclick="showPopup('withdraw')">
+          <i class="fas fa-arrow-up"></i> Sacar
+        </button>
+        <button class="action-btn secondary-btn" onclick="showPopup('send')">
+          <i class="fas fa-paper-plane"></i> Enviar
+        </button>
+      </div>
+      
+      <div class="wallet-transactions">
+        <h3 class="transaction-title">Últimas transações</h3>
+        <div id="transaction-list">
+          <p style="text-align: center; color: rgba(255,255,255,0.7);">Nenhuma transação realizada</p>
+        </div>
+      </div>
+    </div>
 
-    <div class="divider"></div>
+    <!-- Formulário de Login - AGORA CENTRALIZADO -->
+    <div class="login-container">
+      <div id="login-area" class="login-form">
+        <h2 style="color: var(--gold); margin-bottom: 20px; text-align: center;">Acesse sua Carteira AVZ</h2>
+        
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" placeholder="Sua senha">
+        </div>
+        
+        <button class="form-submit" onclick="login()">Acessar Carteira</button>
+      </div>
+    </div>
 
     <!-- Caixa interna que exibe o conteúdo -->
     <div id="content-box">
-      <iframe id="content-frame" src=""></iframe>
+      <iframe id="content-frame" src="" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
     </div>
   </main>
+
+  <!-- Popup para operações -->
+  <div id="popup-overlay" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+      <h2 id="popup-title">Operação</h2>
+      <p id="popup-message">Confirme os detalhes da operação</p>
+      <div id="popup-details"></div>
+      <button class="popup-close" onclick="closePopup()">Fechar</button>
+    </div>
+  </div>
 
   <footer>
     <p>© 2025 AVZ PropTech. Todos os direitos reservados.</p>
   </footer>
 
   <script>
-    const SENHA_CORRETA = "AVZ-7K2J8"; 
-    const popup = document.getElementById("popup");
-    const passwordInput = document.getElementById("password-input");
-    const submitPasswordBtn = document.getElementById("submit-password-btn");
-    const errorMessage = document.getElementById("error-message");
-
-    function handlePasswordCheck() {
-      if (passwordInput.value === SENHA_CORRETA) {
-        popup.style.display = "none"; 
-      } else {
-        abrirNaCaixa("lojaavz.html");
-      }
-    }
-
-    submitPasswordBtn.addEventListener("click", handlePasswordCheck);
-    passwordInput.addEventListener("keyup", (event) => {
-      if (event.key === "Enter") handlePasswordCheck();
-    });
+    // Dados de exemplo (em um sistema real, isso viria de um backend)
+    const userData = {
+      email: "cliente@avz.com",
+      password: "senha123",
+      balance: 8750.50,
+      address: "AVZ-7K2J8-9B3C1-D4E5F6",
+      transactions: [
+        { type: "receive", amount: 2500.00, date: "15/09/2023", description: "Depósito inicial" },
+        { type: "send", amount: 850.00, date: "18/09/2023", description: "Investimento em tokenização" },
+        { type: "receive", amount: 120.50, date: "22/09/2023", description: "Dividendos" }
+      ]
+    };
 
     // FUNÇÃO ABRIR CONTEÚDO NA CAIXA
     function abrirNaCaixa(url) {
@@ -167,6 +531,151 @@
       document.getElementById("content-frame").src = url;
       window.scrollTo({ top: 300, behavior: "smooth" });
     }
+
+    // Função de login
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      if (email === userData.email && password === userData.password) {
+        // Login bem-sucedido
+        document.getElementById("login-area").style.display = "none";
+        document.getElementById("wallet-area").style.display = "block";
+        
+        // Atualizar dados na interface
+        document.getElementById("wallet-balance").textContent = `R$ ${userData.balance.toFixed(2)}`;
+        document.getElementById("wallet-address").textContent = userData.address;
+        
+        // Exibir transações
+        const transactionList = document.getElementById("transaction-list");
+        transactionList.innerHTML = "";
+        
+        userData.transactions.forEach(transaction => {
+          const transactionEl = document.createElement("div");
+          transactionEl.className = "transaction-item";
+          
+          transactionEl.innerHTML = `
+            <div>
+              <div>${transaction.description}</div>
+              <div class="transaction-date">${transaction.date}</div>
+            </div>
+            <div class="transaction-amount ${transaction.type === 'receive' ? 'transaction-receive' : 'transaction-send'}">
+              ${transaction.type === 'receive' ? '+' : '-'} R$ ${transaction.amount.toFixed(2)}
+            </div>
+          `;
+          
+          transactionList.appendChild(transactionEl);
+        });
+      } else {
+        alert("E-mail ou senha incorretos. Tente novamente.");
+      }
+    }
+
+    // Funções para popup
+    function showPopup(type) {
+      const popup = document.getElementById("popup-overlay");
+      const title = document.getElementById("popup-title");
+      const message = document.getElementById("popup-message");
+      const details = document.getElementById("popup-details");
+      
+      popup.style.display = "flex";
+      
+      switch(type) {
+        case 'deposit':
+          title.textContent = "Depositar Fundos";
+          message.textContent = "Utilize as informações abaixo para depositar:";
+          details.innerHTML = `
+            <p style="margin: 15px 0; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+              <strong>Chave PIX:</strong> ${userData.address} <br>
+              <strong>Banco:</strong> AVZ PropTech <br>
+              <strong>Beneficiário:</strong> Titular da Carteira
+            </p>
+            <p>Após o pagamento, os fundos serão creditados em até 2 horas úteis.</p>
+          `;
+          break;
+          
+        case 'withdraw':
+          title.textContent = "Sacar Fundos";
+          message.textContent = "Preencha os dados para saque:";
+          details.innerHTML = `
+            <div style="text-align: left; margin: 15px 0;">
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Valor do saque</label>
+                <input type="number" placeholder="R$ 0,00" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Chave PIX</label>
+                <input type="text" placeholder="Chave PIX" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                Solicitar Saque
+              </button>
+            </div>
+          `;
+          break;
+          
+        case 'send':
+          title.textContent = "Enviar Fundos";
+          message.textContent = "Envie para outra carteira AVZ:";
+          details.innerHTML = `
+            <div style="text-align: left; margin: 15px 0;">
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Destinatário</label>
+                <input type="text" placeholder="Chave AVZ" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Valor</label>
+                <input type="number" placeholder="R$ 0,00" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                Enviar Agora
+              </button>
+            </div>
+          `;
+          break;
+          
+        case 'register':
+          title.textContent = "Criar Conta";
+          message.textContent = "Preencha seus dados para criar uma conta:";
+          details.innerHTML = `
+            <div style="text-align: left; margin: 15px 0;">
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Nome completo</label>
+                <input type="text" placeholder="Seu nome" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">E-mail</label>
+                <input type="email" placeholder="seu@email.com" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Senha</label>
+                <input type="password" placeholder="Crie uma senha" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
+              </div>
+              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                Criar Conta
+              </button>
+            </div>
+          `;
+          break;
+      }
+    }
+
+    function closePopup() {
+      document.getElementById("popup-overlay").style.display = "none";
+    }
+
+    // Tentativa de conexão com MetaMask (opcional)
+    function tryConnectMetaMask() {
+      if (typeof window.ethereum !== "undefined") {
+        console.log("MetaMask está instalado!");
+        // Você pode adicionar a integração opcional aqui
+      }
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      tryConnectMetaMask();
+    });
   </script>
 </body>
 </html>
