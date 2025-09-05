@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVZ Crypto Memory - Antecipação de Recebíveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --gold: #d4af37;
+            --light-gold: #f4e4bc;
+            --dark-gold: #b8860b;
+            --black: #0a0a0a;
+            --dark-black: #000000;
+            --rose: #e8b4b8;
+            --light-rose: #f8e1e3;
+            --white: #ffffff;
+            --green: #00c853;
+            --blue: #2196f3;
+            --red: #f44336;
+            --btc: #f2a900;
+            --eth: #3c3c3d;
+            --doge: #c2a633;
+            --avz: #d4af37;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: var(--white);
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--black);
+            box-shadow: 0 0 15px var(--gold);
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .balance {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: var(--black);
+            font-weight: bold;
+        }
+        
+        .avz-tokens {
+            background: linear-gradient(135deg, var(--rose) 0%, #d88a90 100%);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: var(--black);
+            font-weight: bold;
+        }
+        
+        .client-id {
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: var(--black);
+            font-weight: bold;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .game-board-container {
+            flex: 2;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .side-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .rewards-panel {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--rose);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .payment-panel {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--rose);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, var(--rose) 0%, #d88a90 100%);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: var(--black);
+            font-weight: bold;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        
+        .card {
+            height: 100px;
+            background: var(--light-gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            transform: rotateY(180deg);
+            color: var(--black);
+        }
+        
+        .card-back {
+            background: linear-gradient(135deg, var(--rose) 0%, #d88a90 100%);
+            font-size: 2rem;
+            color: var(--black);
+        }
+        
+        .crypto-icon {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .crypto-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .crypto-symbol {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .btc-card {
+            background: linear-gradient(135deg, var(--btc) 0%, #ffcc00 100%);
+        }
+        
+        .eth-card {
+            background: linear-gradient(135deg, var(--eth) 0%, #6f7c8d 100%);
+            color: white;
+        }
+        
+        .doge-card {
+            background: linear-gradient(135deg, var(--doge) 0%, #e6d252 100%);
+        }
+        
+        .avz-card {
+            background: linear-gradient(135deg, var(--avz) 0%, var(--light-gold) 100%);
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .controls {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            color: var(--black);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .reward-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .reward-title {
+            font-size: 1.2rem;
+            color: var(--light-gold);
+            margin-bottom: 10px;
+        }
+        
+        .reward-description {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--light-rose);
+        }
+        
+        .reward-value {
+            font-size: 1.1rem;
+            color: var(--green);
+            font-weight: bold;
+        }
+        
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .form-group label {
+            margin-bottom: 5px;
+            color: var(--light-gold);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--rose);
+            box-shadow: 0 0 10px var(--rose);
+        }
+        
+        .avz-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid var(--gold);
+        }
+        
+        .avz-info h3 {
+            color: var(--light-gold);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .avz-info p {
+            font-size: 0.9rem;
+            color: var(--light-rose);
+            text-align: center;
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: none;
+        }
+        
+        .celebration h2 {
+            font-size: 3rem;
+            color: var(--light-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px var(--gold);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--gold);
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .crypto-value {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid var(--rose);
+            margin-bottom: 20px;
+        }
+        
+        .crypto-item {
+            text-align: center;
+        }
+        
+        .crypto-icon-small {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .crypto-name {
+            font-size: 0.9rem;
+            color: var(--light-rose);
+        }
+        
+        .crypto-price {
+            font-size: 1rem;
+            color: var(--light-gold);
+            font-weight: bold;
+        }
+        
+        .withdraw-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        .terms-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .terms-content {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .terms-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .terms-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--light-rose);
+            margin-bottom: 20px;
+        }
+        
+        .terms-accept {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .checkbox-label {
+            color: var(--light-gold);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .game-board {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+            
+            .card {
+                height: 80px;
+            }
+            
+            .crypto-icon {
+                font-size: 2rem;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .game-board {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .crypto-value {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .crypto-item {
+                flex: 1 0 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-img">AVZ</div>
+                <h1>Crypto Memory Game</h1>
+            </div>
+            <div class="user-info">
+                <div class="client-id">
+                    <i class="fas fa-user"></i> Cliente: <span id="client-number">AVZ-789456</span>
+                </div>
+                <div class="balance">
+                    <i class="fas fa-wallet"></i> Saldo: R$ <span id="user-balance">100,00</span>
+                </div>
+                <div class="avz-tokens">
+                    <i class="fas fa-coins"></i> Tokens: <span id="user-tokens">50</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="crypto-value">
+            <div class="crypto-item">
+                <div class="crypto-icon-small">₿</div>
+                <div class="crypto-name">BTC</div>
+                <div class="crypto-price">R$ 325.000</div>
+            </div>
+            <div class="crypto-item">
+                <div class="crypto-icon-small">Ξ</div>
+                <div class="crypto-name">ETH</div>
+                <div class="crypto-price">R$ 18.500</div>
+            </div>
+            <div class="crypto-item">
+                <div class="crypto-icon-small">Ð</div>
+                <div class="crypto-name">DOGE</div>
+                <div class="crypto-price">R$ 0,85</div>
+            </div>
+            <div class="crypto-item">
+                <div class="crypto-icon-small">A</div>
+                <div class="crypto-name">AVZ</div>
+                <div class="crypto-price">R$ 1,00</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="game-board-container">
+                <h2>Jogo da Memória Cripto</h2>
+                
+                <div class="game-info">
+                    <div class="info-box">Tentativas: <span id="moves">0</span></div>
+                    <div class="info-box">Pares: <span id="pairs">0</span>/8</div>
+                    <div class="info-box">Prêmio: R$ <span id="reward">0,00</span></div>
+                </div>
+                
+                <div class="game-board" id="game-board">
+                    <!-- Cartas serão geradas pelo JavaScript -->
+                </div>
+                
+                <div class="controls">
+                    <button onclick="startGame()"><i class="fas fa-play"></i> Começar</button>
+                    <button onclick="resetGame()"><i class="fas fa-redo"></i> Reiniciar</button>
+                    <button onclick="claimRewards()"><i class="fas fa-gift"></i> Resgatar</button>
+                </div>
+            </div>
+            
+            <div class="side-panel">
+                <div class="rewards-panel">
+                    <h2>Recompensas</h2>
+                    
+                    <div class="reward-item">
+                        <div class="reward-title">Por jogo iniciado</div>
+                        <div class="reward-description">Sempre que você inicia uma partida</div>
+                        <div class="reward-value">+ R$ 0,10</div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <div class="reward-title">Por par encontrado</div>
+                        <div class="reward-description">Para cada par que você encontrar</div>
+                        <div class="reward-value">+ R$ 0,25</div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <div class="reward-title">Bônus de vitória</div>
+                        <div class="reward-description">Quando completar todo o jogo</div>
+                        <div class="reward-value">+ R$ 2,00</div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <div class="reward-title">Retorno em 6 meses</div>
+                        <div class="reward-description">Lucro de 18% sobre o valor investido</div>
+                        <div class="reward-value">+18% de lucro</div>
+                    </div>
+                </div>
+                
+                <div class="payment-panel">
+                    <h2>Investimento AVZ</h2>
+                    
+                    <div class="avz-info">
+                        <h3>1 Token AVZ = R$ 1,00</h3>
+                        <p>Retorno de 18% em 6 meses através de antecipação de recebíveis</p>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="investment-amount">Valor do Investimento (R$):</label>
+                            <input type="number" id="investment-amount" min="100" value="1000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="investment-time">Tempo de Investimento (meses):</label>
+                            <input type="number" id="investment-time" min="1" max="12" value="6">
+                        </div>
+                        
+                        <div class="terms-accept">
+                            <input type="checkbox" id="accept-terms">
+                            <label for="accept-terms" class="checkbox-label">Aceito os <a href="#" onclick="showTerms()">termos e condições</a></label>
+                        </div>
+                        
+                        <button onclick="simulateInvestment()">
+                            <i class="fas fa-chart-line"></i> Simular Retorno
+                        </button>
+                        
+                        <div id="investment-result" style="margin-top: 15px; font-size: 1.1rem; text-align: center;">
+                            Retorno estimado: R$ 0,00
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="withdraw-section">
+            <h2>Resgate de Saldo</h2>
+            
+            <div class="payment-form">
+                <div class="form-group">
+                    <label for="withdraw-amount">Valor para Resgate (R$):</label>
+                    <input type="number" id="withdraw-amount" min="10" placeholder="Mínimo R$ 10,00">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bank-account">Conta Bancária:</label>
+                    <select id="bank-account">
+                        <option value="">Selecione uma conta</option>
+                        <option value="itau">Itaú - ****1234</option>
+                        <option value="bradesco">Bradesco - ****5678</option>
+                        <option value="santander">Santander - ****9012</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="withdraw-password">Senha de Confirmação:</label>
+                    <input type="password" id="withdraw-password" placeholder="Digite sua senha">
+                </div>
+                
+                <div class="terms-accept">
+                    <input type="checkbox" id="accept-withdraw-terms">
+                    <label for="accept-withdraw-terms" class="checkbox-label">Confirmo que li e aceito os <a href="#" onclick="showTerms()">termos de resgate</a></label>
+                </div>
+                
+                <button onclick="requestWithdraw()">
+                    <i class="fas fa-money-bill-wave"></i> Solicitar Resgate
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="celebration" id="celebration">
+        <h2>Parabéns! Você completou o jogo!</h2>
+        <p style="font-size: 1.5rem; margin-bottom: 20px;">Recompensa: R$ <span id="celebration-reward">0,00</span></p>
+        <button onclick="hideCelebration()"><i class="fas fa-play"></i> Jogar Novamente</button>
+    </div>
+    
+    <div class="terms-modal" id="terms-modal">
+        <div class="terms-content">
+            <h2>Termos e Condições AVZ</h2>
+            <div class="terms-text">
+                <p>Ao investir na AVZ PropTech, você concorda com os seguintes termos e condições:</p>
+                
+                <h3>1. Antecipação de Recebíveis</h3>
+                <p>O investimento em tokens AVZ representa a aquisição de direitos creditórios de antecipação de recebíveis, com retorno pré-fixado de 18% ao ano.</p>
+                
+                <h3>2. Responsabilidade do Investidor</h3>
+                <p>O investidor declara estar ciente dos riscos envolvidos em operações de antecipação de recebíveis e assume total responsabilidade por sua decisão de investimento.</p>
+                
+                <h3>3. Prazo de Retorno</h3>
+                <p>O retorno do investimento ocorrerá em até 6 meses, podendo ser antecipado conforme regulamentação específica de cada operação.</p>
+                
+                <h3>4. Isenção de Garantia</h3>
+                <p>A AVZ PropTech não oferece garantia de retorno financeiro, sendo o investimento sujeito aos riscos inerentes do mercado.</p>
+                
+                <h3>5. Resgate de Valores</h3>
+                <p>O resgate de valores está sujeito à disponibilidade financeira da empresa e ao prazo estabelecido no contrato de investimento.</p>
+                
+                <h3>6. Tributação</h3>
+                <p>Os rendimentos estão sujeitos à tributação conforme a legislação vigente, sendo de responsabilidade do investidor o recolhimento dos impostos devidos.</p>
+                
+                <h3>7. Aceitação</h3>
+                <p>Ao marcar a opção "Aceito os termos e condições", o investidor declara estar ciente e de acordo com todas as cláusulas aqui apresentadas.</p>
+            </div>
+            
+            <button onclick="hideTerms()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // Moedas cripto para o jogo
+        const cryptoCoins = [
+            { symbol: '₿', name: 'Bitcoin', code: 'BTC', color: 'btc' },
+            { symbol: 'Ξ', name: 'Ethereum', code: 'ETH', color: 'eth' },
+            { symbol: 'Ð', name: 'Dogecoin', code: 'DOGE', color: 'doge' },
+            { symbol: 'A', name: 'AVZ Token', code: 'AVZ', color: 'avz' },
+            { symbol: 'Ł', name: 'Litecoin', code: 'LTC', color: 'btc' },
+            { symbol: '●', name: 'Ripple', code: 'XRP', color: 'eth' },
+            { symbol: 'B', name: 'Binance', code: 'BNB', color: 'doge' },
+            { symbol: 'S', name: 'Solana', code: 'SOL', color: 'avz' }
+        ];
+        
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moveCount = 0;
+        let gameStarted = false;
+        let timer = 0;
+        let timerInterval;
+        let rewardAmount = 0;
+        let userBalance = 100;
+        let userTokens = 50;
+        let gameActive = false;
+        let startTime;
+        
+        // Inicializar o jogo
+        function initGame() {
+            const gameBoard = document.getElementById('game-board');
+            gameBoard.innerHTML = '';
+            
+            // Duplicar e embaralhar as moedas
+            let coins = [...cryptoCoins, ...cryptoCoins];
+            coins = shuffleArray(coins);
+            
+            // Criar as cartas
+            cards = [];
+            for (let i = 0; i < 16; i++) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const coin = coins[i];
+                card.innerHTML = `
+                    <div class="card-front ${coin.color}-card">
+                        <div class="crypto-icon">${coin.symbol}</div>
+                        <div class="crypto-name">${coin.name}</div>
+                        <div class="crypto-symbol">${coin.code}</div>
+                    </div>
+                    <div class="card-back">?</div>
+                `;
+                
+                card.addEventListener('click', () => flipCard(card, i));
+                gameBoard.appendChild(card);
+                cards.push({
+                    element: card,
+                    coin: coin,
+                    flipped: false,
+                    matched: false
+                });
+            }
+            
+            // Reiniciar contadores
+            flippedCards = [];
+            matchedPairs = 0;
+            moveCount = 0;
+            rewardAmount = 0;
+            timer = 0;
+            updateInfo();
+        }
+        
+        // Embaralhar array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // Virar a carta
+        function flipCard(card, index) {
+            if (!gameStarted) return;
+            if (cards[index].flipped || cards[index].matched) return;
+            if (flippedCards.length >= 2) return;
+            
+            cards[index].flipped = true;
+            card.classList.add('flipped');
+            flippedCards.push(index);
+            
+            if (flippedCards.length === 2) {
+                moveCount++;
+                updateInfo();
+                
+                // Verificar se as cartas são iguais
+                const [firstIndex, secondIndex] = flippedCards;
+                if (cards[firstIndex].coin.code === cards[secondIndex].coin.code) {
+                    // Par encontrado - adicionar recompensa
+                    cards[firstIndex].matched = true;
+                    cards[secondIndex].matched = true;
+                    matchedPairs++;
+                    
+                    // Adicionar recompensa por par encontrado
+                    addReward(0.25);
+                    
+                    flippedCards = [];
+                    
+                    // Verificar se o jogo terminou
+                    if (matchedPairs === 8) {
+                        // Bônus por completar o jogo
+                        addReward(2.00);
+                        endGame();
+                    }
+                } else {
+                    // Virar as cartas de volta após um tempo
+                    setTimeout(() => {
+                        cards[firstIndex].flipped = false;
+                        cards[secondIndex].flipped = false;
+                        cards[firstIndex].element.classList.remove('flipped');
+                        cards[secondIndex].element.classList.remove('flipped');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Adicionar recompensa
+        function addReward(amount) {
+            rewardAmount += amount;
+            updateInfo();
+        }
+        
+        // Atualizar informações do jogo
+        function updateInfo() {
+            document.getElementById('moves').textContent = moveCount;
+            document.getElementById('pairs').textContent = matchedPairs;
+            document.getElementById('reward').textContent = rewardAmount.toFixed(2);
+            document.getElementById('user-balance').textContent = userBalance.toFixed(2);
+            document.getElementById('user-tokens').textContent = userTokens;
+        }
+        
+        // Iniciar o jogo
+        function startGame() {
+            if (gameStarted) return;
+            
+            gameStarted = true;
+            gameActive = true;
+            startTime = new Date();
+            
+            // Adicionar recompensa por iniciar o jogo
+            addReward(0.10);
+            
+            // Iniciar temporizador para recompensa por tempo
+            timerInterval = setInterval(() => {
+                if (gameActive) {
+                    // Adicionar recompensa a cada minuto jogado
+                    addReward(0.05);
+                }
+            }, 60000); // 1 minuto
+        }
+        
+        // Reiniciar o jogo
+        function resetGame() {
+            clearInterval(timerInterval);
+            gameStarted = false;
+            gameActive = false;
+            initGame();
+        }
+        
+        // Finalizar o jogo
+        function endGame() {
+            clearInterval(timerInterval);
+            gameStarted = false;
+            gameActive = false;
+            
+            // Mostrar celebração
+            const celebration = document.getElementById('celebration');
+            const celebrationReward = document.getElementById('celebration-reward');
+            celebrationReward.textContent = rewardAmount.toFixed(2);
+            celebration.style.display = 'flex';
+            
+            // Adicionar recompensa ao saldo do usuário
+            userBalance += rewardAmount;
+            updateInfo();
+        }
+        
+        // Resgatar recompensas
+        function claimRewards() {
+            if (rewardAmount > 0) {
+                userBalance += rewardAmount;
+                rewardAmount = 0;
+                updateInfo();
+                
+                alert(`Recompensas resgatadas! Seu novo saldo é R$ ${userBalance.toFixed(2)}`);
+            } else {
+                alert("Você não tem recompensas para resgatar no momento.");
+            }
+        }
+        
+        // Ocultar celebração
+        function hideCelebration() {
+            document.getElementById('celebration').style.display = 'none';
+            resetGame();
+        }
+        
+        // Simular investimento
+        function simulateInvestment() {
+            if (!document.getElementById('accept-terms').checked) {
+                alert("Você precisa aceitar os termos e condições para simular o investimento.");
+                return;
+            }
+            
+            const amount = parseFloat(document.getElementById('investment-amount').value) || 1000;
+            const time = parseInt(document.getElementById('investment-time').value) || 6;
+            
+            // Calcular retorno de 18% ao ano (proporcional ao tempo)
+            const returnRate = 0.18 * (time / 12);
+            const returnAmount = amount * returnRate;
+            const totalAmount = amount + returnAmount;
+            
+            document.getElementById('investment-result').innerHTML = `
+                Em ${time} meses, seu investimento de R$ ${amount.toFixed(2)}<br>
+                renderá R$ ${returnAmount.toFixed(2)} (18% a.a.)<br>
+                Total: R$ ${totalAmount.toFixed(2)}
+            `;
+            
+            // Adicionar tokens como bônus pelo investimento simulado
+            const tokensToAdd = Math.floor(amount / 10);
+            userTokens += tokensToAdd;
+            updateInfo();
+            
+            alert(`Obrigado pela simulação! Você ganhou ${tokensToAdd} tokens AVZ de bônus.`);
+        }
+        
+        // Solicitar resgate
+        function requestWithdraw() {
+            if (!document.getElementById('accept-withdraw-terms').checked) {
+                alert("Você precisa aceitar os termos de resgate para continuar.");
+                return;
+            }
+            
+            const amount = parseFloat(document.getElementById('withdraw-amount').value) || 0;
+            const bankAccount = document.getElementById('bank-account').value;
+            const password = document.getElementById('withdraw-password').value;
+            
+            if (amount < 10) {
+                alert("O valor mínimo para resgate é R$ 10,00.");
+                return;
+            }
+            
+            if (amount > userBalance) {
+                alert("Saldo insuficiente para realizar o resgate.");
+                return;
+            }
+            
+            if (!bankAccount) {
+                alert("Por favor, selecione uma conta bancária.");
+                return;
+            }
+            
+            if (!password) {
+                alert("Por favor, digite sua senha de confirmação.");
+                return;
+            }
+            
+            // Processar resgate
+            userBalance -= amount;
+            updateInfo();
+            
+            alert(`Resgate de R$ ${amount.toFixed(2)} solicitado com sucesso! Seu saldo será transferido em até 2 dias úteis.`);
+            
+            // Limpar formulário
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('bank-account').value = '';
+            document.getElementById('withdraw-password').value = '';
+            document.getElementById('accept-withdraw-terms').checked = false;
+        }
+        
+        // Mostrar termos
+        function showTerms() {
+            document.getElementById('terms-modal').style.display = 'flex';
+            return false;
+        }
+        
+        // Ocultar termos
+        function hideTerms() {
+            document.getElementById('terms-modal').style.display = 'none';
+        }
+        
+        // Inicializar o jogo quando a página carregar
+        window.onload = initGame;
+    </script>
+</body>
+</html>
