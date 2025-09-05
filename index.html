@@ -13,6 +13,7 @@
       --gold: #d4af37; --light-gold: #f4e4bc;
       --rose-gold: #e8b4b8; --white: #ffffff;
       --green: #4caf50; --red: #f44336;
+      --rose-shadow: rgba(232, 180, 184, 0.5);
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -54,6 +55,7 @@
     nav a:hover { 
       color: var(--gold); 
       background: rgba(212, 175, 55, 0.1);
+      box-shadow: 0 0 10px var(--rose-shadow);
     }
     h1 { 
       font-family: 'Playfair Display', serif; 
@@ -84,12 +86,12 @@
       margin-bottom: 30px; 
       transition: 0.3s; 
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(232,180,184,0.35); 
+      box-shadow: 0 8px 20px var(--rose-shadow); 
       text-align: center;
     }
     .main-btn:hover { 
       transform: translateY(-3px); 
-      box-shadow: 0 12px 28px rgba(232,180,184,0.55), 0 0 10px rgba(212,175,55,0.35); 
+      box-shadow: 0 12px 28px var(--rose-shadow), 0 0 15px var(--rose-shadow); 
     }
     .divider { 
       width: 80%; 
@@ -171,6 +173,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 10px var(--rose-shadow);
     }
     .primary-btn {
       background: linear-gradient(135deg, var(--gold), var(--light-gold));
@@ -183,7 +186,7 @@
     }
     .action-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 8px 20px var(--rose-shadow);
     }
     .wallet-transactions {
       margin-top: 25px;
@@ -250,6 +253,12 @@
       background: #222;
       color: white;
       font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--rose-gold);
+      box-shadow: 0 0 10px var(--rose-shadow);
     }
     .form-submit {
       width: 100%;
@@ -262,10 +271,11 @@
       cursor: pointer;
       transition: all 0.3s;
       font-size: 1.1rem;
+      box-shadow: 0 6px 15px var(--rose-shadow);
     }
     .form-submit:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 10px 25px var(--rose-shadow);
     }
 
     /* Popup */
@@ -310,9 +320,11 @@
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s;
+      box-shadow: 0 4px 10px var(--rose-shadow);
     }
     .popup-close:hover {
       background: rgba(232, 180, 184, 0.1);
+      box-shadow: 0 6px 15px var(--rose-shadow);
     }
 
     /* Content Box */
@@ -337,6 +349,24 @@
       align-items: center;
       width: 100%;
       max-width: 1200px;
+    }
+
+    /* Botões dentro do popup */
+    .popup-btn {
+      padding: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--light-gold));
+      color: var(--black);
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 6px 15px var(--rose-shadow);
+      margin-top: 10px;
+    }
+    .popup-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px var(--rose-shadow);
     }
 
     /* Responsividade Aprimorada */
@@ -514,8 +544,8 @@
   <script>
     // Dados de exemplo (em um sistema real, isso viria de um backend)
     const userData = {
-      email: "cliente@avz.com",
-      password: "senha123",
+      email: "viviane@gmail.com",
+      password: "123",
       balance: 8750.50,
       address: "AVZ-7K2J8-9B3C1-D4E5F6",
       transactions: [
@@ -607,7 +637,7 @@
                 <label style="display: block; margin-bottom: 5px;">Chave PIX</label>
                 <input type="text" placeholder="Chave PIX" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
               </div>
-              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              <button class="popup-btn" style="width: 100%;">
                 Solicitar Saque
               </button>
             </div>
@@ -627,7 +657,7 @@
                 <label style="display: block; margin-bottom: 5px;">Valor</label>
                 <input type="number" placeholder="R$ 0,00" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
               </div>
-              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              <button class="popup-btn" style="width: 100%;">
                 Enviar Agora
               </button>
             </div>
@@ -651,7 +681,7 @@
                 <label style="display: block; margin-bottom: 5px;">Senha</label>
                 <input type="password" placeholder="Crie uma senha" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #222; color: white;">
               </div>
-              <button style="width: 100%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              <button class="popup-btn" style="width: 100%;">
                 Criar Conta
               </button>
             </div>
